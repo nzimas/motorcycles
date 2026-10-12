@@ -1,0 +1,43 @@
+{
+  "configuration_source": "User chose to drop Model-TG entirely (2026-10-12); keep MACRO (standalone), 6-channel USB, Easier trig removal, startup animation, and the standalone Trig preview, Latching mute and Scroll long names that Model-TG had bundled.",
+  "screenshot_path": "/Users/nzimas/Downloads/Model-Cycles-Flasher-10-10-2026_07_39_PM.png",
+  "screenshot_sha256": "570635e1ee93871a025bd792fc78aa5bbc25d5c7d201b224d96f883062cb62c1",
+  "selected_features": [
+    "MACRO machine (standalone, machine 6)",
+    "Trig preview",
+    "Easier trig removal",
+    "Latching mute mode",
+    "Scroll long names",
+    "modded-cycles startup animation",
+    "6-channel USB audio"
+  ],
+  "unselected_features": [
+    "Model-TG (Sampler, ScaleLock, slice editor, Retrig page)",
+    "Sample preview (requires Model-TG)",
+    "Real Syntakt engines",
+    "Arpeggiator",
+    "Tempo up to 546 BPM"
+  ],
+  "upstream_tweak_ids": [
+    "6ch-usbup",
+    "latching-mute",
+    "trig-preview",
+    "browser-scroll",
+    "trig-hold",
+    "boot-anim",
+    "macro"
+  ],
+  "resolution_notes": [
+    "Standalone latching-mute, trig-preview and browser-scroll replace the copies Model-TG bundled.",
+    "Standalone macro (25-macro.json) replaces macro-tg; MACRO is machine 6.",
+    "check_overlaps.py: no shared writes between these seven tweaks."
+  ],
+  "upstream_commit": "d520df4e3ba1dcd6724548c6ff5705b5bd8ac178",
+  "model_tg_commit": "70b39dd6787770ebefc7a2d78dea1678ec012679",
+  "installed_revision_verified": false,
+  "baseline_package_path": "build/selected-notg-baseline.local.syx",
+  "baseline_package_sha256": "1f4234d391b5ac831392a83fc43b9118bd4412fd6033ea85e781f527703b100b",
+  "baseline_main_sha256": "b2c4ed68d8756525dc65ec55155d0a67368938a6628245e0dc3ca38bab93a0fb",
+  "baseline_contains_generative_features": false,
+  "hardware_transfer_performed": false
+}

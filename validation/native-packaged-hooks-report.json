@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "checks": [
+    "generator0 real patched key/pad entries, level key, step16 1499/1500ms, single publication, cancellation and ordinary fallbacks",
+    "generator1 real patched key/pad entries, level key, step16 1499/1500ms, single publication, cancellation and ordinary fallbacks",
+    "generator2 real patched key/pad entries, level key, step16 1499/1500ms, single publication, cancellation and ordinary fallbacks",
+    "generator3 real patched key/pad entries, level key, step16 1499/1500ms, single publication, cancellation and ordinary fallbacks",
+    "exact encoder entry replays Pitch/Decay (former Density/Brutality) and other encoder fallbacks in generator mode",
+    "exact light setter rewrites owned LED mode before original prologue",
+    "exact vtable LED callback paints without publishing"
+  ],
+  "limitations": "Exact packaged entry bytes/native handlers; synthetic OS accessors and owners. Ordinary stock handlers stop at verified replay continuation. No full OS boot or peripheral timing."
+}

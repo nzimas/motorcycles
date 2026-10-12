@@ -1,0 +1,354 @@
+
+build/selected-native/ModelCycles-generative-selected.main.bin:     file format binary
+
+
+Disassembly of section .data:
+
+400d6500 <.data+0xd6100>:
+400d6500:	0004 20bc      	orib #-68,%d4
+400d6504:	400f           	.short 0x400f
+400d6506:	be4c           	cmpw %a4,%d7
+400d6508:	4ef9 4008 02ec 	jmp 0x400802ec
+400d650e:	206f 0004      	moveal %sp@(4),%a0
+400d6512:	20bc 400f ba78 	movel #1074772600,%a0@
+400d6518:	4ef9 4008 02ec 	jmp 0x400802ec
+400d651e:	202f 0004      	movel %sp@(4),%d0
+400d6522:	6706           	beqs 0x400d652a
+400d6524:	4ef9 400d 650e 	jmp 0x400d650e
+400d652a:	4e75           	rts
+400d652c:	206f 0004      	moveal %sp@(4),%a0
+400d6530:	20bc 400f ba78 	movel #1074772600,%a0@
+400d6536:	4ef9 4008 02ec 	jmp 0x400802ec
+400d653c:	202f 0004      	movel %sp@(4),%d0
+400d6540:	6706           	beqs 0x400d6548
+400d6542:	4ef9 400d 652c 	jmp 0x400d652c
+400d6548:	4e75           	rts
+400d654a:	206f 0004      	moveal %sp@(4),%a0
+400d654e:	20bc 400f ba78 	movel #1074772600,%a0@
+400d6554:	4ef9 4008 02ec 	jmp 0x400802ec
+400d655a:	202f 0004      	movel %sp@(4),%d0
+400d655e:	6706           	beqs 0x400d6566
+400d6560:	4ef9 400d 654a 	jmp 0x400d654a
+400d6566:	4e75           	rts
+400d6568:	206f 0004      	moveal %sp@(4),%a0
+400d656c:	20bc 400f ba78 	movel #1074772600,%a0@
+400d6572:	4ef9 4008 02ec 	jmp 0x400802ec
+400d6578:	202f 0004      	movel %sp@(4),%d0
+400d657c:	6706           	beqs 0x400d6584
+400d657e:	4ef9 400d 6568 	jmp 0x400d6568
+400d6584:	4e75           	rts
+400d6586:	206f 0004      	moveal %sp@(4),%a0
+400d658a:	20bc 400f cc90 	movel #1074777232,%a0@
+400d6590:	4ef9 4008 02ec 	jmp 0x400802ec
+400d6596:	206f 0004      	moveal %sp@(4),%a0
+400d659a:	20bc 400f cc90 	movel #1074777232,%a0@
+400d65a0:	4ef9 4008 02ec 	jmp 0x400802ec
+400d65a6:	4fef ffe8      	lea %sp@(-24),%sp
+400d65aa:	48d7 1c1c      	moveml %d2-%d4/%a2-%a4,%sp@
+400d65ae:	246f 001c      	moveal %sp@(28),%a2
+400d65b2:	47f9 4001 579c 	lea 0x4001579c,%a3
+400d65b8:	24bc 400f f58c 	movel #1074787724,%a2@
+400d65be:	282a 0008      	movel %a2@(8),%d4
+400d65c2:	262a 0004      	movel %a2@(4),%d3
+400d65c6:	2843           	moveal %d3,%a4
+400d65c8:	2403           	movel %d3,%d2
+400d65ca:	49ec 0034      	lea %a4@(52),%a4
+400d65ce:	b882           	cmpl %d2,%d4
+400d65d0:	6714           	beqs 0x400d65e6
+400d65d2:	2002           	movel %d2,%d0
+400d65d4:	9083           	subl %d3,%d0
+400d65d6:	2f34 0800      	movel %a4@(0,%d0:l),%sp@-
+400d65da:	4e93           	jsr %a3@
+400d65dc:	0682 0000 0040 	addil #64,%d2
+400d65e2:	588f           	addql #4,%sp
+400d65e4:	60e8           	bras 0x400d65ce
+400d65e6:	202a 0004      	movel %a2@(4),%d0
+400d65ea:	670a           	beqs 0x400d65f6
+400d65ec:	2f00           	movel %d0,%sp@-
+400d65ee:	4eb9 4008 02ec 	jsr 0x400802ec
+400d65f4:	588f           	addql #4,%sp
+400d65f6:	24bc 400f be4c 	movel #1074773580,%a2@
+400d65fc:	4cd7 1c1c      	moveml %sp@,%d2-%d4/%a2-%a4
+400d6600:	4fef 0018      	lea %sp@(24),%sp
+400d6604:	4e75           	rts
+400d6606:	2f02           	movel %d2,%sp@-
+400d6608:	242f 0008      	movel %sp@(8),%d2
+400d660c:	2f02           	movel %d2,%sp@-
+400d660e:	4eb9 400d 65a6 	jsr 0x400d65a6
+400d6614:	588f           	addql #4,%sp
+400d6616:	2f42 0008      	movel %d2,%sp@(8)
+400d661a:	241f           	movel %sp@+,%d2
+400d661c:	4ef9 4008 02ec 	jmp 0x400802ec
+400d6622:	2f0a           	movel %a2,%sp@-
+400d6624:	246f 0008      	moveal %sp@(8),%a2
+400d6628:	24bc 400f f57c 	movel #1074787708,%a2@
+400d662e:	202a 0004      	movel %a2@(4),%d0
+400d6632:	670a           	beqs 0x400d663e
+400d6634:	2f00           	movel %d0,%sp@-
+400d6636:	4eb9 4008 02ec 	jsr 0x400802ec
+400d663c:	588f           	addql #4,%sp
+400d663e:	24bc 400f be4c 	movel #1074773580,%a2@
+400d6644:	245f           	moveal %sp@+,%a2
+400d6646:	4e75           	rts
+400d6648:	2f02           	movel %d2,%sp@-
+400d664a:	242f 0008      	movel %sp@(8),%d2
+400d664e:	2f02           	movel %d2,%sp@-
+400d6650:	4eb9 400d 6622 	jsr 0x400d6622
+400d6656:	588f           	addql #4,%sp
+400d6658:	2f42 0008      	movel %d2,%sp@(8)
+400d665c:	241f           	movel %sp@+,%d2
+400d665e:	4ef9 4008 02ec 	jmp 0x400802ec
+400d6664:	4fef fff0      	lea %sp@(-16),%sp
+400d6668:	48d7 0c0c      	moveml %d2-%d3/%a2-%a3,%sp@
+400d666c:	246f 0014      	moveal %sp@(20),%a2
+400d6670:	203c 400f f650 	movel #1074787920,%d0
+400d6676:	47f9 400c f044 	lea 0x400cf044,%a3
+400d667c:	24bc 400f f614 	movel #1074787860,%a2@
+400d6682:	262a 0018      	movel %a2@(24),%d3
+400d6686:	242a 0014      	movel %a2@(20),%d2
+400d668a:	2540 0020      	movel %d0,%a2@(32)
+400d668e:	b682           	cmpl %d2,%d3
+400d6690:	670e           	beqs 0x400d66a0
+400d6692:	2f02           	movel %d2,%sp@-
+400d6694:	4e93           	jsr %a3@
+400d6696:	0682 0000 0010 	addil #16,%d2
+400d669c:	588f           	addql #4,%sp
+400d669e:	60ee           	bras 0x400d668e
+400d66a0:	202a 0014      	movel %a2@(20),%d0
+400d66a4:	670a           	beqs 0x400d66b0
+400d66a6:	2f00           	movel %d0,%sp@-
+400d66a8:	4eb9 4008 02ec 	jsr 0x400802ec
+400d66ae:	588f           	addql #4,%sp
+400d66b0:	203c 400f f5f0 	movel #1074787824,%d0
+400d66b6:	24bc 400f f5c0 	movel #1074787776,%a2@
+400d66bc:	2540 0020      	movel %d0,%a2@(32)
+400d66c0:	45ea 0020      	lea %a2@(32),%a2
+400d66c4:	2f4a 0014      	movel %a2,%sp@(20)
+400d66c8:	4cd7 0c0c      	moveml %sp@,%d2-%d3/%a2-%a3
+400d66cc:	4fef 0010      	lea %sp@(16),%sp
+400d66d0:	4ef9 4006 9960 	jmp 0x40069960
+400d66d6:	226f 0004      	moveal %sp@(4),%a1
+400d66da:	2251           	moveal %a1@,%a1
+400d66dc:	2029 fff4      	movel %a1@(-12),%d0
+400d66e0:	d1af 0004      	addl %d0,%sp@(4)
+400d66e4:	6000 ff7e      	braw 0x400d6664
+400d66e8:	2f02           	movel %d2,%sp@-
+400d66ea:	242f 0008      	movel %sp@(8),%d2
+400d66ee:	2f02           	movel %d2,%sp@-
+400d66f0:	4eb9 400d 6664 	jsr 0x400d6664
+400d66f6:	588f           	addql #4,%sp
+400d66f8:	2f42 0008      	movel %d2,%sp@(8)
+400d66fc:	241f           	movel %sp@+,%d2
+400d66fe:	4ef9 4008 02ec 	jmp 0x400802ec
+400d6704:	226f 0004      	moveal %sp@(4),%a1
+400d6708:	2251           	moveal %a1@,%a1
+400d670a:	2029 fff4      	movel %a1@(-12),%d0
+400d670e:	d1af 0004      	addl %d0,%sp@(4)
+400d6712:	60d4           	bras 0x400d66e8
+400d6714:	2f0b           	movel %a3,%sp@-
+400d6716:	2f0a           	movel %a2,%sp@-
+400d6718:	246f 000c      	moveal %sp@(12),%a2
+400d671c:	204a           	moveal %a2,%a0
+400d671e:	20fc 400f f55c 	movel #1074787676,%a0@+
+400d6724:	4878 02d2      	pea 0x2d2
+400d6728:	42a7           	clrl %sp@-
+400d672a:	2f08           	movel %a0,%sp@-
+400d672c:	47f9 4008 f238 	lea 0x4008f238,%a3
+400d6732:	4e93           	jsr %a3@
+400d6734:	4878 1121      	pea 0x1121
+400d6738:	42a7           	clrl %sp@-
+400d673a:	486a 02d6      	pea %a2@(726)
+400d673e:	4e93           	jsr %a3@
+400d6740:	4fef 0018      	lea %sp@(24),%sp
+400d6744:	245f           	moveal %sp@+,%a2
+400d6746:	265f           	moveal %sp@+,%a3
+400d6748:	4e75           	rts
+400d674a:	2f0b           	movel %a3,%sp@-
+400d674c:	2f0a           	movel %a2,%sp@-
+400d674e:	246f 000c      	moveal %sp@(12),%a2
+400d6752:	204a           	moveal %a2,%a0
+400d6754:	20fc 400f f56c 	movel #1074787692,%a0@+
+400d675a:	4878 02d2      	pea 0x2d2
+400d675e:	42a7           	clrl %sp@-
+400d6760:	2f08           	movel %a0,%sp@-
+400d6762:	47f9 4008 f238 	lea 0x4008f238,%a3
+400d6768:	4e93           	jsr %a3@
+400d676a:	4878 1121      	pea 0x1121
+400d676e:	42a7           	clrl %sp@-
+400d6770:	486a 02d6      	pea %a2@(726)
+400d6774:	4e93           	jsr %a3@
+400d6776:	42aa 13f8      	clrl %a2@(5112)
+400d677a:	4fef 0018      	lea %sp@(24),%sp
+400d677e:	245f           	moveal %sp@+,%a2
+400d6780:	265f           	moveal %sp@+,%a3
+400d6782:	4e75           	rts
+400d6784:	4fef fff0      	lea %sp@(-16),%sp
+400d6788:	48d7 0c0c      	moveml %d2-%d3/%a2-%a3,%sp@
+400d678c:	246f 0014      	moveal %sp@(20),%a2
+400d6790:	266f 0018      	moveal %sp@(24),%a3
+400d6794:	2493           	movel %a3@,%a2@
+400d6796:	156b 0004 0004 	moveb %a3@(4),%a2@(4)
+400d679c:	156b 0005 0005 	moveb %a3@(5),%a2@(5)
+400d67a2:	256b 0008 0008 	movel %a3@(8),%a2@(8)
+400d67a8:	256b 000c 000c 	movel %a3@(12),%a2@(12)
+400d67ae:	256b 0010 0010 	movel %a3@(16),%a2@(16)
+400d67b4:	256b 0014 0014 	movel %a3@(20),%a2@(20)
+400d67ba:	256b 0018 0018 	movel %a3@(24),%a2@(24)
+400d67c0:	256b 001c 001c 	movel %a3@(28),%a2@(28)
+400d67c6:	256b 0020 0020 	movel %a3@(32),%a2@(32)
+400d67cc:	256b 0024 0024 	movel %a3@(36),%a2@(36)
+400d67d2:	256b 0028 0028 	movel %a3@(40),%a2@(40)
+400d67d8:	156b 002c 002c 	moveb %a3@(44),%a2@(44)
+400d67de:	156b 002d 002d 	moveb %a3@(45),%a2@(45)
+400d67e4:	156b 002e 002e 	moveb %a3@(46),%a2@(46)
+400d67ea:	156b 002f 002f 	moveb %a3@(47),%a2@(47)
+400d67f0:	156b 0030 0030 	moveb %a3@(48),%a2@(48)
+400d67f6:	156b 0031 0031 	moveb %a3@(49),%a2@(49)
+400d67fc:	156b 0032 0032 	moveb %a3@(50),%a2@(50)
+400d6802:	202b 0038      	movel %a3@(56),%d0
+400d6806:	90ab 0034      	subl %a3@(52),%d0
+400d680a:	42aa 0034      	clrl %a2@(52)
+400d680e:	42aa 0038      	clrl %a2@(56)
+400d6812:	42aa 003c      	clrl %a2@(60)
+400d6816:	e680           	asrl #3,%d0
+400d6818:	2600           	movel %d0,%d3
+400d681a:	e78b           	lsll #3,%d3
+400d681c:	4a80           	tstl %d0
+400d681e:	671c           	beqs 0x400d683c
+400d6820:	0c80 1fff ffff 	cmpil #536870911,%d0
+400d6826:	6306           	blss 0x400d682e
+400d6828:	4eb9 400f 61ee 	jsr 0x400f61ee
+400d682e:	2f03           	movel %d3,%sp@-
+400d6830:	4eb9 4008 02e0 	jsr 0x400802e0
+400d6836:	588f           	addql #4,%sp
+400d6838:	2400           	movel %d0,%d2
+400d683a:	6002           	bras 0x400d683e
+400d683c:	4282           	clrl %d2
+400d683e:	d682           	addl %d2,%d3
+400d6840:	2543 003c      	movel %d3,%a2@(60)
+400d6844:	2542 0034      	movel %d2,%a2@(52)
+400d6848:	2542 0038      	movel %d2,%a2@(56)
+400d684c:	222b 0034      	movel %a3@(52),%d1
+400d6850:	202b 0038      	movel %a3@(56),%d0
+400d6854:	9081           	subl %d1,%d0
+400d6856:	e680           	asrl #3,%d0
+400d6858:	2600           	movel %d0,%d3
+400d685a:	e78b           	lsll #3,%d3
+400d685c:	4a80           	tstl %d0
+400d685e:	6710           	beqs 0x400d6870
+400d6860:	2f03           	movel %d3,%sp@-
+400d6862:	2f01           	movel %d1,%sp@-
+400d6864:	2f02           	movel %d2,%sp@-
+400d6866:	4eb9 4009 2234 	jsr 0x40092234
+400d686c:	4fef 000c      	lea %sp@(12),%sp
+400d6870:	d483           	addl %d3,%d2
+400d6872:	2542 0038      	movel %d2,%a2@(56)
+400d6876:	4cd7 0c0c      	moveml %sp@,%d2-%d3/%a2-%a3
+400d687a:	4fef 0010      	lea %sp@(16),%sp
+400d687e:	4e75           	rts
+400d6880:	2f0a           	movel %a2,%sp@-
+400d6882:	226f 000c      	moveal %sp@(12),%a1
+400d6886:	206f 0008      	moveal %sp@(8),%a0
+400d688a:	2469 0008      	moveal %a1@(8),%a2
+400d688e:	208a           	movel %a2,%a0@
+400d6890:	202a fff4      	movel %a2@(-12),%d0
+400d6894:	45e9 000c      	lea %a1@(12),%a2
+400d6898:	2192 0800      	movel %a2@,%a0@(0,%d0:l)
+400d689c:	4200           	clrb %d0
+400d689e:	216f 0014 0004 	movel %sp@(20),%a0@(4)
+400d68a4:	216f 0018 0008 	movel %sp@(24),%a0@(8)
+400d68aa:	1140 000c      	moveb %d0,%a0@(12)
+400d68ae:	1140 000d      	moveb %d0,%a0@(13)
+400d68b2:	2469 0004      	moveal %a1@(4),%a2
+400d68b6:	208a           	movel %a2,%a0@
+400d68b8:	202a fff4      	movel %a2@(-12),%d0
+400d68bc:	45e9 0010      	lea %a1@(16),%a2
+400d68c0:	43e9 0014      	lea %a1@(20),%a1
+400d68c4:	2192 0800      	movel %a2@,%a0@(0,%d0:l)
+400d68c8:	216f 0010 0010 	movel %sp@(16),%a0@(16)
+400d68ce:	42a8 0014      	clrl %a0@(20)
+400d68d2:	42a8 0018      	clrl %a0@(24)
+400d68d6:	42a8 001c      	clrl %a0@(28)
+400d68da:	2469 ffec      	moveal %a1@(-20),%a2
+400d68de:	208a           	movel %a2,%a0@
+400d68e0:	202a fff4      	movel %a2@(-12),%d0
+400d68e4:	2191 0800      	movel %a1@,%a0@(0,%d0:l)
+400d68e8:	4200           	clrb %d0
+400d68ea:	42a8 0020      	clrl %a0@(32)
+400d68ee:	1140 0024      	moveb %d0,%a0@(36)
+400d68f2:	245f           	moveal %sp@+,%a2
+400d68f4:	4e75           	rts
+400d68f6:	4fef ffec      	lea %sp@(-20),%sp
+400d68fa:	48d7 1c0c      	moveml %d2-%d3/%a2-%a4,%sp@
+400d68fe:	266f 001c      	moveal %sp@(28),%a3
+400d6902:	246f 0018      	moveal %sp@(24),%a2
+400d6906:	49f9 400c f044 	lea 0x400cf044,%a4
+400d690c:	2053           	moveal %a3@,%a0
+400d690e:	2488           	movel %a0,%a2@
+400d6910:	2028 fff4      	movel %a0@(-12),%d0
+400d6914:	41eb 000c      	lea %a3@(12),%a0
+400d6918:	2590 0800      	movel %a0@,%a2@(0,%d0:l)
+400d691c:	262a 0018      	movel %a2@(24),%d3
+400d6920:	242a 0014      	movel %a2@(20),%d2
+400d6924:	b682           	cmpl %d2,%d3
+400d6926:	670e           	beqs 0x400d6936
+400d6928:	2f02           	movel %d2,%sp@-
+400d692a:	4e94           	jsr %a4@
+400d692c:	0682 0000 0010 	addil #16,%d2
+400d6932:	588f           	addql #4,%sp
+400d6934:	60ee           	bras 0x400d6924
+400d6936:	202a 0014      	movel %a2@(20),%d0
+400d693a:	670a           	beqs 0x400d6946
+400d693c:	2f00           	movel %d0,%sp@-
+400d693e:	4eb9 4008 02ec 	jsr 0x400802ec
+400d6944:	588f           	addql #4,%sp
+400d6946:	508b           	addql #8,%a3
+400d6948:	206b fffc      	moveal %a3@(-4),%a0
+400d694c:	2488           	movel %a0,%a2@
+400d694e:	2028 fff4      	movel %a0@(-12),%d0
+400d6952:	2593 0800      	movel %a3@,%a2@(0,%d0:l)
+400d6956:	4cd7 1c0c      	moveml %sp@,%d2-%d3/%a2-%a4
+400d695a:	4fef 0014      	lea %sp@(20),%sp
+400d695e:	4e75           	rts
+400d6960:	2f0a           	movel %a2,%sp@-
+400d6962:	203c 400f f764 	movel #1074788196,%d0
+400d6968:	246f 0008      	moveal %sp@(8),%a2
+400d696c:	2540 0028      	movel %d0,%a2@(40)
+400d6970:	24bc 400f f710 	movel #1074788112,%a2@
+400d6976:	4879 400f f6f0 	pea 0x400ff6f0
+400d697c:	2f0a           	movel %a2,%sp@-
+400d697e:	4eb9 400d 68f6 	jsr 0x400d68f6
+400d6984:	508f           	addql #8,%sp
+400d6986:	45ea 0028      	lea %a2@(40),%a2
+400d698a:	2f4a 0008      	movel %a2,%sp@(8)
+400d698e:	245f           	moveal %sp@+,%a2
+400d6990:	4ef9 4006 9960 	jmp 0x40069960
+400d6996:	226f 0004      	moveal %sp@(4),%a1
+400d699a:	2251           	moveal %a1@,%a1
+400d699c:	2029 fff4      	movel %a1@(-12),%d0
+400d69a0:	d1af 0004      	addl %d0,%sp@(4)
+400d69a4:	60ba           	bras 0x400d6960
+400d69a6:	2f02           	movel %d2,%sp@-
+400d69a8:	242f 0008      	movel %sp@(8),%d2
+400d69ac:	2f02           	movel %d2,%sp@-
+400d69ae:	4eb9 400d 6960 	jsr 0x400d6960
+400d69b4:	588f           	addql #4,%sp
+400d69b6:	2f42 0008      	movel %d2,%sp@(8)
+400d69ba:	241f           	movel %sp@+,%d2
+400d69bc:	4ef9 4008 02ec 	jmp 0x400802ec
+400d69c2:	226f 0004      	moveal %sp@(4),%a1
+400d69c6:	2251           	moveal %a1@,%a1
+400d69c8:	2029 fff4      	movel %a1@(-12),%d0
+400d69cc:	d1af 0004      	addl %d0,%sp@(4)
+400d69d0:	60d4           	bras 0x400d69a6
+400d69d2:	2f0a           	movel %a2,%sp@-
+400d69d4:	203c 400f be4c 	movel #1074773580,%d0
+400d69da:	246f 0008      	moveal %sp@(8),%a2
+400d69de:	2540 0030      	movel %d0,%a2@(48)
+400d69e2:	2540 0028      	movel %d0,%a2@(40)
+400d69e6:	203c 400f f860 	movel #1074788448,%d0
+400d69ec:	2540 0040      	movel %d0,%a2@(64)
+400d69f0:	24bc 400f f80c 	movel #1074788364,%a2@
+400d69f6:	4879 400f f870 	pea 0x400ff870
+400d69fc:	2f0a           	movel %a2,%sp@-
+400d69fe:	4eb9   	jsr 0x400d68f6

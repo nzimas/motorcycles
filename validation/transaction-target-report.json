@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "transaction_bytes": 31310,
+  "total_instructions": 605036,
+  "critical_section_instructions": 57018,
+  "max_observed_stack": 84,
+  "illustrative_one_cycle_per_instruction_ms_at_135168000hz": 0.42183061079545453,
+  "elf_sha256": "57d69635b336fd3939dce393feb49b93219b9c6441837516faeb8b464742765c",
+  "limitations": "Standalone transaction core, synthetic IRQ callbacks, instruction count not cycle-accurate hardware latency. Instruction count does not prove ISR deadline compliance; no formal hardware cycle lower bound claimed."
+}

@@ -1,0 +1,150 @@
+{
+  "source": "Actual stock OS1.13 DSP with EMAC correction; prior comparison is representative low pitch40/decay18 fixture, not exact RC2 output",
+  "generation_sha256": "b70088bd06832bc95c24647eadb57fb2a417c09e9fb8dc54f40dd4a1fb1b49a1",
+  "seed": 7,
+  "density": 45,
+  "brutality": 55,
+  "body_window_ms": [
+    20,
+    150
+  ],
+  "examples": [
+    {
+      "fixture": "rhythmic-kit",
+      "revision": "representative-prior-low-fixture",
+      "note": 52,
+      "params": {
+        "machine": 0,
+        "pitch": 40,
+        "color": 40,
+        "shape": 66,
+        "sweep": 37,
+        "contour": 60,
+        "punch": 1,
+        "gate": 0,
+        "finetune": 64,
+        "decay": 18
+      },
+      "file": "rhythmic-kit-representative-prior-low-fixture-note52.wav",
+      "metrics": {
+        "peak_raw": 498013434.0,
+        "rms_raw": 104396042.6002975,
+        "peak_q31": 0.23190557677298784,
+        "rms_q31": 0.04861319558708812,
+        "dc_q31": 0.0026406212385174715,
+        "centroid_hz": 49.18,
+        "spectral_flatness": 0.0,
+        "dominant_bin_hz": 10.0,
+        "raw_i32_saturation_samples": 0,
+        "silent": false,
+        "raw_sha256": "cc3c01b0da55c707de2dd8007d2314aa59063c64bf11191a7d90802e2e58b24b",
+        "body20to150ms_rms_q31": 0.052624416613456834,
+        "body20to150ms_peak_q31": 0.09684281004592776
+      }
+    },
+    {
+      "fixture": "rhythmic-kit",
+      "revision": "representative-prior-low-fixture",
+      "note": 60,
+      "params": {
+        "machine": 0,
+        "pitch": 40,
+        "color": 40,
+        "shape": 66,
+        "sweep": 37,
+        "contour": 60,
+        "punch": 1,
+        "gate": 0,
+        "finetune": 64,
+        "decay": 18
+      },
+      "file": "rhythmic-kit-representative-prior-low-fixture-note60.wav",
+      "metrics": {
+        "peak_raw": 579758560.0,
+        "rms_raw": 106441561.64183135,
+        "peak_q31": 0.2699711173772812,
+        "rms_q31": 0.04956571461718127,
+        "dc_q31": 0.0018770678778592912,
+        "centroid_hz": 79.56,
+        "spectral_flatness": 0.0,
+        "dominant_bin_hz": 20.0,
+        "raw_i32_saturation_samples": 0,
+        "silent": false,
+        "raw_sha256": "f0f0d3e1a3984e111e8621a746c65ffaa7b97d8e593652a7f217132ba618ac4e",
+        "body20to150ms_rms_q31": 0.053083488538793265,
+        "body20to150ms_peak_q31": 0.09762289468199015
+      }
+    },
+    {
+      "fixture": "rhythmic-kit",
+      "revision": "rc3-generated",
+      "note": 60,
+      "params": {
+        "machine": 0,
+        "pitch": 73,
+        "color": 40,
+        "shape": 68,
+        "sweep": 20,
+        "contour": 36,
+        "punch": 1,
+        "gate": 0,
+        "finetune": 65,
+        "decay": 69
+      },
+      "file": "rhythmic-kit-rc3-generated-note60.wav",
+      "metrics": {
+        "peak_raw": 807792944.0,
+        "rms_raw": 262541088.21633983,
+        "peak_q31": 0.37615790218114853,
+        "rms_q31": 0.12225522110999554,
+        "dc_q31": 0.00019925484236510885,
+        "centroid_hz": 440.2,
+        "spectral_flatness": 1e-06,
+        "dominant_bin_hz": 110.0,
+        "raw_i32_saturation_samples": 0,
+        "silent": false,
+        "raw_sha256": "371e9417e608a2ab499e96c8a093a062d03c8b4ed89c9c86f4d96005769b80ce",
+        "body20to150ms_rms_q31": 0.12198495212826797,
+        "body20to150ms_peak_q31": 0.14937572227790952
+      }
+    },
+    {
+      "fixture": "free-patch",
+      "revision": "rc3-generated",
+      "note": 60,
+      "params": {
+        "machine": 0,
+        "pitch": 68,
+        "color": 52,
+        "shape": 31,
+        "sweep": 36,
+        "contour": 32,
+        "punch": 1,
+        "gate": 0,
+        "finetune": 64,
+        "decay": 83
+      },
+      "file": "free-patch-rc3-generated-note60.wav",
+      "metrics": {
+        "peak_raw": 669364625.0,
+        "rms_raw": 306150682.1629429,
+        "peak_q31": 0.31169719295576215,
+        "rms_q31": 0.1425625207661385,
+        "dc_q31": 0.0010110062088804423,
+        "centroid_hz": 457.5,
+        "spectral_flatness": 3e-06,
+        "dominant_bin_hz": 85.0,
+        "raw_i32_saturation_samples": 0,
+        "silent": false,
+        "raw_sha256": "39ea8e1b023f97bfa6c31531f757f2c982a5dd45c0269de14982864335cf9fcc",
+        "body20to150ms_rms_q31": 0.13842782597551764,
+        "body20to150ms_peak_q31": 0.16326066199690104
+      }
+    }
+  ],
+  "instrument_access": false,
+  "subjective_listening_performed": false,
+  "MACRO_DSP_evaluated": false,
+  "velocity_applied": "default isolated voice; sequence velocity96 bound separately tested",
+  "current_validation_scope": "Historical RC3 source fixture; RC4 root/scale tuning changes generated parameters."
+}

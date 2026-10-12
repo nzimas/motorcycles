@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "checks": [
+    "patched sites: held-key register loads -> mc_held, both lock applier calls -> mc_ca_locks, knob-edit entry -> hook",
+    "TRK alone goes to the stock path",
+    "FUNC + TRK turns Control All on; its repeat and release are consumed; the next plain TRK is stock",
+    "held-key query: TRK reads held while on (not while a trig is held); other keys unchanged",
+    "knob edits reach the stock cache write and are recorded for Control All",
+    "locks on a turned parameter carry the Control All value; missing ones are appended; others untouched",
+    "turning it off restores the six sounds, notifies the changed owners and lets step locks through again",
+    "a pattern load while on makes its sounds the restore point and drops earlier values",
+    "FUNC + SWEEP and FUNC + PITCH move all six tracks by the same amount, each clamped",
+    "TRK LED requested lit while on, unlit after"
+  ],
+  "limitations": "Synthetic owner tree, kit and lock buffers; stock encoder handlers, popup drawing and the LED controller are stubbed or absent; no audio rendered."
+}

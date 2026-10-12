@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "baseline_checks": 44,
+  "checks": [
+    "native shorttap/deadline verified note ABI and release",
+    "native shorttap/wrap verified note ABI and release",
+    "native shorttap/exit verified note ABI and release",
+    "native shorttap/running verified note ABI and release",
+    "native shorttap/long verified note ABI and release",
+    "native shorttap/slowtap verified note ABI and release",
+    "native shorttap/defaultnote verified note ABI and release",
+    "native shorttap/customnote verified note ABI and release",
+    "native shorttap/invalidnote verified note ABI and release",
+    "actual selected note-on/off primitives encode target4 note60 and preserve canonical track/locks"
+  ],
+  "actual_note_on_event_hex": "000000040000003c000000640000000100030681ffffffff000000000000000000000040ffffffff0000007f000000000000000000000000",
+  "actual_note_off_event_hex": "000000040000003c000000000000000200000000ffffffff0000000000000000000000400000000000000000000000000000000000000000",
+  "ui_queue_events": 2,
+  "limitations": "Native timing tests spy note boundaries. Separate primitive proof executes actual selected note-on/off, including Model-TG entry/scale hooks, with final audio/UI queue and position metadata stubs. Synthetic initialized OS bindings; no queue consumption, DSP render, RTOS/peripheral timing or hardware audition proof."
+}

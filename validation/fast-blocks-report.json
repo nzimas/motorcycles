@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "callee_checked_calls": 534,
+  "all512byte_mismatch_offsets_checked": true,
+  "copy_sizes": [
+    32,
+    64,
+    96,
+    512,
+    30720
+  ],
+  "max_observed_stack": 36,
+  "elf_sha256": "74b1b8dd0c7e6f75c12485c44cd49b9c4a6dc873bce6302fde363e2ee2df6ac5",
+  "limitations": "Actual compiled bulkhelper assembly; directABI tests. Not publicationobserver, ISR deadline or finalpackage proof."
+}

@@ -1,0 +1,1884 @@
+{
+ "label": "rewrite-b70",
+ "brutality": 70,
+ "summary": {
+  "abstract": {
+   "rendered": 16,
+   "machines": {
+    "0": 3,
+    "1": 4,
+    "2": 2,
+    "3": 0,
+    "4": 4,
+    "5": 3,
+    "6": 0,
+    "7": 0
+   },
+   "median_centroid_hz": 6316.25,
+   "centroid_spread_oct": 1.441,
+   "median_flatness": 0.01245,
+   "median_hf_ratio": 0.07025,
+   "median_crest_db": 16.9,
+   "param_mean_abs_from_64": 33.33,
+   "param_extreme_share": 0.212,
+   "param_pairwise_distance": 41.67
+  },
+  "rhythmic": {
+   "rendered": 16,
+   "machines": {
+    "0": 3,
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 8,
+    "5": 2,
+    "6": 0,
+    "7": 0
+   },
+   "median_centroid_hz": 9392.6,
+   "centroid_spread_oct": 1.601,
+   "median_flatness": 0.10115,
+   "median_hf_ratio": 0.20075,
+   "median_crest_db": 13.36,
+   "param_mean_abs_from_64": 37.08,
+   "param_extreme_share": 0.338,
+   "param_pairwise_distance": 42.27
+  },
+  "melodic": {
+   "rendered": 16,
+   "machines": {
+    "0": 0,
+    "1": 0,
+    "2": 2,
+    "3": 1,
+    "4": 9,
+    "5": 4,
+    "6": 0,
+    "7": 0
+   },
+   "median_centroid_hz": 2328.15,
+   "centroid_spread_oct": 2.013,
+   "median_flatness": 0.0,
+   "median_hf_ratio": 0.0017,
+   "median_crest_db": 8.46,
+   "param_mean_abs_from_64": 31.82,
+   "param_extreme_share": 0.163,
+   "param_pairwise_distance": 37.86
+  },
+  "free": {
+   "rendered": 16,
+   "machines": {
+    "0": 2,
+    "1": 2,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 3,
+    "6": 0,
+    "7": 0
+   },
+   "median_centroid_hz": 6062.4,
+   "centroid_spread_oct": 1.878,
+   "median_flatness": 0.0005,
+   "median_hf_ratio": 0.0344,
+   "median_crest_db": 12.805,
+   "param_mean_abs_from_64": 33.04,
+   "param_extreme_share": 0.188,
+   "param_pairwise_distance": 43.93
+  }
+ },
+ "rows": [
+  {
+   "path": "abstract",
+   "seed": 28368165,
+   "params": {
+    "machine": 1,
+    "pitch": 73,
+    "color": 115,
+    "shape": 111,
+    "sweep": 54,
+    "contour": 113,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 32
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.3316,
+    "rms": 0.01395,
+    "crest_db": 27.52,
+    "centroid_hz": 7760.7,
+    "flatness": 0.1013,
+    "hf_ratio": 0.1932,
+    "sub_ratio": 0.0913,
+    "length_ms": 20.1,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 2682803934,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 117,
+    "shape": 118,
+    "sweep": 46,
+    "contour": 111,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 63
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4177,
+    "rms": 0.11486,
+    "crest_db": 11.21,
+    "centroid_hz": 4871.8,
+    "flatness": 0.0014,
+    "hf_ratio": 0.0046,
+    "sub_ratio": 0.1215,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 1042272407,
+   "params": {
+    "machine": 1,
+    "pitch": 61,
+    "color": 100,
+    "shape": 111,
+    "sweep": 20,
+    "contour": 102,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 41
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2496,
+    "rms": 0.01926,
+    "crest_db": 22.25,
+    "centroid_hz": 8228.2,
+    "flatness": 0.1306,
+    "hf_ratio": 0.2689,
+    "sub_ratio": 0.0562,
+    "length_ms": 33.2,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 3696708176,
+   "params": {
+    "machine": 2,
+    "pitch": 85,
+    "color": 68,
+    "shape": 123,
+    "sweep": 97,
+    "contour": 106,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 25
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2241,
+    "rms": 0.01493,
+    "crest_db": 23.53,
+    "centroid_hz": 11107.0,
+    "flatness": 0.197,
+    "hf_ratio": 0.6269,
+    "sub_ratio": 0.0,
+    "length_ms": 66.4,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 2056176649,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 100,
+    "shape": 127,
+    "sweep": 54,
+    "contour": 109,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 51
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4176,
+    "rms": 0.09651,
+    "crest_db": 12.72,
+    "centroid_hz": 2478.1,
+    "flatness": 0.0005,
+    "hf_ratio": 0.0007,
+    "sub_ratio": 0.0174,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 415645122,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 1,
+    "shape": 116,
+    "sweep": 115,
+    "contour": 85,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 105
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1247,
+    "rms": 0.0732,
+    "crest_db": 4.63,
+    "centroid_hz": 2803.0,
+    "flatness": 0.0005,
+    "hf_ratio": 0.0004,
+    "sub_ratio": 0.0009,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 3070080891,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 101,
+    "shape": 2,
+    "sweep": 81,
+    "contour": 96,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 124
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.184,
+    "rms": 0.05246,
+    "crest_db": 10.9,
+    "centroid_hz": 649.8,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0001,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 1429549364,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 11,
+    "shape": 121,
+    "sweep": 119,
+    "contour": 9,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 16
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1248,
+    "rms": 0.01537,
+    "crest_db": 18.19,
+    "centroid_hz": 10889.6,
+    "flatness": 0.4263,
+    "hf_ratio": 0.5233,
+    "sub_ratio": 0.1127,
+    "length_ms": 36.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 4083985133,
+   "params": {
+    "machine": 1,
+    "pitch": 61,
+    "color": 81,
+    "shape": 71,
+    "sweep": 117,
+    "contour": 71,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 66
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2496,
+    "rms": 0.02597,
+    "crest_db": 19.66,
+    "centroid_hz": 8138.5,
+    "flatness": 0.2305,
+    "hf_ratio": 0.4192,
+    "sub_ratio": 0.017,
+    "length_ms": 68.2,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 2443453606,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 42,
+    "shape": 67,
+    "sweep": 35,
+    "contour": 81,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 56
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1249,
+    "rms": 0.04931,
+    "crest_db": 8.07,
+    "centroid_hz": 950.7,
+    "flatness": 0.0,
+    "hf_ratio": 0.0002,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 802922079,
+   "params": {
+    "machine": 2,
+    "pitch": 61,
+    "color": 22,
+    "shape": 53,
+    "sweep": 63,
+    "contour": 36,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 59
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2589,
+    "rms": 0.04291,
+    "crest_db": 15.61,
+    "centroid_hz": 10902.5,
+    "flatness": 0.0235,
+    "hf_ratio": 0.4345,
+    "sub_ratio": 0.0,
+    "length_ms": 440.5,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 3457357848,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 33,
+    "shape": 56,
+    "sweep": 103,
+    "contour": 29,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 93
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.06711,
+    "crest_db": 5.4,
+    "centroid_hz": 10349.8,
+    "flatness": 0.0979,
+    "hf_ratio": 0.134,
+    "sub_ratio": 0.0017,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 1816826321,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 89,
+    "shape": 78,
+    "sweep": 51,
+    "contour": 66,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 80
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.3982,
+    "rms": 0.13441,
+    "crest_db": 9.43,
+    "centroid_hz": 4189.9,
+    "flatness": 0.0002,
+    "hf_ratio": 0.0065,
+    "sub_ratio": 0.0351,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 176294794,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 105,
+    "shape": 9,
+    "sweep": 21,
+    "contour": 122,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 59
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2745,
+    "rms": 0.03045,
+    "crest_db": 19.1,
+    "centroid_hz": 658.4,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0001,
+    "length_ms": 270.1,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 2830730563,
+   "params": {
+    "machine": 5,
+    "pitch": 85,
+    "color": 108,
+    "shape": 1,
+    "sweep": 90,
+    "contour": 109,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 14
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2152,
+    "rms": 0.0079,
+    "crest_db": 28.71,
+    "centroid_hz": 1460.2,
+    "flatness": 0.0,
+    "hf_ratio": 0.0007,
+    "sub_ratio": 0.0718,
+    "length_ms": 17.5,
+    "silent": false
+   }
+  },
+  {
+   "path": "abstract",
+   "seed": 1190199036,
+   "params": {
+    "machine": 1,
+    "pitch": 61,
+    "color": 103,
+    "shape": 116,
+    "sweep": 42,
+    "contour": 101,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 40
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2498,
+    "rms": 0.02072,
+    "crest_db": 21.62,
+    "centroid_hz": 8245.0,
+    "flatness": 0.1429,
+    "hf_ratio": 0.2807,
+    "sub_ratio": 0.0623,
+    "length_ms": 33.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 28368165,
+   "params": {
+    "machine": 4,
+    "pitch": 85,
+    "color": 11,
+    "shape": 122,
+    "sweep": 124,
+    "contour": 82,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 11
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.00544,
+    "crest_db": 27.23,
+    "centroid_hz": 10149.0,
+    "flatness": 0.2732,
+    "hf_ratio": 0.1647,
+    "sub_ratio": 0.6818,
+    "length_ms": 15.9,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 2682803934,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 13,
+    "shape": 121,
+    "sweep": 120,
+    "contour": 16,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 42
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1244,
+    "rms": 0.02712,
+    "crest_db": 13.23,
+    "centroid_hz": 11070.2,
+    "flatness": 0.3488,
+    "hf_ratio": 0.463,
+    "sub_ratio": 0.2618,
+    "length_ms": 327.7,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 1042272407,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 56,
+    "shape": 88,
+    "sweep": 39,
+    "contour": 87,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 69
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4091,
+    "rms": 0.12155,
+    "crest_db": 10.54,
+    "centroid_hz": 10477.0,
+    "flatness": 0.0,
+    "hf_ratio": 0.1175,
+    "sub_ratio": 0.4286,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 3696708176,
+   "params": {
+    "machine": 1,
+    "pitch": 73,
+    "color": 108,
+    "shape": 126,
+    "sweep": 64,
+    "contour": 121,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 53
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2499,
+    "rms": 0.02552,
+    "crest_db": 19.82,
+    "centroid_hz": 8636.2,
+    "flatness": 0.2018,
+    "hf_ratio": 0.428,
+    "sub_ratio": 0.009,
+    "length_ms": 50.5,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 2056176649,
+   "params": {
+    "machine": 5,
+    "pitch": 73,
+    "color": 82,
+    "shape": 36,
+    "sweep": 63,
+    "contour": 85,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 34
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1304,
+    "rms": 0.01431,
+    "crest_db": 19.19,
+    "centroid_hz": 1154.9,
+    "flatness": 0.0,
+    "hf_ratio": 0.0003,
+    "sub_ratio": 0.0,
+    "length_ms": 111.1,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 415645122,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 7,
+    "shape": 42,
+    "sweep": 87,
+    "contour": 20,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 117
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.3343,
+    "rms": 0.15234,
+    "crest_db": 6.83,
+    "centroid_hz": 510.5,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0461,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 3070080891,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 100,
+    "shape": 125,
+    "sweep": 62,
+    "contour": 124,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 69
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4176,
+    "rms": 0.12171,
+    "crest_db": 10.71,
+    "centroid_hz": 2308.1,
+    "flatness": 0.0005,
+    "hf_ratio": 0.0006,
+    "sub_ratio": 0.0043,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 1429549364,
+   "params": {
+    "machine": 3,
+    "pitch": 73,
+    "color": 114,
+    "shape": 12,
+    "sweep": 34,
+    "contour": 57,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 31
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4774,
+    "rms": 0.04451,
+    "crest_db": 20.61,
+    "centroid_hz": 2711.3,
+    "flatness": 0.0,
+    "hf_ratio": 0.0012,
+    "sub_ratio": 0.0,
+    "length_ms": 91.5,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 4083985133,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 6,
+    "shape": 122,
+    "sweep": 127,
+    "contour": 15,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 39
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1248,
+    "rms": 0.02639,
+    "crest_db": 13.49,
+    "centroid_hz": 11319.4,
+    "flatness": 0.3933,
+    "hf_ratio": 0.5334,
+    "sub_ratio": 0.0328,
+    "length_ms": 372.7,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 2443453606,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 42,
+    "shape": 111,
+    "sweep": 115,
+    "contour": 89,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 69
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.05814,
+    "crest_db": 6.65,
+    "centroid_hz": 4005.4,
+    "flatness": 0.0002,
+    "hf_ratio": 0.0161,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 802922079,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 2,
+    "shape": 125,
+    "sweep": 122,
+    "contour": 17,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 17
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1247,
+    "rms": 0.01599,
+    "crest_db": 17.84,
+    "centroid_hz": 10603.0,
+    "flatness": 0.308,
+    "hf_ratio": 0.3615,
+    "sub_ratio": 0.2235,
+    "length_ms": 39.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 3457357848,
+   "params": {
+    "machine": 4,
+    "pitch": 85,
+    "color": 69,
+    "shape": 126,
+    "sweep": 112,
+    "contour": 124,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 101
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.07423,
+    "crest_db": 4.52,
+    "centroid_hz": 5190.3,
+    "flatness": 0.0,
+    "hf_ratio": 0.2368,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 1816826321,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 12,
+    "shape": 119,
+    "sweep": 120,
+    "contour": 7,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 45
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1248,
+    "rms": 0.03104,
+    "crest_db": 12.09,
+    "centroid_hz": 11141.9,
+    "flatness": 0.434,
+    "hf_ratio": 0.5874,
+    "sub_ratio": 0.0155,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 176294794,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 11,
+    "shape": 120,
+    "sweep": 118,
+    "contour": 39,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 49
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1247,
+    "rms": 0.03571,
+    "crest_db": 10.87,
+    "centroid_hz": 10994.7,
+    "flatness": 0.3813,
+    "hf_ratio": 0.516,
+    "sub_ratio": 0.0248,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 2830730563,
+   "params": {
+    "machine": 2,
+    "pitch": 85,
+    "color": 52,
+    "shape": 104,
+    "sweep": 38,
+    "contour": 56,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 10
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1399,
+    "rms": 0.00509,
+    "crest_db": 28.78,
+    "centroid_hz": 11509.3,
+    "flatness": 0.2833,
+    "hf_ratio": 0.76,
+    "sub_ratio": 0.0,
+    "length_ms": 11.8,
+    "silent": false
+   }
+  },
+  {
+   "path": "rhythmic",
+   "seed": 1190199036,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 47,
+    "shape": 22,
+    "sweep": 53,
+    "contour": 97,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 41
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1988,
+    "rms": 0.02743,
+    "crest_db": 17.2,
+    "centroid_hz": 411.1,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0005,
+    "length_ms": 134.2,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 28368165,
+   "params": {
+    "machine": 5,
+    "pitch": 73,
+    "color": 105,
+    "shape": 1,
+    "sweep": 78,
+    "contour": 65,
+    "punch": 0,
+    "gate": 1,
+    "finetune": 64,
+    "decay": 88
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1473,
+    "rms": 0.04783,
+    "crest_db": 9.77,
+    "centroid_hz": 1174.4,
+    "flatness": 0.0,
+    "hf_ratio": 0.0002,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 2682803934,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 124,
+    "shape": 46,
+    "sweep": 21,
+    "contour": 80,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 75
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1247,
+    "rms": 0.06367,
+    "crest_db": 5.84,
+    "centroid_hz": 367.3,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.9826,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 1042272407,
+   "params": {
+    "machine": 2,
+    "pitch": 49,
+    "color": 36,
+    "shape": 19,
+    "sweep": 6,
+    "contour": 28,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 91
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2442,
+    "rms": 0.05367,
+    "crest_db": 13.16,
+    "centroid_hz": 7875.5,
+    "flatness": 0.0,
+    "hf_ratio": 0.4319,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 3696708176,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 68,
+    "shape": 83,
+    "sweep": 46,
+    "contour": 127,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 85
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.06885,
+    "crest_db": 5.18,
+    "centroid_hz": 954.7,
+    "flatness": 0.0,
+    "hf_ratio": 0.0005,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 2056176649,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 42,
+    "shape": 88,
+    "sweep": 70,
+    "contour": 20,
+    "punch": 0,
+    "gate": 1,
+    "finetune": 64,
+    "decay": 84
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.06655,
+    "crest_db": 5.47,
+    "centroid_hz": 12481.5,
+    "flatness": 0.1525,
+    "hf_ratio": 0.326,
+    "sub_ratio": 0.0005,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 415645122,
+   "params": {
+    "machine": 5,
+    "pitch": 49,
+    "color": 1,
+    "shape": 21,
+    "sweep": 36,
+    "contour": 57,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 57
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.0623,
+    "rms": 0.02155,
+    "crest_db": 9.21,
+    "centroid_hz": 157.8,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.9793,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 3070080891,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 29,
+    "shape": 24,
+    "sweep": 112,
+    "contour": 11,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 97
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1245,
+    "rms": 0.07273,
+    "crest_db": 4.67,
+    "centroid_hz": 8576.9,
+    "flatness": 0.006,
+    "hf_ratio": 0.0081,
+    "sub_ratio": 0.9748,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 1429549364,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 102,
+    "shape": 46,
+    "sweep": 14,
+    "contour": 66,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 33
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1249,
+    "rms": 0.02662,
+    "crest_db": 13.43,
+    "centroid_hz": 1648.7,
+    "flatness": 0.0,
+    "hf_ratio": 0.0026,
+    "sub_ratio": 0.0001,
+    "length_ms": 210.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 4083985133,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 32,
+    "shape": 59,
+    "sweep": 95,
+    "contour": 22,
+    "punch": 0,
+    "gate": 1,
+    "finetune": 64,
+    "decay": 108
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.08087,
+    "crest_db": 3.78,
+    "centroid_hz": 10325.6,
+    "flatness": 0.0874,
+    "hf_ratio": 0.1235,
+    "sub_ratio": 0.3734,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 2443453606,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 18,
+    "shape": 9,
+    "sweep": 98,
+    "contour": 2,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 66
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1245,
+    "rms": 0.05766,
+    "crest_db": 6.68,
+    "centroid_hz": 6399.5,
+    "flatness": 0.0006,
+    "hf_ratio": 0.0008,
+    "sub_ratio": 0.9975,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 802922079,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 13,
+    "shape": 21,
+    "sweep": 106,
+    "contour": 5,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 43
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1235,
+    "rms": 0.03643,
+    "crest_db": 10.61,
+    "centroid_hz": 8301.6,
+    "flatness": 0.0042,
+    "hf_ratio": 0.0057,
+    "sub_ratio": 0.979,
+    "length_ms": 398.2,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 3457357848,
+   "params": {
+    "machine": 3,
+    "pitch": 73,
+    "color": 87,
+    "shape": 24,
+    "sweep": 20,
+    "contour": 85,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 74
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1866,
+    "rms": 0.07156,
+    "crest_db": 8.33,
+    "centroid_hz": 1927.8,
+    "flatness": 0.0,
+    "hf_ratio": 0.0003,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 1816826321,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 54,
+    "shape": 44,
+    "sweep": 58,
+    "contour": 10,
+    "punch": 0,
+    "gate": 1,
+    "finetune": 64,
+    "decay": 118
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.0809,
+    "crest_db": 3.78,
+    "centroid_hz": 2728.5,
+    "flatness": 0.0,
+    "hf_ratio": 0.0049,
+    "sub_ratio": 0.8421,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 176294794,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 112,
+    "shape": 0,
+    "sweep": 21,
+    "contour": 74,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 125
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1049,
+    "rms": 0.03903,
+    "crest_db": 8.59,
+    "centroid_hz": 410.7,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 2830730563,
+   "params": {
+    "machine": 2,
+    "pitch": 73,
+    "color": 52,
+    "shape": 21,
+    "sweep": 38,
+    "contour": 23,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 69
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2617,
+    "rms": 0.04316,
+    "crest_db": 15.65,
+    "centroid_hz": 10395.3,
+    "flatness": 0.0008,
+    "hf_ratio": 0.6816,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "melodic",
+   "seed": 1190199036,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 47,
+    "shape": 22,
+    "sweep": 53,
+    "contour": 91,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 41
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1988,
+    "rms": 0.02745,
+    "crest_db": 17.19,
+    "centroid_hz": 411.3,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0005,
+    "length_ms": 135.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 28368165,
+   "params": {
+    "machine": 5,
+    "pitch": 73,
+    "color": 95,
+    "shape": 15,
+    "sweep": 78,
+    "contour": 115,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 32
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.146,
+    "rms": 0.01366,
+    "crest_db": 20.58,
+    "centroid_hz": 1188.4,
+    "flatness": 0.0,
+    "hf_ratio": 0.0005,
+    "sub_ratio": 0.0,
+    "length_ms": 75.5,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 2682803934,
+   "params": {
+    "machine": 5,
+    "pitch": 61,
+    "color": 125,
+    "shape": 0,
+    "sweep": 45,
+    "contour": 44,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 114
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1201,
+    "rms": 0.0466,
+    "crest_db": 8.23,
+    "centroid_hz": 407.1,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 1042272407,
+   "params": {
+    "machine": 3,
+    "pitch": 61,
+    "color": 36,
+    "shape": 86,
+    "sweep": 105,
+    "contour": 107,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 28
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.466,
+    "rms": 0.04552,
+    "crest_db": 20.2,
+    "centroid_hz": 480.5,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0093,
+    "length_ms": 64.9,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 3696708176,
+   "params": {
+    "machine": 3,
+    "pitch": 73,
+    "color": 96,
+    "shape": 34,
+    "sweep": 73,
+    "contour": 115,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 76
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4775,
+    "rms": 0.08991,
+    "crest_db": 14.5,
+    "centroid_hz": 2474.5,
+    "flatness": 0.0003,
+    "hf_ratio": 0.0031,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 2056176649,
+   "params": {
+    "machine": 1,
+    "pitch": 85,
+    "color": 89,
+    "shape": 113,
+    "sweep": 83,
+    "contour": 103,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 15
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.262,
+    "rms": 0.01118,
+    "crest_db": 27.4,
+    "centroid_hz": 8246.4,
+    "flatness": 0.0818,
+    "hf_ratio": 0.6138,
+    "sub_ratio": 0.3087,
+    "length_ms": 11.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 415645122,
+   "params": {
+    "machine": 3,
+    "pitch": 49,
+    "color": 61,
+    "shape": 20,
+    "sweep": 38,
+    "contour": 48,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 76
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1778,
+    "rms": 0.07279,
+    "crest_db": 7.76,
+    "centroid_hz": 353.3,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0083,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 3070080891,
+   "params": {
+    "machine": 1,
+    "pitch": 61,
+    "color": 112,
+    "shape": 122,
+    "sweep": 56,
+    "contour": 115,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 54
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.3649,
+    "rms": 0.01804,
+    "crest_db": 26.12,
+    "centroid_hz": 8566.1,
+    "flatness": 0.2154,
+    "hf_ratio": 0.4488,
+    "sub_ratio": 0.0107,
+    "length_ms": 35.6,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 1429549364,
+   "params": {
+    "machine": 4,
+    "pitch": 73,
+    "color": 11,
+    "shape": 121,
+    "sweep": 119,
+    "contour": 9,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 16
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1248,
+    "rms": 0.01537,
+    "crest_db": 18.19,
+    "centroid_hz": 10889.6,
+    "flatness": 0.4263,
+    "hf_ratio": 0.5233,
+    "sub_ratio": 0.1127,
+    "length_ms": 36.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 4083985133,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 65,
+    "shape": 89,
+    "sweep": 80,
+    "contour": 76,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 74
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4102,
+    "rms": 0.12875,
+    "crest_db": 10.06,
+    "centroid_hz": 9871.4,
+    "flatness": 0.0002,
+    "hf_ratio": 0.1389,
+    "sub_ratio": 0.0124,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 2443453606,
+   "params": {
+    "machine": 2,
+    "pitch": 73,
+    "color": 42,
+    "shape": 96,
+    "sweep": 40,
+    "contour": 77,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 38
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.2022,
+    "rms": 0.02226,
+    "crest_db": 19.16,
+    "centroid_hz": 11019.6,
+    "flatness": 0.1487,
+    "hf_ratio": 0.7057,
+    "sub_ratio": 0.0,
+    "length_ms": 187.0,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 802922079,
+   "params": {
+    "machine": 4,
+    "pitch": 49,
+    "color": 16,
+    "shape": 45,
+    "sweep": 113,
+    "contour": 13,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 43
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1246,
+    "rms": 0.03465,
+    "crest_db": 11.11,
+    "centroid_hz": 9491.3,
+    "flatness": 0.0462,
+    "hf_ratio": 0.0577,
+    "sub_ratio": 0.8366,
+    "length_ms": 439.8,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 3457357848,
+   "params": {
+    "machine": 0,
+    "pitch": 73,
+    "color": 69,
+    "shape": 123,
+    "sweep": 44,
+    "contour": 120,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 103
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.4177,
+    "rms": 0.15466,
+    "crest_db": 8.63,
+    "centroid_hz": 3878.4,
+    "flatness": 0.0007,
+    "hf_ratio": 0.0017,
+    "sub_ratio": 0.2278,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 1816826321,
+   "params": {
+    "machine": 5,
+    "pitch": 73,
+    "color": 118,
+    "shape": 0,
+    "sweep": 38,
+    "contour": 18,
+    "punch": 0,
+    "gate": 1,
+    "finetune": 64,
+    "decay": 119
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.0952,
+    "rms": 0.0456,
+    "crest_db": 6.39,
+    "centroid_hz": 709.2,
+    "flatness": 0.0,
+    "hf_ratio": 0.0,
+    "sub_ratio": 0.0,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 176294794,
+   "params": {
+    "machine": 4,
+    "pitch": 61,
+    "color": 11,
+    "shape": 120,
+    "sweep": 118,
+    "contour": 39,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 49
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.1247,
+    "rms": 0.03571,
+    "crest_db": 10.87,
+    "centroid_hz": 10994.7,
+    "flatness": 0.3813,
+    "hf_ratio": 0.516,
+    "sub_ratio": 0.0248,
+    "length_ms": 441.3,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 2830730563,
+   "params": {
+    "machine": 4,
+    "pitch": 85,
+    "color": 52,
+    "shape": 72,
+    "sweep": 34,
+    "contour": 97,
+    "punch": 0,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 43
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.125,
+    "rms": 0.03657,
+    "crest_db": 10.68,
+    "centroid_hz": 1401.8,
+    "flatness": 0.0,
+    "hf_ratio": 0.0111,
+    "sub_ratio": 0.0,
+    "length_ms": 399.4,
+    "silent": false
+   }
+  },
+  {
+   "path": "free",
+   "seed": 1190199036,
+   "params": {
+    "machine": 2,
+    "pitch": 85,
+    "color": 47,
+    "shape": 109,
+    "sweep": 53,
+    "contour": 62,
+    "punch": 1,
+    "gate": 0,
+    "finetune": 64,
+    "decay": 16
+   },
+   "rendered": true,
+   "metrics": {
+    "peak": 0.3617,
+    "rms": 0.01384,
+    "crest_db": 28.34,
+    "centroid_hz": 11097.7,
+    "flatness": 0.174,
+    "hf_ratio": 0.5094,
+    "sub_ratio": 0.0,
+    "length_ms": 21.8,
+    "silent": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "checks": 243,
+  "formula": "locks + track*4385 + step*68 + slot*2; signed16 values",
+  "slot24_file_parameter": 1,
+  "limitations": "Setter executes exactly through physical word write before notification. Confirms canonical slot24 maps serialized machine parameter1; identifying that parameter as Pitch still requires verified sound descriptor/engine semantics."
+}

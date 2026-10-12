@@ -1,0 +1,50 @@
+{
+  "result": "PASS",
+  "firmware_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
+  "rows": [
+    {
+      "pitch": 64,
+      "note": 60,
+      "fine": 64,
+      "frequency_hz": 261.55471673804817,
+      "ratio": 1.0,
+      "expected_ratio": 1.0
+    },
+    {
+      "pitch": 64,
+      "note": 52,
+      "fine": 64,
+      "frequency_hz": 164.80636681932324,
+      "ratio": 0.630102828481506,
+      "expected_ratio": 0.6299605249474366
+    },
+    {
+      "pitch": 76,
+      "note": 60,
+      "fine": 64,
+      "frequency_hz": 523.2924287608123,
+      "ratio": 2.0006996443688654,
+      "expected_ratio": 2.0
+    },
+    {
+      "pitch": 64,
+      "note": 60,
+      "fine": 0,
+      "frequency_hz": 233.03031919666395,
+      "ratio": 0.8909429051896933,
+      "expected_ratio": 0.8908987181403393
+    },
+    {
+      "pitch": 64,
+      "note": 60,
+      "fine": 127,
+      "frequency_hz": 293.071736493047,
+      "ratio": 1.1204987627371434,
+      "expected_ratio": 1.1204377524096067
+    }
+  ],
+  "stock_pad_note_evidence": "40061426 initializes track+712=60; normalpad4001d1fc\u219240015a34 getter40015a58 reads +712, then4001d380 sendsnote to4001d05e",
+  "fine_formula": "(control\u221264)/32 semitones:0\u2192\u22122,64\u21920,127\u2192+1.96875",
+  "macro_source_evidence": "macro.cc121 exact Q16formula:(pitch8.8<<8)+((fine8.8\u22120x4000)<<3)\u2212(64<<16)+pmod",
+  "limitations": "Actual stock DSP loop with upstream EMAC correction and synthetic note-modulation input; zero-crossing relative-frequency tolerance1.5%. Not final hardware mix, modified effects or live pad playback."
+}

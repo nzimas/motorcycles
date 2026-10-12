@@ -1,0 +1,13 @@
+#include "../generation/sequence_encoding.h"
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdint.h>
+static unsigned checks;
+static void rejection(const mc_phrase*p,const uint8_t*old,uint8_t*track,uint8_t*locks,const uint8_t*codes,unsigned update,uint8_t*storage,unsigned size){uint8_t before[6000];assert(size<=sizeof before);memcpy(before,storage,size);assert(!mc_stage_sequence(p,old,track,locks,codes,update));assert(!memcmp(before,storage,size));checks++;}
+int main(void){uint8_t old[722],trackbox[754],lockbox[4417],codes[13]={0,10,20,30,40,50,60,70,80,90,100,110,120},work[6000];mc_phrase p={0};uint8_t*t=trackbox+16,*l=lockbox+16;memset(old,0xa5,sizeof old);old[712]=64;old[719]=0;p.length=32;p.step[0]=(mc_event){1,60,90,1};p.step[31]=(mc_event){1,74,70,12};memset(trackbox,0x5a,sizeof trackbox);memset(lockbox,0xc3,sizeof lockbox);assert(mc_stage_sequence(&p,old,t,l,codes,1));for(unsigned i=0;i<16;i++){assert(trackbox[i]==0x5a&&trackbox[738+i]==0x5a&&lockbox[i]==0xc3&&lockbox[4401+i]==0xc3);}assert(t[719]==100&&t[713]==0&&t[714]==32);assert(!memcmp(t+512,old+512,4));assert(t[710]==old[710]&&t[712]==old[712]&&t[715]==old[715]);checks++;
+ uint8_t outcopy[722],lockcopy[4385];memcpy(outcopy,t,722);memcpy(lockcopy,l,4385);memcpy(t,old,722);assert(mc_stage_sequence(&p,t,t,l,codes,1));assert(!memcmp(t,outcopy,722)&&!memcmp(l,lockcopy,4385));checks++;
+ memset(work,0x77,sizeof work);rejection(&p,old,work,work+700,codes,1,work,sizeof work);rejection(&p,work,work+1,work+1000,codes,1,work,sizeof work);rejection(&p,work+1000,work,work+1000,codes,1,work,sizeof work);rejection((mc_phrase*)work,old,work,work+1000,codes,1,work,sizeof work);rejection(&p,old,work,work+1000,work+100,codes[0],work,sizeof work);
+ mc_phrase bad=p;bad.length=65;rejection(&bad,old,work,work+1000,codes,1,work,sizeof work);bad=p;bad.step[32]=(mc_event){1,60,70,1};rejection(&bad,old,work,work+1000,codes,1,work,sizeof work);bad=p;bad.step[0].velocity=0;rejection(&bad,old,work,work+1000,codes,1,work,sizeof work);bad=p;bad.step[0].length=13;rejection(&bad,old,work,work+1000,codes,1,work,sizeof work);codes[1]=127;rejection(&p,old,work,work+1000,codes,1,work,sizeof work);codes[1]=10;
+ rejection((const mc_phrase*)(UINTPTR_MAX-10),old,work,work+1000,codes,1,work,sizeof work);rejection(&p,old,(uint8_t*)(UINTPTR_MAX-10),work+1000,codes,1,work,sizeof work);rejection(&p,old,work,(uint8_t*)(UINTPTR_MAX-10),codes,1,work,sizeof work);rejection(&p,(uint8_t*)(UINTPTR_MAX-10),work,work+1000,codes,1,work,sizeof work);rejection(&p,old,work,work+1000,(uint8_t*)(UINTPTR_MAX-10),1,work,sizeof work);
+ printf("PASS %u independent sequence guard/inplace/alias/range/atomic rejection cases\n",checks);}

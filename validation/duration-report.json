@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "speeds": 7,
+  "duration_mappings": 84,
+  "actual_stock_note_off_decrements": 36,
+  "sixteenth_duration_units": 2700000,
+  "triplet_quantization": "nearest stock finite code; maximum allowed relative error 1/16",
+  "limitations": "Primitive execution and ROM mapping, not full sequencer scheduling or device playback."
+}

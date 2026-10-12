@@ -1,0 +1,15 @@
+{
+  "stock_initializer": "0x40061480",
+  "canonical_track_bytes": 722,
+  "canonical_lock_bytes": 4385,
+  "host_stock_exact_reset_and_chance_cases": 32,
+  "chance_100_always_cases": 64,
+  "chance_0_never_cases": 64,
+  "stock_chance_setter_clamp_cases": 8,
+  "owner_binding_validated": false,
+  "publication_validated": false,
+  "duration_code_timing_validated": false,
+  "staging_source_sha256": "b53559fc81c65afcd2ba8c6fda6b4759e3c1d13936bc757f15dd812b81edf402",
+  "elapsed_seconds": 0.122,
+  "instrument_access": false
+}

@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "cpu": "MCF54418 compiler / Unicorn CFV4E",
+  "events": 64,
+  "snapshot_bytes": 2752,
+  "snapshot_sha256": "ad772a4d35c4346587f315bbcf9a4fd7f26c970087e58b54b68c1305582652ec",
+  "publication_count": 5,
+  "instructions": 16415,
+  "writes": 4899,
+  "max_observed_stack_bytes": 124,
+  "invalid_writes": [],
+  "elf_sha256": "8fcdf037dc7df0a0c689301f834028056ff261cf402c8ac5a95d01cde61860bb",
+  "source_sha256": {
+    "interface/interface.c": "b5cfcec8aa43305b8b4e86e4f1611831cf1709c726c359ca8badc96a5900a3e0",
+    "interface/interface.h": "230d883f52494c359eb968bc62a097ff113bb4624e832e1433ffa80d663b1478",
+    "validation/interface-target.c": "50d86ca5f79931eb2981b589e5fc8804cb9b6b82d60f3284a6592bc264009193",
+    "validation/interface-target-events.inc": "6beace3a6b5a9e40bab1c791cfb45c9ed7b957cbe7db5517dc0cb884c4db69f9"
+  },
+  "limitations": "Standalone semantic interface core. No vendor OS hooks, firmware package, real-time scheduling, instrument LEDs or hardware."
+}

@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "checks": [
+    "actual stock pointerassignment/9notifications and fieldsetter layout",
+    "compiled resolver all30canonical pointers",
+    "inconsistent globalalias",
+    "inconsistent lockalias",
+    "incorrect trackindex",
+    "incorrect trackparent",
+    "incorrect lockowner",
+    "null sounddata",
+    "pattern pointeroverflow"
+  ],
+  "stock_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
+  "elf_sha256": "74b1b8dd0c7e6f75c12485c44cd49b9c4a6dc873bce6302fde363e2ee2df6ac5",
+  "limitations": "Actual stock c5d0 pointerassignment and157aa/bc/c8 fieldsetters plus compiled resolver; synthetic owner vtables and notifications. No actual registered audioobservers or publication."
+}

@@ -1,0 +1,15 @@
+{
+  "cpu": "Unicorn CFV4E",
+  "target": "gcc54415",
+  "host_target_exact_cases": 64,
+  "invalid_alias_wrap_cases": 9,
+  "callee_registers_preserved": true,
+  "bounded_writes": true,
+  "max_observed_stack_bytes": 72,
+  "elf_sha256": "4a9ab8bf7f1a1ae4cf9207c754491c09d5957ac02dd651750771ececc8b951eb",
+  "staging_source_sha256": "b53559fc81c65afcd2ba8c6fda6b4759e3c1d13936bc757f15dd812b81edf402",
+  "duration_timing_proved": false,
+  "owner_binding_proved": false,
+  "publication_proved": false,
+  "instrument_access": false
+}

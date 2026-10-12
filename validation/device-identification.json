@@ -1,0 +1,49 @@
+{
+  "date_local": "2026-10-10",
+  "timezone": "Europe/Riga",
+  "authorization": "User explicitly authorized exploration of the USB-connected instrument",
+  "query_commands": [
+    1,
+    2
+  ],
+  "product_id_response": 27,
+  "os_version_response": "1.13",
+  "version_reply_hex": "f000203c1000040002000202303000333800312e31330000f7",
+  "usb_vendor_id": 6453,
+  "usb_product_id": 27,
+  "midi_name": "Elektron Model:Cycles",
+  "connection_observation": "Direct USB enumeration stable in 12 snapshots over22s after reconnection; device bound to MIDIServer and usbaudiod; initialized CoreMIDI probe succeeded",
+  "installed_modifications": null,
+  "installed_modded_cycles_revision": null,
+  "firmware_readback": "Read-only root/project directory responses do not expose OS image or mod configuration; no supported firmware readback command established",
+  "firmware_transfer_performed": false,
+  "settings_modified": false,
+  "direct_probe_date": "2026-10-10",
+  "application_used": false,
+  "transport": "Direct CoreMIDI SysEx and CoreAudio properties",
+  "usb_audio_host_input_channels": 6,
+  "usb_audio_host_output_channels": 2,
+  "confirmed_features": [
+    "Six-channel USB audio output"
+  ],
+  "modification_variant": "6ch-multiout or 6ch-usbup family; exact variant/revision not established",
+  "supported_command_response_hex": "f000203c10000400300001011b2200010203050450520051141516242526002733343537434400454753545556570058595a5b5c5d4d006f64656c20437900636c657300f7",
+  "read_only_directory_queries": [
+    {
+      "command": "0x14",
+      "path": "/",
+      "decoded_reply": "0032006494"
+    },
+    {
+      "command": "0x53",
+      "path": "/",
+      "decoded_reply": "00330064d30100000000000000010000000170726f6a6563747300010100000060"
+    },
+    {
+      "command": "0x53",
+      "path": "/projects",
+      "decoded_reply": "00340064d30100000000000000030000000253544f434b00000200000001004000000012010153544f434b0000020000000200400000007e0101"
+    }
+  ],
+  "protocol_reference": "https://github.com/dagargo/elektroid/blob/master/src/connectors/elektron.c"
+}

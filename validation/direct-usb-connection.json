@@ -1,0 +1,102 @@
+{
+  "read_only": true,
+  "application_used": false,
+  "samples": [
+    {
+      "utc": "2026-10-10T16:33:34.272914+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (392 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (60 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (26 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:36.288227+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (401 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (64 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (27 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:38.300944+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (409 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (68 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (28 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:40.316204+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (417 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (72 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (29 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:42.330884+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (425 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (76 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (30 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:44.342951+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (431 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (79 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (30 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:46.357981+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (439 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (83 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (31 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:48.369978+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (448 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (87 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (32 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:50.382129+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (456 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (90 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (33 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:52.388837+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (464 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (94 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (34 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:54.404205+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (469 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (97 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (35 ms), retain 36>"
+      ]
+    },
+    {
+      "utc": "2026-10-10T16:33:56.417506+00:00",
+      "nodes": [
+        "| +-o USB2.0 Hub@00100000  <class IOUSBHostDevice, id 0x10078103d, registered, matched, active, busy 0 (477 ms), retain 41>",
+        "|   +-o Elektron Model:Cycles@00110000  <class IOUSBHostDevice, id 0x100781054, registered, matched, active, busy 0 (101 ms), retain 42>",
+        "|   +-o USB MIDI Interface@00140000  <class IOUSBHostDevice, id 0x10078108e, registered, matched, active, busy 0 (36 ms), retain 36>"
+      ]
+    }
+  ]
+}

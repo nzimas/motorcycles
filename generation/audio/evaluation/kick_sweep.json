@@ -1,0 +1,728 @@
+[
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 48,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 25.0,
+   "low_share": 0.051,
+   "low_energy": 17167.36738753918,
+   "body_ms": 361.3,
+   "transient_db": 4.37,
+   "peak": 0.2537
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 52,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 33.3,
+   "low_share": 0.754,
+   "low_energy": 251521.6793648849,
+   "body_ms": 361.3,
+   "transient_db": 4.17,
+   "peak": 0.2619
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 56,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 41.7,
+   "low_share": 0.997,
+   "low_energy": 332495.25200015353,
+   "body_ms": 361.3,
+   "transient_db": 4.41,
+   "peak": 0.2685
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 60,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 50.0,
+   "low_share": 0.95,
+   "low_energy": 316768.89573119796,
+   "body_ms": 361.3,
+   "transient_db": 4.53,
+   "peak": 0.2735
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 316764.13723578,
+   "body_ms": 361.3,
+   "transient_db": 4.39,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 68,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 83.3,
+   "low_share": 0.95,
+   "low_energy": 316763.0492573253,
+   "body_ms": 361.3,
+   "transient_db": 4.3,
+   "peak": 0.2837
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 72,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 104.2,
+   "low_share": 0.95,
+   "low_energy": 316763.04304712993,
+   "body_ms": 361.3,
+   "transient_db": 4.46,
+   "peak": 0.2868
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 76,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 129.2,
+   "low_share": 0.95,
+   "low_energy": 316759.7510304714,
+   "body_ms": 361.3,
+   "transient_db": 4.36,
+   "peak": 0.2896
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 0,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 316763.48279730976,
+   "body_ms": 361.3,
+   "transient_db": 4.41,
+   "peak": 0.2346
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 32,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 316762.36020012235,
+   "body_ms": 361.3,
+   "transient_db": 4.34,
+   "peak": 0.2852
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 64,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 70.8,
+   "low_share": 0.95,
+   "low_energy": 316760.07722345873,
+   "body_ms": 361.3,
+   "transient_db": 4.3,
+   "peak": 0.2868
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 96,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 316762.6998939788,
+   "body_ms": 361.3,
+   "transient_db": 4.34,
+   "peak": 0.2907
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 127,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.941,
+   "low_energy": 321742.8134132864,
+   "body_ms": 361.3,
+   "transient_db": 4.13,
+   "peak": 0.2916
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 0,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.951,
+   "low_energy": 316501.363282153,
+   "body_ms": 361.3,
+   "transient_db": 4.39,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 32,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 316837.2402018805,
+   "body_ms": 361.3,
+   "transient_db": 4.39,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 64,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.949,
+   "low_energy": 317298.3185987296,
+   "body_ms": 361.3,
+   "transient_db": 4.38,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 96,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.949,
+   "low_energy": 317481.3440000832,
+   "body_ms": 361.3,
+   "transient_db": 4.37,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 127,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.949,
+   "low_energy": 317640.7301955389,
+   "body_ms": 361.3,
+   "transient_db": 4.37,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 0,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.942,
+   "low_energy": 321579.07279928616,
+   "body_ms": 361.3,
+   "transient_db": 4.27,
+   "peak": 0.2644
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 32,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.963,
+   "low_energy": 307935.62256817525,
+   "body_ms": 361.3,
+   "transient_db": 4.5,
+   "peak": 0.2919
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 64,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.995,
+   "low_energy": 257905.95838718434,
+   "body_ms": 361.3,
+   "transient_db": 4.6,
+   "peak": 0.3011
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 96,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.556,
+   "low_energy": 191302.41190819943,
+   "body_ms": 361.3,
+   "transient_db": 4.73,
+   "peak": 0.4176
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 127,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.929,
+   "low_energy": 319618.7536542651,
+   "body_ms": 361.3,
+   "transient_db": 5.28,
+   "peak": 0.3971
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 0,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.958,
+   "low_energy": 311732.11210792453,
+   "body_ms": 361.3,
+   "transient_db": 4.33,
+   "peak": 0.2762
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 32,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.933,
+   "low_energy": 325772.2216113033,
+   "body_ms": 361.3,
+   "transient_db": 4.45,
+   "peak": 0.2852
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 64,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.909,
+   "low_energy": 334722.5788326813,
+   "body_ms": 361.3,
+   "transient_db": 4.47,
+   "peak": 0.2896
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 96,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.887,
+   "low_energy": 340209.6318386854,
+   "body_ms": 361.3,
+   "transient_db": 4.46,
+   "peak": 0.2915
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 127,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 60
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.869,
+   "low_energy": 343361.6769533491,
+   "body_ms": 361.3,
+   "transient_db": 2.11,
+   "peak": 0.2916
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 20
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 14064.914928547189,
+   "body_ms": 190.9,
+   "transient_db": 13.9,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 40
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 139894.60813088587,
+   "body_ms": 361.3,
+   "transient_db": 7.16,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 80
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 467461.61996124056,
+   "body_ms": 361.3,
+   "transient_db": 2.99,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 100
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 577183.740727379,
+   "body_ms": 361.3,
+   "transient_db": 2.22,
+   "peak": 0.2791
+  }
+ },
+ {
+  "params": {
+   "machine": 0,
+   "pitch": 64,
+   "color": 10,
+   "shape": 16,
+   "sweep": 16,
+   "contour": 24,
+   "punch": 1,
+   "gate": 0,
+   "finetune": 64,
+   "decay": 127
+  },
+  "metrics": {
+   "f0_hz": 66.7,
+   "low_share": 0.95,
+   "low_energy": 672133.3280184332,
+   "body_ms": 361.3,
+   "transient_db": 1.65,
+   "peak": 0.2791
+  }
+ }
+]

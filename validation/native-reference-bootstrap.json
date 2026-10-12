@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "package": "/Users/nzimas/ModelCycles-research/build/native-stock-reference/native-stock-reference.syx",
+  "package_sha256": "977179e2f65390be9c82acdc51de60ef8f814c9027acb302dd2bcbf11127af82",
+  "decompressed_main_sha256": "d85952f9adfd98b0158d7b255fedabc14d3f29846df4cd1cb9817a6b96350c62",
+  "compressed_bytes": 665134,
+  "decompressed_bytes": 1825872,
+  "main_end": "0x401be050",
+  "transit_start": "0x40200000",
+  "transit_margin_bytes": 270256,
+  "memory_writes": 1825877,
+  "invalid_accesses": [],
+  "invalid_writes": [],
+  "limitations": "Actual protected section-2 decoder executed on exact packaged section-3 bytes. Does not exercise reset, RTOS, UI startup or peripherals."
+}

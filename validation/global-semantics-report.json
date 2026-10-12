@@ -1,0 +1,62 @@
+{
+  "result": "PASS",
+  "checks": 308,
+  "actual_getters": [
+    "0x4000c816",
+    "0x4000c8a6",
+    "0x4000c8dc",
+    "0x4000c964",
+    "0x4000c994",
+    "0x4000ca64",
+    "0x4000caf2",
+    "0x4000cb22",
+    "0x4000cc2a",
+    "0x4000ccc0",
+    "0x4000ccfa",
+    "0x4000cf20"
+  ],
+  "actual_setters": [
+    "0x4000c846",
+    "0x4000c90c",
+    "0x4000c9c4",
+    "0x4000ca94",
+    "0x4000cb40",
+    "0x4000cba6",
+    "0x4000cc5a",
+    "0x4000cd2a",
+    "0x4000cdae",
+    "0x4000cf50"
+  ],
+  "read_offsets": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    38
+  ],
+  "write_offsets": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    38
+  ],
+  "stock_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
+  "limitations": "Verified semantic global family under boundary values and scale modes; does not mathematically prove every indirect stock/TG access across all OS paths."
+}

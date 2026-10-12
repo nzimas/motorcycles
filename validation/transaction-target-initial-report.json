@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "transaction_bytes": 64000,
+  "total_instructions": 1472915,
+  "critical_section_instructions": 960094,
+  "max_observed_stack": 72,
+  "illustrative_one_cycle_per_instruction_ms_at_135168000hz": 7.1029681581439394,
+  "elf_sha256": "32e2294094b61da709312ae9f3246ae93ff8d4185bc2d4b71d5e4bde88c97a1d",
+  "limitations": "Standalone transaction core, synthetic IRQ callbacks, instruction count not cycle-accurate hardware latency. One-cycle-per-instruction illustration exceeds audio block budget; no formal hardware cycle lower bound claimed."
+}

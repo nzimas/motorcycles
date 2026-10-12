@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "checks": [
+    "fraction before1ms across rawDMAwrap",
+    "fraction accumulation and rawDMAwrap",
+    "exact1500ms clock delta",
+    "ordinary PAGEpress forwarded",
+    "generator pad press consumed",
+    "target captured before pad ordinary action, READY",
+    "default level7 bar on steps1..7",
+    "step4 press/release consumed, sets Patch level4 bar",
+    "1499ms repeated step16 no generation",
+    "1500ms step16 repeat generates captured track across rawDMAwrap",
+    "request path1, density=brutality=level4 amount",
+    "continued native repeats exactlyonce",
+    "fresh native hold freshseed",
+    "Density/Brutality knobs forwarded (ordinary function) in generator mode",
+    "other physical knob forwarded",
+    "PAGE release keeps generator latched",
+    "PAGEcancel restores stockLEDmode",
+    "owned level keyrelease consumed after PAGE",
+    "duplicate level release forwarded",
+    "Pattern entry captures selected track0",
+    "elevatedIPL LEDclock does no publication or repaint",
+    "IPL0 LEDclock onlyfeedback neverpublishes",
+    "Pattern native keyrepeat publishesallsequence",
+    "fractional canonical machine failclosed"
+  ],
+  "max_observed_stack_bytes": 1936,
+  "elf_sha256": "73ea9d5b1c6a8bf0c1619f76e1283bd17fef8345ce0c470f45015e24ee6d5425",
+  "limitations": "Exact packaged MAIN and payload (live-rig synthetic owner trees, transport and heap); publications observed by a spy on the real mc_commit_live entry. Not complete boot, real OS dispatch or hardware.",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc"
+}

@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "checks": [
+    "exact package hashes",
+    "boot jsr runs native copier, stock BSS clear with MACRO copier, native startup",
+    "native executable copied before its packed source is cleared",
+    "all MACRO segments copied before the packed source is cleared",
+    "whole stock BSS range cleared",
+    "private snapshots initialized zero",
+    "callee registers and stock continuation preserved"
+  ],
+  "max_observed_stack_bytes": 56,
+  "emulated_control_register_writes": [],
+  "limitations": "MOVEC ACR1 intercepted; no cache semantics, complete RTOS/peripheral boot or hardware deadlines."
+}

@@ -1,0 +1,64 @@
+{
+  "stock": {
+    "syx_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
+    "syx_bytes": 890016,
+    "transport": {
+      "product": 17,
+      "name": "Model:Cycles",
+      "start_seq": 242,
+      "count": 6953
+    },
+    "vendor_version": "00381.13",
+    "sections": [
+      {
+        "index": 0,
+        "id": 5,
+        "off": 112,
+        "size": 15,
+        "attr": 0,
+        "stored_sha256": "a6bd80a4233e69fdd5cfad115d3023f5badd97682d183eb96d0f493815e9d768",
+        "plain_sha256": null,
+        "plain_bytes": null
+      },
+      {
+        "index": 1,
+        "id": 2,
+        "off": 128,
+        "size": 15536,
+        "attr": 67108864,
+        "stored_sha256": "16a99b5d1a686a4a458c774aa670b08bfdcc04517600c2b6585d642fa9c065f3",
+        "plain_sha256": "bb9b81fdbd591813561ff5b172d304a59a7b5573b827fbbf9bcd1d9fa4c38152",
+        "plain_bytes": 26602
+      },
+      {
+        "index": 2,
+        "id": 3,
+        "off": 15664,
+        "size": 654704,
+        "attr": 1073742848,
+        "stored_sha256": "c0253f1ccc5fc9cbf3d1521cc6dc78c27dba535962271a28d6b486dc95d27101",
+        "plain_sha256": "cc99d4f0175d34d1e91d046e6ec85a5e8ab58ab9edbb3c24406acd48cb99ee98",
+        "plain_bytes": 1744192
+      },
+      {
+        "index": 3,
+        "id": 4,
+        "off": 670368,
+        "size": 31752,
+        "attr": 2147484672,
+        "stored_sha256": "8215fd1050970a0d7c1c792fb911832374ca0a551f3ce9e523cb8e64a8810f0e",
+        "plain_sha256": null,
+        "plain_bytes": null
+      }
+    ]
+  },
+  "checks": [
+    "packet checksums",
+    "content checksum",
+    "HMAC",
+    "section bounds and non-overlap",
+    "exact transport roundtrip",
+    "pinned stock hash",
+    "pinned MAIN OS hash"
+  ]
+}

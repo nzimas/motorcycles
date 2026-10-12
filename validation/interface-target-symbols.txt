@@ -1,0 +1,16 @@
+43000000 t publish
+43000034 T run_suite
+43000270 T mc_init
+43000296 T mc_event_handle
+43000774 T mc_leds
+4300088e r events
+43000d8e R snapshot_count
+43000d92 R snapshot_width
+43000d96 R guard_after_offset
+43002000 B __bss_start
+43002000 B _edata
+43100000 B request
+43100006 B publications
+4310000a B state
+4310006e B output
+43100b30 B _end

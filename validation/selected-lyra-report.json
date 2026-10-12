@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "checks": [
+    "image: engine entry 5, name Lyra, descriptors (names, defaults, SHAPE 0..127), SHAPE UI as TONE, no CHORD conversion",
+    "packaged lyra_update/lyra_render match the host reference block for block, then envelope, VCA, PUNCH; trig sets the TONE amp chain",
+    "silent voice: zeros, no rendering, no amp chain"
+  ],
+  "instructions_per_block": {
+    "sounding_max": 4217,
+    "sounding_mean": 3997,
+    "silent": 120,
+    "note": "excludes the stock amp chain; stock voice ~7600, CHORD ~8600 per block (upstream notes/23)"
+  },
+  "limitations": "Amp envelope/VCA/PUNCH stubbed (EMAC); voice loop dispatch and MACHINES screen not executed; no audio heard."
+}

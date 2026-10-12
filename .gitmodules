@@ -1,0 +1,3 @@
+[submodule "reference/Modded-Cycles"]
+	path = reference/Modded-Cycles
+	url = https://github.com/18nelli18/Modded-Cycles.git

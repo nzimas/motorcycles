@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "checks": [
+    "fraction before1ms across rawDMAwrap",
+    "fraction accumulation and rawDMAwrap",
+    "exact600ms clock delta",
+    "ordinary PAGEpress forwarded",
+    "generator pad press consumed",
+    "target captured before pad ordinary action",
+    "selecting hold never publishes",
+    "599ms repeated key no generation",
+    "600ms repeat generates captured track across rawDMAwrap",
+    "continued native repeats exactlyonce",
+    "fresh native hold freshseed",
+    "PatchDensity consumed without sound adjustment",
+    "other physical knob forwarded",
+    "PAGEcancel restores stockLEDmode",
+    "owned keyrelease consumed after PAGE",
+    "elevatedIPL LEDclock does no publication or repaint",
+    "IPL0 LEDclock onlyfeedback neverpublishes",
+    "Pattern native keyrepeat publishesallsequence",
+    "fractional canonical machine failclosed"
+  ],
+  "max_observed_stack_bytes": 1208,
+  "elf_sha256": "cd8ed99f0053cd49e65effe255fb5dde36e4c912617f1b9b4551dd209e5b0da8",
+  "limitations": "Actual compiled runtime/interface/generation calls with synthetic OS accessors, encoder delta and publish callback. Not exact firmware package or real OS publication/dispatch."
+}

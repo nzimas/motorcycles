@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "checks": [
+    "tag 0000000000000000 -> generator 0x00, LEDs 0x99",
+    "tag 4d434734019530cc -> generator 0x95, LEDs 0x95",
+    "tag 4d43473401950000 -> generator 0x00, LEDs 0x99"
+  ],
+  "limitations": "Synthetic owner tree; mc_read_machines run on the packaged payload."
+}

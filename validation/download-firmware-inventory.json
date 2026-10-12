@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/Users/nzimas/Downloads/Digitone_II_OS1.11_dist/Digitone_II_OS1.11.syx",
+    "bytes": 2389280,
+    "header": "f000203c15007f0110000172",
+    "sha256": "2af43e65e3d8390b41c9f66222620f8cce027d73ed87db00c80b440f628472e0"
+  },
+  {
+    "path": "/Users/nzimas/Downloads/Digitone_II_OS1.12_dist/Digitone_II_OS1.12_DigiRust_rc16.syx",
+    "bytes": 2483360,
+    "header": "f000203c15007f0110000172",
+    "sha256": "37a573441c7855a4dc6342d199c0af04fcbd624aa0e944c389a3f26dae42c5f1"
+  },
+  {
+    "path": "/Users/nzimas/Downloads/Digitone_II_OS1.12_dist/Digitone_II_OS1.12.syx",
+    "bytes": 2390304,
+    "header": "f000203c15007f0110000172",
+    "sha256": "7e5b8a733d4ab1fdf7e5d22757f7d8eddaa3cbf71d0858874a791844c02ceb35"
+  },
+  {
+    "path": "/Users/nzimas/Downloads/model-cycles_OS1.13/model-cycles_OS1.13.syx",
+    "bytes": 890016,
+    "header": "f000203c11007f010c000172",
+    "sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c"
+  }
+]

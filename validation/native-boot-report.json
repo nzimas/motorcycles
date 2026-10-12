@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "package_sha256": "977179e2f65390be9c82acdc51de60ef8f814c9027acb302dd2bcbf11127af82",
+  "checks": [
+    "exact patched clear entry preserves payload reservation and clears original remaining region",
+    "clear loop restores stock callee saved registers and stack",
+    "native startup initializes persistent BSS without altering text",
+    "patched boot hook initializes and replays stock continuation with preserved stack",
+    "stock cache initializer links only unreserved blocks"
+  ],
+  "cache_nodes": 11,
+  "limitations": "Exact MAIN code; no full RTOS/peripheral boot or ISR timing."
+}

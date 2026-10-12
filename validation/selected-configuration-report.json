@@ -1,0 +1,167 @@
+{
+  "result": "PASS",
+  "baseline": {
+    "syx_sha256": "1f4234d391b5ac831392a83fc43b9118bd4412fd6033ea85e781f527703b100b",
+    "syx_bytes": 1012640,
+    "transport": {
+      "product": 17,
+      "name": "Model:Cycles",
+      "start_seq": 242,
+      "count": 7911
+    },
+    "vendor_version": "00381.13",
+    "sections": [
+      {
+        "index": 0,
+        "id": 5,
+        "off": 112,
+        "size": 15,
+        "attr": 0,
+        "stored_sha256": "a6bd80a4233e69fdd5cfad115d3023f5badd97682d183eb96d0f493815e9d768",
+        "plain_sha256": null,
+        "plain_bytes": null
+      },
+      {
+        "index": 1,
+        "id": 2,
+        "off": 128,
+        "size": 15536,
+        "attr": 67108864,
+        "stored_sha256": "16a99b5d1a686a4a458c774aa670b08bfdcc04517600c2b6585d642fa9c065f3",
+        "plain_sha256": "bb9b81fdbd591813561ff5b172d304a59a7b5573b827fbbf9bcd1d9fa4c38152",
+        "plain_bytes": 26602
+      },
+      {
+        "index": 2,
+        "id": 3,
+        "off": 15664,
+        "size": 751489,
+        "attr": 1073742848,
+        "stored_sha256": "9c1ad54a5cc3ea4e87c615efb1b5f58796f23dc78ded7e217c6ccd963bea6675",
+        "plain_sha256": "b2c4ed68d8756525dc65ec55155d0a67368938a6628245e0dc3ca38bab93a0fb",
+        "plain_bytes": 1847744
+      },
+      {
+        "index": 3,
+        "id": 4,
+        "off": 767168,
+        "size": 31752,
+        "attr": 2147484672,
+        "stored_sha256": "8215fd1050970a0d7c1c792fb911832374ca0a551f3ce9e523cb8e64a8810f0e",
+        "plain_sha256": null,
+        "plain_bytes": null
+      }
+    ]
+  },
+  "configuration": {
+    "configuration_source": "User chose to drop Model-TG entirely (2026-10-12); keep MACRO (standalone), 6-channel USB, Easier trig removal, startup animation, and the standalone Trig preview, Latching mute and Scroll long names that Model-TG had bundled.",
+    "screenshot_path": "/Users/nzimas/Downloads/Model-Cycles-Flasher-10-10-2026_07_39_PM.png",
+    "screenshot_sha256": "570635e1ee93871a025bd792fc78aa5bbc25d5c7d201b224d96f883062cb62c1",
+    "selected_features": [
+      "MACRO machine (standalone, machine 6)",
+      "Trig preview",
+      "Easier trig removal",
+      "Latching mute mode",
+      "Scroll long names",
+      "modded-cycles startup animation",
+      "6-channel USB audio"
+    ],
+    "unselected_features": [
+      "Model-TG (Sampler, ScaleLock, slice editor, Retrig page)",
+      "Sample preview (requires Model-TG)",
+      "Real Syntakt engines",
+      "Arpeggiator",
+      "Tempo up to 546 BPM"
+    ],
+    "upstream_tweak_ids": [
+      "6ch-usbup",
+      "latching-mute",
+      "trig-preview",
+      "browser-scroll",
+      "trig-hold",
+      "boot-anim",
+      "macro"
+    ],
+    "resolution_notes": [
+      "Standalone latching-mute, trig-preview and browser-scroll replace the copies Model-TG bundled.",
+      "Standalone macro (25-macro.json) replaces macro-tg; MACRO is machine 6.",
+      "check_overlaps.py: no shared writes between these seven tweaks."
+    ],
+    "upstream_commit": "d520df4e3ba1dcd6724548c6ff5705b5bd8ac178",
+    "model_tg_commit": "70b39dd6787770ebefc7a2d78dea1678ec012679",
+    "installed_revision_verified": false,
+    "baseline_package_path": "build/selected-notg-baseline.local.syx",
+    "baseline_package_sha256": "1f4234d391b5ac831392a83fc43b9118bd4412fd6033ea85e781f527703b100b",
+    "baseline_main_sha256": "b2c4ed68d8756525dc65ec55155d0a67368938a6628245e0dc3ca38bab93a0fb",
+    "baseline_contains_generative_features": false,
+    "hardware_transfer_performed": false
+  },
+  "checks": [
+    "selected configuration baseline exact hash",
+    "selected MAIN exact hash",
+    "protected stored sections match official",
+    "transport/content/HMAC integrity",
+    "only enumerated baseline overwrites",
+    "all other selected-mod bytes identical",
+    "protected sections identical",
+    "vendor version preserved"
+  ],
+  "hardware_writes": false,
+  "candidate": {
+    "syx_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+    "syx_bytes": 1060896,
+    "transport": {
+      "product": 17,
+      "name": "Model:Cycles",
+      "start_seq": 242,
+      "count": 8288
+    },
+    "vendor_version": "00381.13",
+    "sections": [
+      {
+        "index": 0,
+        "id": 5,
+        "off": 112,
+        "size": 15,
+        "attr": 0,
+        "stored_sha256": "a6bd80a4233e69fdd5cfad115d3023f5badd97682d183eb96d0f493815e9d768",
+        "plain_sha256": null,
+        "plain_bytes": null
+      },
+      {
+        "index": 1,
+        "id": 2,
+        "off": 128,
+        "size": 15536,
+        "attr": 67108864,
+        "stored_sha256": "16a99b5d1a686a4a458c774aa670b08bfdcc04517600c2b6585d642fa9c065f3",
+        "plain_sha256": "bb9b81fdbd591813561ff5b172d304a59a7b5573b827fbbf9bcd1d9fa4c38152",
+        "plain_bytes": 26602
+      },
+      {
+        "index": 2,
+        "id": 3,
+        "off": 15664,
+        "size": 789575,
+        "attr": 1073742848,
+        "stored_sha256": "bfc1a39492efd2bca26aeed24c5d79ef3753e83d481edbd954b999022efe061c",
+        "plain_sha256": "41f272117356f03616c3c4731d06c9b15c9a4b9896c50ce6b9123b55f91e1d08",
+        "plain_bytes": 1895372
+      },
+      {
+        "index": 3,
+        "id": 4,
+        "off": 805248,
+        "size": 31752,
+        "attr": 2147484672,
+        "stored_sha256": "8215fd1050970a0d7c1c792fb911832374ca0a551f3ce9e523cb8e64a8810f0e",
+        "plain_sha256": null,
+        "plain_bytes": null
+      }
+    ]
+  },
+  "append_bytes": 47628,
+  "preserved_baseline_bytes": 1847528,
+  "declared_overwrite_bytes": 216,
+  "limitations": "Selected upstream configuration identity is explicit; installed binary revision is unverified. Byte preservation cannot prove ISR deadlines or peripheral boot behavior."
+}
