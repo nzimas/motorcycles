@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="760"></p>
+
 # Motor:Cycles
 
 **Generative rhythmic-noise firmware for the Elektron Model:Cycles.**

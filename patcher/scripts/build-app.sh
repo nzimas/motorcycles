@@ -10,7 +10,7 @@ swift build -c release --arch arm64 --arch x86_64 --product MotorCycles
 cp "$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)/MotorCycles" "$APP/Contents/MacOS/MotorCycles"
 cp Resources/motorcycles.mcpatch "$APP/Contents/Resources/"
 # Icon
-TMP=$(mktemp -d); swift scripts/make-icon.swift "$TMP/icon.png"
+TMP=$(mktemp -d); swift scripts/render-svg.swift ../docs/logo/motorcycles-appicon.svg "$TMP/icon.png" 1
 mkdir "$TMP/AppIcon.iconset"
 for s in 16 32 128 256 512; do
   sips -z $s $s "$TMP/icon.png" --out "$TMP/AppIcon.iconset/icon_${s}x${s}.png" >/dev/null
