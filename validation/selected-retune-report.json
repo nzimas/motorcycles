@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
   "checks": [
     "24 packaged retunes match independent reference notes (default, explicit, inherited, slot-10 pitch-locked steps; lock-only trigs untouched)",
     "only note bytes and the 8-byte scale tag change; chained second retune from stored setting",

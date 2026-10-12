@@ -11,6 +11,9 @@ void mc_ca_knob(uint32_t);
 void mc_ca_tick(uint32_t);
 void mc_ca_exit(void);
 extern volatile uint8_t mc_ca_on;
+void mc_brk_press(uint32_t);
+void mc_break_end(void);
+static uint8_t break_down;
 static uint32_t clock_raw,clock_ms,clock_fraction;
 static unsigned initialized,busy;
 static void *pattern_seen;
@@ -188,6 +191,12 @@ int mc_key(void *controller,const uint8_t *event) {
     unsigned code=word(event+12),flags=word(event+16);
     /* FUNC + TRK: latched Control All on/off (firmware/ctrlall.c). */
     if(initialized&&mc_ca_key(code,flags,mc_now()))return 1;
+    /* PAGE held during playback: live break (firmware/brk.c), outside generator mode. */
+    if(code==15&&initialized&&mc_native.ui.state==MC_INACTIVE) {
+        unsigned playing=((unsigned (*)(void))0x4005481au)()!=0;
+        if((flags&1)&&!(flags&8)&&playing&&!break_down){break_down=1;mc_brk_press(mc_now());return 1;}
+        if(break_down){if(flags&16){break_down=0;mc_break_end();}return 1;}
+    }
     if(code==15) {
         if(flags&16)return input(MC_PAGE,0,0);
         if(flags&1)return input(MC_PAGE,0,1);

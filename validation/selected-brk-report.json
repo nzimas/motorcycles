@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
+  "checks": [
+    "builder entry and exit patched to the break hooks",
+    "stopped: PAGE keeps its ordinary path, no break",
+    "entry hook: sequencer steps remapped inside the track, preview/precompute untouched, frame and registers as stock",
+    "exit hook: lock buffer stored, message returned; break locks and ratchets only on the sequencer path",
+    "PAGE during playback: press starts a fresh break, repeats held, release ends it and the pattern plays as written"
+  ],
+  "limitations": "Hooks run on the packaged code with synthetic frames and patterns; the stock sequencer interrupt, dispatcher and audio are not executed together; timing/latency (up to one step) not measured."
+}

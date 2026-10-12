@@ -2,7 +2,7 @@ CC ?= cc
 BUILD = build/host
 CFLAGS = -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined -g
 .PHONY: check
-check: $(BUILD)/interface $(BUILD)/fuzz $(BUILD)/generation $(BUILD)/controller $(BUILD)/controller-independent $(BUILD)/rhythmic-roles $(BUILD)/patch-audition $(BUILD)/macro-reachability $(BUILD)/kick-body $(BUILD)/kick-controls $(BUILD)/music-independent $(BUILD)/music-storage-independent $(BUILD)/generation-music-context $(BUILD)/scale-ui-independent $(BUILD)/sequence-locks $(BUILD)/rhythmic-kick $(BUILD)/rhythmic-pan $(BUILD)/rhythmic-recognizable $(BUILD)/rhythmic-texture $(BUILD)/no-zaps $(BUILD)/drive $(BUILD)/djfilter $(BUILD)/lyra
+check: $(BUILD)/interface $(BUILD)/fuzz $(BUILD)/generation $(BUILD)/controller $(BUILD)/controller-independent $(BUILD)/rhythmic-roles $(BUILD)/patch-audition $(BUILD)/macro-reachability $(BUILD)/kick-body $(BUILD)/kick-controls $(BUILD)/music-independent $(BUILD)/music-storage-independent $(BUILD)/generation-music-context $(BUILD)/scale-ui-independent $(BUILD)/sequence-locks $(BUILD)/rhythmic-kick $(BUILD)/rhythmic-pan $(BUILD)/rhythmic-recognizable $(BUILD)/rhythmic-texture $(BUILD)/no-zaps $(BUILD)/drive $(BUILD)/djfilter $(BUILD)/lyra $(BUILD)/brk
 	$(BUILD)/interface
 	$(BUILD)/fuzz
 	$(BUILD)/generation
@@ -26,6 +26,7 @@ check: $(BUILD)/interface $(BUILD)/fuzz $(BUILD)/generation $(BUILD)/controller 
 	$(BUILD)/drive
 	$(BUILD)/djfilter
 	$(BUILD)/lyra
+	$(BUILD)/brk
 $(BUILD):
 	mkdir -p $@
 $(BUILD)/interface: interface/interface.c interface/interface.h validation/test_interface.c | $(BUILD)
@@ -89,3 +90,6 @@ $(BUILD)/djfilter: firmware/djfilter.c firmware/djfilter.h validation/test_djfil
 
 $(BUILD)/lyra: firmware/lyra.c firmware/lyra.h firmware/lyra_tables.h validation/test_lyra.c | $(BUILD)
 	$(CC) $(CFLAGS) firmware/lyra.c validation/test_lyra.c -lm -o $@
+
+$(BUILD)/brk: firmware/brk.c firmware/brk.h validation/test_brk.c | $(BUILD)
+	$(CC) $(CFLAGS) firmware/brk.c validation/test_brk.c -o $@

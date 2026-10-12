@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
   "checks": [
     "image: engine entry 5, name Lyra, descriptors (names, defaults, SHAPE 0..127), SHAPE UI as TONE, no CHORD conversion",
     "packaged lyra_update/lyra_render match the host reference block for block, then envelope, VCA, PUNCH; trig sets the TONE amp chain",

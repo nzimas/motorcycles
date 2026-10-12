@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include "drive.h"
 #include "djfilter.h"
+#include "brk.h"
 #include "../adapter/firmware.h"
 
 #define DRIVE_AT 76
@@ -123,6 +124,9 @@ void mc_drive_audio(int32_t *blocks) {
         for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)params[t][i]=src?src[i]:0;
         cost[t]=stage_cost(params[t]);total+=cost[t]+(params[t][FILTER_BYTE]?FILTER_COST:0u);
     }
+    /* Live break: per-track filter sweeps and distortion pushes (not stored). */
+    mc_break_audio(params);
+    total=0;for(unsigned t=0;t<6;t++){cost[t]=stage_cost(params[t]);total+=cost[t]+(params[t][FILTER_BYTE]?FILTER_COST:0u);}
     while(total>DRIVE_BUDGET) {
         unsigned worst=0;
         if(!cost[0]&&!cost[1]&&!cost[2]&&!cost[3]&&!cost[4]&&!cost[5])break;   /* filters alone */

@@ -4,7 +4,7 @@
     "macro_start": "0x43000000",
     "macro_end": "0x4304f2f0",
     "native_start": "0x43060000",
-    "native_memory_end": "0x4307d8e0",
+    "native_memory_end": "0x4307ee70",
     "stack_top": "0x48000000",
     "reason": "No stock code addresses memory between the BSS end and the stack (Modded-Cycles notes/17); MACRO runs at 0x43000000 on hardware."
   },
@@ -41,6 +41,6 @@
     "MACRO generator3 path2 preserves sounds (Pattern: volume 127 only)",
     "MACRO generator3 path3 preserves sounds (Pattern: volume 127 only)"
   ],
-  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
   "limitations": "Exact selected packaged MAIN/native payload and actual MACRO bootstrap copy. Synthetic owner tree, stock descriptor rows, transport/heap and track/global notification spies. No audio render, full boot or ISR deadline proof."
 }

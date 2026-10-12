@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "b7707a944932677d170ff122fa3e44a4507ee163f59c2bdc9451f293718345bc",
+  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
   "checks": [
     "DJ filter applied after the gated distortion on every track, also with the distortion off",
     "audio uses the UI owner records (mirrored by the UI clock), not stale kit bytes; a sound lock uses its own sound",
@@ -14,15 +14,15 @@
     "FUNC+SWEEP sets the selected track amount, clamps 0..127, changes nothing else, notifies after 300 ms; plain SWEEP untouched"
   ],
   "emulated_instructions": {
-    "bypass_all_block": 922,
-    "six_plain_first_block": 10112,
-    "six_plain_steady_block": 5614,
-    "mixed_kit_first_block": 11124,
-    "mixed_kit_steady_block": 6948,
-    "steady_per_sample_track_plain": 24.4,
-    "steady_per_sample_track_mixed_kit": 37.7,
-    "guarded_all_on_steady_block": 9399,
-    "gate_closed_block": 1030
+    "bypass_all_block": 1070,
+    "six_plain_first_block": 10314,
+    "six_plain_steady_block": 5816,
+    "mixed_kit_first_block": 11309,
+    "mixed_kit_steady_block": 7133,
+    "steady_per_sample_track_plain": 24.7,
+    "steady_per_sample_track_mixed_kit": 37.9,
+    "guarded_all_on_steady_block": 9562,
+    "gate_closed_block": 1183
   },
   "limitations": "Synthetic kit/params/SRAM blocks; overlay drawing not rendered (popup machinery absent in the rig); instruction counts, not cycles."
 }

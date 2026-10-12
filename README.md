@@ -88,6 +88,33 @@ the selected track and the current pattern:
 - **Every generation is new.** Each hold draws a fresh seed, mixed with the
   timing of your playing.
 
+### Live breaks
+
+While a pattern plays, **hold PAGE** to throw the whole pattern into a
+breakcore-style variation, on every track that has content. Release PAGE and
+the pattern carries on exactly as written. Every press draws a different
+variation, so when and how often to break is up to you.
+
+**Rhythm:** each press picks one of these.
+- Beat-repeat stutters from the playhead (1, 2, 4 or 8 steps).
+- Half-time drag or double-time rush.
+- Reversed bars.
+- Amen-style chops: the bar is cut into slices and reshuffled.
+- Snare and hat rolls that accelerate the longer you hold.
+
+**Movement:** each press layers one or more of these on top.
+- Ping-pong or scattered panning. The kick stays centred on every beat.
+- Timbre drift around each sound.
+- Resonant filter sweeps on everything but the kick.
+- Distortion pushed harder.
+- Octave jumps, which always stay in key. The kick never moves.
+- Extra ratchets.
+
+There are no drops: no track is ever silenced, and the kick keeps driving.
+Nothing is written to the pattern, so a break can never be saved by
+accident. While a pattern plays, PAGE is the break key; generator mode and the
+scale menu (PAGE + pads) are available when stopped.
+
 ### Per-track distortion
 
 - **Stage.** Each track has its own distortion after the stock VOLUME+DIST
@@ -200,6 +227,7 @@ Technical notes:
 - [firmware/DRIVE.md](firmware/DRIVE.md): distortion, gate and filter
 - [firmware/CTRL-ALL.md](firmware/CTRL-ALL.md): latched Control All
 - [firmware/LYRA.md](firmware/LYRA.md): the LYRA engine
+- [firmware/BREAK.md](firmware/BREAK.md): live breaks
 - [generation/sequence_encoding.md](generation/sequence_encoding.md):
   sequence encoding
 

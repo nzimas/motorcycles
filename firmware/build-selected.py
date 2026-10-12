@@ -11,7 +11,7 @@ from mtlib.syx import unwrap,wrap,BYTES_PER_MSG
 import aplib_grow
 BASE=0x40000400;RUNTIME=0x43060000;RUNTIME_LIMIT=0x430a0000
 # Per-track distortion stage (firmware/drive*.c): audio hook and sound-record wrappers.
-DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c']
+DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c','firmware/brk.c','firmware/brk_hooks.S']
 DRIVE_ENTRIES=[(0x4005afa0,'mc_sound_save2_hook'),(0x4005b054,'mc_sound_save1_hook'),(0x4005aecc,'mc_sound_load_hook')]
 # LYRA replaces CHORD (machine 5, firmware/lyra.c). The MACRO tweak keeps the
 # voice-loop tables, names and descriptors in its boot-copied payload, stored in
@@ -61,6 +61,8 @@ def main():
  assert rd(LYRA_DESCRIPTORS[1][0]+0x0c,4).hex()=='00002500','CHORD SHAPE max mismatch'
  assert rd(0x40046eb4,4).hex()=='48782500' and rd(0x4004fd00,2).hex()=='720b' and rd(0x4004fd04,6).hex()=='203c4010a09c','CHORD SHAPE UI mismatch'
  assert rd(0x4005cc46,2).hex()=='6610','old CHORD conversion mismatch'
+ # Live break: trig builder entry and success exit.
+ assert rd(0x400548ce,6).hex()=='4fefffc47201' and rd(0x40054c0e,6).hex()=='254e0048200a','trig builder mismatch'
  # Control All sites: held-key query register loads, lock applier calls, knob-edit handler entry.
  for addr,old in CTRL_ALL_SITES:assert rd(addr,len(bytes.fromhex(old))).hex()==old,f'Control All site mismatch {addr:08x}'
  # Boot call to the BSS clear: jsr 0x400004b2 then lea 0xfc044000,a0.
@@ -71,7 +73,7 @@ def main():
  hashes={s:sha((ROOT/s).read_bytes()) for s in sources}
  for src in sources:
   target=obj/(src.replace('/','__')+'.o');objects.append(target)
-  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c','firmware/ctrlall.c','firmware/lyra.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage','-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
+  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c','firmware/ctrlall.c','firmware/lyra.c','firmware/brk.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage','-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
  stem=out/'ModelCycles-generative-selected';elf=stem.with_suffix('.elf');payload=stem.with_suffix('.payload.bin')
  run([prefix+'gcc','-mcpu=54415','-nostdlib','-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',elf,payload])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
@@ -103,6 +105,8 @@ def main():
  patch(0x4004fd00,bytes.fromhex('7204'),'lyra_shape_ui')
  patch(0x4004fd04,bytes.fromhex('203c4010a120'),'lyra_shape_ui')
  patch(0x4005cc46,bytes.fromhex('6010'),'lyra_no_chord_conversion')
+ patch(0x400548ce,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_entry_hook']),'break_step')
+ patch(0x40054c0e,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_exit_hook']),'break_message')
  patch(0x4001f55c,b'\x49\xf9'+struct.pack('>I',sym['mc_held']),'control_all_held')
  patch(0x4001aaa8,b'\x45\xf9'+struct.pack('>I',sym['mc_held']),'control_all_held')
  for addr in (0x40058f36,0x40059194):patch(addr,b'\x4e\xb9'+struct.pack('>I',sym['mc_ca_locks']),'control_all_locks')
