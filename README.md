@@ -1,5 +1,14 @@
 <p align="center"><img src="docs/logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="760"></p>
 
+<p align="center">
+  <a href="https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip"><img src="https://img.shields.io/badge/Download-Patcher%20for%20macOS-e5281f?style=for-the-badge&logo=apple&logoColor=white" alt="Download the Motor:Cycles patcher for macOS" height="44"></a>
+</p>
+<p align="center">
+  <b><a href="https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip">Download the patcher for macOS</a></b> ·
+  <a href="https://github.com/nzimas/motorcycles/releases">All releases</a> ·
+  <a href="#installing">How to install</a>
+</p>
+
 # Motor:Cycles
 
 **Generative rhythmic-noise firmware for the Elektron Model:Cycles.**
@@ -146,8 +155,9 @@ You need:
 
 Steps:
 
-1. Download `MotorCycles-…-macOS.zip` from the
-   [Releases](https://github.com/nzimas/motorcycles/releases) page and unzip it.
+1. **[Download the patcher](https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip)**
+   (`MotorCycles-macOS.zip`, also on the [Releases](https://github.com/nzimas/motorcycles/releases)
+   page) and unzip it.
 2. The first time, right-click **MotorCycles.app** and choose **Open**. The
    app is not notarised by Apple.
 3. Drop the official `.syx` into the window, or click **Choose File…**.
