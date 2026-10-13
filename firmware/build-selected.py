@@ -16,6 +16,8 @@ RUNTIME_LIMIT=0x4307d8e0
 # The image (packed payload + trampoline after the OS) must not end past RC17's
 # 0x401CEFCC either: RC18 and diagnostic D/E grew it and hung at boot.
 IMAGE_LIMIT=0x401cefcc
+CAVE,CAVE_SIZE=0x400aae88,0x400ab3b0-0x400aae88
+STOCK_CAVE_HEAD="4fefffe448d71c3c"   # CHORD update prologue at 0x400AAE88
 # Per-track distortion stage (firmware/drive*.c): audio hook and sound-record wrappers.
 DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c','firmware/brk.c','firmware/brk_hooks.S']
 DRIVE_ENTRIES=[(0x4005afa0,'mc_sound_save2_hook'),(0x4005b054,'mc_sound_save1_hook'),(0x4005aecc,'mc_sound_load_hook')]
@@ -59,6 +61,7 @@ def main():
  assert 0x43000000<macro_end<=RUNTIME,'MACRO runtime overlaps native'
  # Distortion stage sites: the stock Volume+Dist call and the sound save/load entries.
  assert rd(0x40059852,6)==bytes.fromhex('4eb940056f58'),'Volume+Dist call mismatch'
+ assert rd(0x40059872,6)==bytes.fromhex('4eb9400567ba'),'output stage call mismatch'
  for addr,_ in DRIVE_ENTRIES:assert rd(addr,8)==bytes.fromhex('4feffff448d71c00'),f'sound record entry mismatch {addr:08x}'
  # LYRA sites.
  assert rd(LYRA_UPDATE,4).hex()=='400aae88' and rd(LYRA_RENDER,4).hex()=='400ab24c','CHORD engine entries mismatch'
@@ -74,6 +77,9 @@ def main():
  # Boot call to the BSS clear: jsr 0x400004b2 then lea 0xfc044000,a0.
  assert rd(0x40000530,10)==bytes.fromhex('4ebaff8041f9fc044000'),'boot clear call mismatch'
  ld=(ROOT/'firmware/native.ld').read_text().replace('0x401ab750',hex(RUNTIME)).replace('0x401c3750',hex(RUNTIME_LIMIT))
+ # The cave: dead stock CHORD engine code (update 0x400AAE88, render 0x400AB24C,
+ # nothing else references 0x400AAE88..0x400AB3B0) reused for UI-only code.
+ ld=ld.replace(' /DISCARD/',' .cave 0x%x : { *(.cave .cave.*) }\n ASSERT(SIZEOF(.cave) <= %d, "cave overflow")\n /DISCARD/'%(CAVE,CAVE_SIZE),1)
  linker=out/'native-selected.ld';linker.write_text(ld)
  sources=list(native.SOURCES)+DRIVE_SOURCES;obj=out/'objects';obj.mkdir(exist_ok=True);objects=[]
  hashes={s:sha((ROOT/s).read_bytes()) for s in sources}
@@ -85,7 +91,7 @@ def main():
  keep=set(__import__('re').findall(r"sym\['([A-Za-z_0-9]+)'\]",(ROOT/'firmware/build-selected.py').read_text()))|{h[2] for h in hooks}|{n for _,n in DRIVE_ENTRIES}|{'lyra_name_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'lyra_short_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'mc_led_hook','mc_boot_continue','mc_startup','mc_clock'}
  # ...and the entry points the emulator tests (validation/*.py) call by name.
  keep|={'mc_generate','mc_commit_live','mc_retune_live','mc_binding_resolve','mc_fw_stage_machine','mc_fw_copy_blocks','mc_fw_equal_blocks','mc_music_read','mc_music_write','mc_read_machines','mc_native_init','mc_now','mc_led_mode','mc_ca_tick','mc_native','mc_brk','mc_ca_on','mc_music_context_stamp'}
- run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',elf,payload])
+ run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary','-R','.cave',elf,payload]);cave_bin=out/'cave.bin';run([prefix+'objcopy','-O','binary','-j','.cave',elf,cave_bin])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
  sym={l.split()[2]:int(l.split()[0],16) for l in symbols.splitlines() if len(l.split())==3};blob=payload.read_bytes();assert sym['mc_payload_start']==RUNTIME and sym['mc_payload_end']<=RUNTIME_LIMIT
  # The packed copy sits after the image and is inside the BSS the boot clears,
@@ -101,7 +107,14 @@ def main():
  for addr,span,name in hooks:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71'*((span-6)//2),'entry_jump')
  for addr in native.LED_SLOTS:patch(addr,struct.pack('>I',sym['mc_led_hook']),'chained_led')
  patch(0x40000530,b'\x4e\xb9'+struct.pack('>I',trampoline),'boot_copy_trampoline')
+ cave=cave_bin.read_bytes() if cave_bin.exists() else b''
+ if cave:
+  assert len(cave)<=CAVE_SIZE and sym.get('drive_render',CAVE)>=CAVE
+  # The cave must still hold the stock CHORD code (update entry starts the range).
+  assert rd(CAVE,8).hex()==STOCK_CAVE_HEAD,'cave no longer holds the CHORD code'
+  patch(CAVE,cave,'cave_code')
  patch(0x40059852,b'\x4e\xb9'+struct.pack('>I',sym['mc_drive_audio_hook']),'drive_audio_call')
+ patch(0x40059872,b'\x4e\xb9'+struct.pack('>I',sym['mc_mix_hook']),'pan_offset_mix_call')
  for addr,name in DRIVE_ENTRIES:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71','sound_record_wrapper')
  patch(LYRA_UPDATE,struct.pack('>I',sym['lyra_update']),'lyra_engine')
  patch(LYRA_RENDER,struct.pack('>I',sym['lyra_render']),'lyra_engine')

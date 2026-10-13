@@ -43,6 +43,7 @@ class Rig(LiveRig):
   s.u.hook_add(UC_HOOK_CODE,s.stub(apply),begin=0x400583da,end=0x400583da)
  def on(s):return s.u.mem_read(S['mc_ca_on'],1)[0]
 r=Rig()
+for t in range(6):r.u.mem_write(SOUND+100*t+84,b'\0')   # no pan offset (stock loads zero +28..+91)
 # 1. toggle
 assert r.key(2,1)==0 and r.on()==0;assert r.key(2,16)==0;checks.append('TRK alone goes to the stock path')
 sounds0=bytes(r.u.mem_read(SOUND,600))
@@ -100,6 +101,12 @@ checks.append('FUNC + SWEEP and FUNC + PITCH move all six tracks by the same amo
 r.leds.clear();r.call('mc_ca_tick',0);assert (31,2) in r.leds
 r.key(2,1);r.held[1]=0;r.key(2,16);r.leds.clear();r.call('mc_ca_tick',0);assert (31,1) in r.leds and r.on()==0
 checks.append('TRK LED requested lit while on, unlit after')
+# 8. The track pan offset is applied at the mixer, never to the step locks.
+r.u.mem_write(SOUND+100*2+84,bytes(((-20)&255,)));r.call('mc_drive_sync')
+assert r.u.mem_read(S['mc_pan_trim']+2,1)[0]==(-20)&255
+got,_=locks(2,[(22,100<<8)]);assert got=={22:100<<8},got
+got,_=locks(2,[(11,5<<8)]);assert got=={11:5<<8},got
+checks.append('pan offset leaves the step locks alone (it is applied at the mixer)')
 report={'result':'PASS','package_sha256':candidate_meta['syx_sha256'],'checks':checks,
  'limitations':'Synthetic owner tree, kit and lock buffers; stock encoder handlers, popup drawing and the LED controller are stubbed or absent; no audio rendered.'}
 (D/'selected-ctrlall-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'result':'PASS','checks':len(checks)},indent=2))

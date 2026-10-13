@@ -14,6 +14,23 @@
 .text
 .align 2
 .globl mc_drive_audio_hook
+/* The stock output stage 0x400567BA(out, params) is called once, at
+ * 0x40059872. mc_mix_hook adds the track pan offsets to the smoothed
+ * parameter set, runs it, and restores the set (firmware/drive_ui.c). */
+.globl mc_mix_hook
+mc_mix_hook:
+    move.l  8(%sp),-(%sp)           | params
+    jsr     mc_pan_apply
+    addq.l  #4,%sp
+    move.l  8(%sp),-(%sp)           | params
+    move.l  8(%sp),-(%sp)           | out
+    jsr     0x400567ba
+    addq.l  #8,%sp
+    move.l  8(%sp),-(%sp)           | params
+    jsr     mc_pan_restore
+    addq.l  #4,%sp
+    rts
+
 mc_drive_audio_hook:
     move.l  8(%sp),-(%sp)           | params
     move.l  8(%sp),-(%sp)           | track blocks (0x80001858)

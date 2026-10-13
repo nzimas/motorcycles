@@ -12,7 +12,7 @@
 import ctypes,json,os,pathlib,random,struct,subprocess,tempfile
 from unicorn import Uc,UC_ARCH_M68K,UC_MODE_BIG_ENDIAN,UC_HOOK_CODE
 from unicorn import m68k_const as m
-from test_native_live import LiveRig,SOUND,ROOT,candidate_meta
+from test_native_live import LiveRig,SOUND,ROOT,candidate_meta,SYMBOLS as S
 assert os.environ.get('MC_CANDIDATE'),'packaged candidate required'
 D=pathlib.Path(__file__).resolve().parent;PROJECT=D.parent
 checks=[];rng=random.Random(12)
@@ -152,7 +152,7 @@ for case in range(12):
  r=LiveRig()
  runtime=bytearray(100);runtime[4:20]=b'DRIVE TEST\0\0\0\0\0\0'
  for k in range(23):runtime[20+2*k]=rng.randrange(0,128)
- runtime[38]=rng.randrange(0,7);runtime[40]=rng.randrange(40,89)
+ runtime[38]=rng.randrange(0,7);runtime[40]=rng.randrange(40,89);runtime[84]=rng.randrange(-63,64)&255   # pan offset
  record=bytes([rng.randrange(1,128),rng.randrange(0,128),rng.randrange(0,128),rng.randrange(0,128),rng.randrange(0,128),rng.randrange(0,128),0,0])
  runtime[76:84]=record
  for addr in (0x4005afa0,0x4005b054):
@@ -162,16 +162,23 @@ for case in range(12):
   s_rec=bytes(stock.mem_read(STO,100));p_rec=bytes(r.u.mem_read(STO,100))
   if addr==0x4005afa0:v2_rec=s_rec
   total=sum(record)&255
-  assert p_rec[76:84]==record and p_rec[88:92]==bytes((0x44,0x31,total,total^0xa5)),(case,hex(addr))
-  assert p_rec[:76]+p_rec[84:88]+p_rec[92:]==s_rec[:76]+s_rec[84:88]+s_rec[92:],(case,hex(addr))
+  # 'D2' (RC19 on): +76..+83 and the pan offset at +84 (0 here), signed together.
+  total=(sum(record)+runtime[84])&255
+  assert p_rec[76:84]==record and p_rec[84]==runtime[84] and p_rec[88:92]==bytes((0x44,0x32,total,total^0xa5)),(case,hex(addr))
+  assert p_rec[:76]+p_rec[85:88]+p_rec[92:]==s_rec[:76]+s_rec[85:88]+s_rec[92:],(case,hex(addr))
   for u in (stock,r.u):u.mem_write(STO,p_rec);u.mem_write(RUN2,b'\xa5'*100)
   rs=scall(stock,0x4005aecc,RUN2,STO);rp=scall(r.u,0x4005aecc,RUN2,STO)
   s_run=bytes(stock.mem_read(RUN2,100));p_run=bytes(r.u.mem_read(RUN2,100))
   # The stock loader accepts version-2 records only; v1 is refused by both.
   assert (rs&255)==(rp&255)==(1 if addr==0x4005afa0 else 0),(case,hex(addr),rs,rp)
-  if rs&255:assert p_run[76:84]==record and p_run[:76]+p_run[84:]==s_run[:76]+s_run[84:],(case,hex(addr))
+  if rs&255:assert p_run[76:85]==record+bytes((runtime[84],)) and p_run[:76]+p_run[85:]==s_run[:76]+s_run[85:],(case,hex(addr))
   else:assert p_run==s_run,(case,hex(addr))
-checks.append('wrapped v1/v2 savers and loader round-trip +76..+83 with a signature at +88..+91; every other byte equals the stock routines')
+checks.append('wrapped v1/v2 savers and loader round-trip +76..+84 with a D2 signature at +88..+91; every other byte equals the stock routines')
+# An RC10..RC18 record ('D1', +76..+83 only) still restores its settings, pan offset 0.
+r=LiveRig();d1=bytearray(v2_rec);rec=bytes(range(10,18));d1[76:84]=rec;d1[84]=0x33;t=sum(rec)&255;d1[88:92]=bytes((0x44,0x31,t,t^0xa5))
+r.u.mem_write(STO,bytes(d1));r.u.mem_write(RUN2,bytes(100));assert scall(r.u,0x4005aecc,RUN2,STO)&255==1
+got=bytes(r.u.mem_read(RUN2+76,9));assert got==rec+bytes(1),got.hex()
+checks.append('RC10..RC18 D1 records still load their settings, with no pan offset')
 # Model-TG-era record (RC1..RC9): its own data at +76..+87, no signature -> stage off.
 for case in range(6):
  r=LiveRig();tg=bytearray(v2_rec);tg[76:88]=bytes(rng.randrange(1,256) for _ in range(12));tg[88:92]=bytes(4)
@@ -206,7 +213,62 @@ for track in (1,4):
  assert r.enc(2,-63)==1;assert r.u.mem_read(addr+82,1)[0]==0
  after=bytes(r.u.mem_read(SOUND,600));assert after[:100*track+82]+after[100*track+83:]==before[:100*track+82]+before[100*track+83:]
 checks.append('FUNC+PITCH sets the selected track DJ filter (signed, clamped -63..63), changes nothing else')
-func[0]=0;r.selected=2;assert r.enc(6,5)==0,'SWEEP without FUNC goes to the stock path';assert r.enc(2,5)==0,'PITCH without FUNC goes to the stock path'
+# FUNC + VOLUME+DIST (encoder 11): track pan offset, signed byte +84, clamped -63..63.
+func[0]=1
+for track in (0,5):
+ r.selected=track;addr=SOUND+100*track;r.u.mem_write(addr+84,b'\0');before=bytes(r.u.mem_read(SOUND,600))
+ assert r.enc(11,-12)==1;assert r.u.mem_read(addr+84,1)[0]==(256-12)
+ assert r.enc(11,-200)==1;assert r.u.mem_read(addr+84,1)[0]==(256-63)
+ assert r.enc(11,300)==1;assert r.u.mem_read(addr+84,1)[0]==63
+ assert r.u.mem_read(S['mc_pan_trim']+track,1)[0]==63,'audio mirror updated at once'
+ after=bytes(r.u.mem_read(SOUND,600));assert after[:100*track+84]+after[100*track+85:]==before[:100*track+84]+before[100*track+85:]
+ assert r.u.mem_read(S['overlay_kind'],1)[0]==ord('P')
+checks.append('FUNC+VOLUME+DIST sets the selected track pan offset (signed, clamped -63..63), mirrors it for the audio at once, shows the P overlay, changes nothing else')
+func[0]=0;r.selected=2;assert r.enc(6,5)==0,'SWEEP without FUNC goes to the stock path';assert r.enc(2,5)==0,'PITCH without FUNC goes to the stock path';assert r.enc(11,5)==0,'VOLUME+DIST without FUNC goes to the stock path';func[0]=1;assert r.enc(1,5)==0,'FUNC + LEVEL keeps its stock function';func[0]=0
+
+# Pan offset at the mixer: 0x40059872 calls mc_mix_hook, which shifts each
+# track's smoothed pan (params +58 + 66 t) for the stock output stage and
+# restores it after, so nothing accumulates block to block.
+IMG0=pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.main.bin').read_bytes()
+assert IMG0[0x40059872-0x40000400:0x40059872-0x40000400+6]==b'\x4e\xb9'+struct.pack('>I',S['mc_mix_hook'])
+r=LiveRig();seen=[]
+PRM=0x41640000
+def mix(a):
+ seen.append([struct.unpack('>h',bytes(r.u.mem_read(PRM+58+66*t,2)))[0] for t in range(6)]);return 0
+r.u.hook_add(UC_HOOK_CODE,r.stub(mix),begin=0x400567ba,end=0x400567ba)
+pans=[64,10,120,64,0,127];trims=[0,-20,30,63,-63,5]
+prm=bytearray(14+66*6+8)
+for t in range(6):prm[58+66*t:60+66*t]=struct.pack('>h',pans[t]<<8)
+r.u.mem_write(PRM,bytes(prm))
+for t in range(6):r.u.mem_write(S['mc_pan_trim']+t,bytes((trims[t]&255,)))
+for block in range(50):r.call('mc_mix_hook',0x4a3ed080,PRM)
+want=[max(0,min(0x7f00,(pans[t]+trims[t])<<8)) for t in range(6)]
+assert all(x==want for x in seen),(seen[0],want)
+assert bytes(r.u.mem_read(PRM,len(prm)))==bytes(prm),'smoothed parameter set restored after the output stage'
+checks.append('pan offset: the stock output stage sees every track pan shifted and clamped, the set is restored after, no accumulation over 50 blocks')
+
+# Overlay drawing runs from the cave (dead CHORD code, 0x400AAE88..0x400AB3B0).
+assert 0x400aae88<=S['drive_render']<0x400ab3b0,'drive_render linked into the cave'
+IMG=pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.main.bin').read_bytes()
+manifest=json.loads(pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.manifest.json').read_text())
+cave=[x for x in manifest['patches'] if x['kind']=='cave_code'];assert len(cave)==1 and cave[0]['address']==0x400aae88
+assert IMG[0x400aae88-0x40000400:0x400aae88-0x40000400+len(cave[0]['new_hex'])//2].hex()==cave[0]['new_hex']
+r=LiveRig();draws=[];texts=[]
+r.u.hook_add(UC_HOOK_CODE,r.stub(lambda a:draws.append(tuple(x if x<0x80000000 else x-(1<<32) for x in a[1:4]+(r.u.mem_read(r.u.reg_read(m.UC_M68K_REG_A7)+20,4) and 0,))) or 0),begin=0x40070dea,end=0x40070dea)
+def text(a):
+ sp=r.u.reg_read(m.UC_M68K_REG_A7);ptr=struct.unpack('>I',bytes(r.u.mem_read(sp+28,4)))[0];texts.append(bytes(r.u.mem_read(ptr,8)).split(b'\0')[0].decode());return 0
+r.u.hook_add(UC_HOOK_CODE,r.stub(text),begin=0x40071a04,end=0x40071a04)
+for addr in (0x400720f8,0x40072272,0x40071c10):r.u.hook_add(UC_HOOK_CODE,r.stub(lambda a:0),begin=addr,end=addr)
+def render(kind,value):
+ draws.clear();texts.clear();r.u.mem_write(S['overlay_kind'],bytes((ord(kind),)));r.w32(S['overlay_value'],value&0xffffffff)
+ r.call('drive_render',0,0x41600000);return list(draws),list(texts)
+d,t=render('P',-30);assert t[0]=='LEFT' and any(x[0]==22 for x in d),(t,d[:6])
+d,t=render('P',0);assert t[0]=='CENTRE'
+d,t=render('P',40);assert t[0]=='RIGHT'
+d,t=render('F',-30);assert t[0]=='LP' and not any(x[0]==22 and x[1]==37 for x in d)
+d,t=render('S',90);assert len(d)>=7
+d,t=render('C',0);assert len(d)>20
+checks.append('overlay drawing executes from the cave: P (LEFT/CENTRE/RIGHT with the P bowl), F, S and the CTRL ALL banner')
 checks.append('FUNC+SWEEP sets the selected track amount, clamps 0..127, changes nothing else, notifies after 300 ms; plain SWEEP untouched')
 
 report={'result':'PASS','package_sha256':candidate_meta['syx_sha256'],'checks':checks,'emulated_instructions':cost,

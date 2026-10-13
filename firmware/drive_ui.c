@@ -18,6 +18,8 @@
 #define DRIVE_AT 76
 #define SWEEP_ENCODER 6        /* panel knob 5: Sweep -> distortion amount */
 #define PITCH_ENCODER 2        /* panel knob 1: Pitch -> DJ filter */
+#define VOLUME_ENCODER 11      /* VOLUME+DIST knob (stock knob record: enc 11 = descriptor 25): FUNC + it -> track pan offset */
+#define PAN_AT 84              /* record byte 84: track pan offset (int8 -63..63, 0 centre) */
 #define FILTER_BYTE 6          /* record byte 6: filter position (int8, 0 off) */
 #define RESONANCE_BYTE 7       /* record byte 7: filter resonance (0 default) */
 #define NOTIFY_AFTER_MS 300u
@@ -96,6 +98,34 @@ static void gated_block(int32_t *x,const uint8_t *params,unsigned t) {
 static uint8_t ui_params[6][MC_DRIVE_PARAMS];
 static uint8_t ui_valid;                 /* bit t: ui_params[t] mirrored */
 static int8_t audio_position[6];         /* filter position the audio last used */
+/* Track pan offset (FUNC + VOLUME+DIST), mirrored for the audio interrupt. */
+volatile int8_t mc_pan_trim[6];
+/* The stock output stage 0x400567BA (pan, mixer, sends, master) reads each
+ * track's pan from the per-block smoothed parameter set at +58 + 66 t (word
+ * k22, 8.8). Its one call (0x40059872) goes through mc_mix_hook
+ * (drive_hooks.S): the offset is added just before and the smoothed value put
+ * back just after, since the smoother keeps that word as its state. So the
+ * offset moves whatever sets the pan (sound, knob, locks, live breaks, pads),
+ * at once and continuously. */
+static int16_t pan_saved[6];
+static uint8_t pan_applied;
+void mc_pan_apply(uint8_t *params) {
+    uint8_t applied=0;
+    for(unsigned t=0;t<6;t++) {
+        int trim=mc_pan_trim[t];
+        if(!trim)continue;
+        int16_t *p=(int16_t *)(params+58+66*t);
+        pan_saved[t]=*p;
+        int v=*p+trim*256;
+        *p=(int16_t)(v<0?0:v>0x7f00?0x7f00:v);
+        applied|=(uint8_t)(1u<<t);
+    }
+    pan_applied=applied;
+}
+void mc_pan_restore(uint8_t *params) {
+    for(unsigned t=0;t<6;t++)if(pan_applied&(1u<<t))*(int16_t *)(params+58+66*t)=pan_saved[t];
+    pan_applied=0;
+}
 void mc_drive_sync(void) {
     uint8_t *root=((void *(*)(void))0x400cf866u)();
     uint8_t valid=0;
@@ -106,6 +136,7 @@ void mc_drive_sync(void) {
         for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)copy[i]=sound[DRIVE_AT+i];
         uint16_t sr=mc_irq_save();
         for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)ui_params[t][i]=copy[i];
+        mc_pan_trim[t]=(int8_t)sound[PAN_AT];
         mc_irq_restore(sr);
         valid|=(uint8_t)(1u<<t);
     }
@@ -160,18 +191,20 @@ extern int mc_sound_load_original(uint8_t *,const uint8_t *);
  * would load as random distortion settings. Unsigned records load with the
  * stage off (the stock loader has already zeroed runtime +20..+85). */
 #define SIGNATURE_AT 88
-static uint8_t record_sum(const uint8_t *b) {
-    unsigned sum=0;for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)sum+=b[DRIVE_AT+i];return (uint8_t)sum;
+/* 'D1' (RC10..RC18) covers +76..+83; 'D2' (RC19 on) also the pan offset at +84. */
+static uint8_t record_sum(const uint8_t *b,unsigned n) {
+    unsigned sum=0;for(unsigned i=0;i<n;i++)sum+=b[DRIVE_AT+i];return (uint8_t)sum;
 }
 static void store(uint8_t *storage,const uint8_t *runtime) {
-    for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)storage[DRIVE_AT+i]=runtime[DRIVE_AT+i];
-    uint8_t sum=record_sum(storage);
-    storage[SIGNATURE_AT]='D';storage[SIGNATURE_AT+1]='1';storage[SIGNATURE_AT+2]=sum;storage[SIGNATURE_AT+3]=(uint8_t)(sum^0xa5);
+    for(unsigned i=0;i<=PAN_AT-DRIVE_AT;i++)storage[DRIVE_AT+i]=runtime[DRIVE_AT+i];
+    uint8_t sum=record_sum(storage,PAN_AT-DRIVE_AT+1);
+    storage[SIGNATURE_AT]='D';storage[SIGNATURE_AT+1]='2';storage[SIGNATURE_AT+2]=sum;storage[SIGNATURE_AT+3]=(uint8_t)(sum^0xa5);
 }
 static void restore(uint8_t *runtime,const uint8_t *storage) {
-    uint8_t sum=record_sum(storage);
-    if(storage[SIGNATURE_AT]!='D'||storage[SIGNATURE_AT+1]!='1'||storage[SIGNATURE_AT+2]!=sum||storage[SIGNATURE_AT+3]!=(uint8_t)(sum^0xa5))return;
-    for(unsigned i=0;i<MC_DRIVE_PARAMS;i++)runtime[DRIVE_AT+i]=storage[DRIVE_AT+i];
+    unsigned n=storage[SIGNATURE_AT+1]=='2'?PAN_AT-DRIVE_AT+1:storage[SIGNATURE_AT+1]=='1'?MC_DRIVE_PARAMS:0;
+    uint8_t sum=record_sum(storage,n);
+    if(!n||storage[SIGNATURE_AT]!='D'||storage[SIGNATURE_AT+2]!=sum||storage[SIGNATURE_AT+3]!=(uint8_t)(sum^0xa5))return;
+    for(unsigned i=0;i<n;i++)runtime[DRIVE_AT+i]=storage[DRIVE_AT+i];
 }
 int mc_sound_save2_hook(uint8_t *storage,const uint8_t *runtime) {
     int result=mc_sound_save2_original(storage,runtime);
@@ -192,7 +225,7 @@ int mc_sound_load_hook(uint8_t *runtime,const uint8_t *storage) {
 /* ---- Overlay: a stock Popup with our render, closing ~1 s after the last turn. */
 static void *overlay;
 static int overlay_value;
-static char overlay_kind;   /* 'S' distortion amount, 'F' filter position */
+static char overlay_kind;   /* 'S' distortion amount, 'F' filter position, 'P' pan offset */
 static unsigned overlay_track;
 static uint8_t overlay_all;      /* value applies to all six tracks (Control All) */
 static uint32_t vtable[24];      /* copy of the Popup vtable group 0x40111bc8 */
@@ -210,7 +243,7 @@ static int drive_dtor1(void *self,int flags) {
     if(self==overlay)overlay=0;
     return ((int (*)(void *,int))0x400d8738u)(self,flags);
 }
-static void rect(void *ctx,int x0,int y0,int x1,int y1,int mode) {
+__attribute__((section(".cave"),noinline)) static void rect(void *ctx,int x0,int y0,int x1,int y1,int mode) {
     ((void (*)(void *,int,int,int,int,int))0x40070deau)(ctx,x0,y0,x1,y1,mode);
 }
 /* Screen is 128x64 with y counted from the bottom. */
@@ -222,17 +255,21 @@ static void big_number(void *ctx,unsigned value,int x0) {
         ((void (*)(void *,void *,int,int,int,int,const char *,const char *,unsigned))0x40071c10u)
             (ctx,font,(int)x,27,0,0,(const char *)0x4012772eu,(const char *)0x4012a9eau,digits[i]);
 }
-static void small_text(void *ctx,int x,int y,const char *text) {
+__attribute__((section(".cave"),noinline)) static void small_text(void *ctx,int x,int y,const char *text) {
     ((void (*)(void *,const void *,int,int,int,const char *,const char *))0x40071a04u)
         (ctx,(const void *)0x40ea14ccu,x,y,0x10,(const char *)0x40124b58u,text);
 }
 /* Screen is 128x64 with y counted from the bottom. */
 /* 5x7 capitals for the Control All banner, rows top to bottom. */
-static const uint8_t glyph_c[7]={0x0f,0x10,0x10,0x10,0x10,0x10,0x0f},glyph_t[7]={0x1f,4,4,4,4,4,4},
+/* Overlay drawing lives in the "cave": the dead stock CHORD engine code at
+ * 0x400AAE88..0x400AB3B0 (LYRA replaced it), loaded with the OS image, so it
+ * does not grow the payload past the proven boot-copy limit (see
+ * REPRODUCE-SELECTED.md). UI context only. */
+__attribute__((section(".cave.rodata"))) static const uint8_t glyph_c[7]={0x0f,0x10,0x10,0x10,0x10,0x10,0x0f},glyph_t[7]={0x1f,4,4,4,4,4,4},
     glyph_r[7]={0x1e,0x11,0x11,0x1e,0x14,0x12,0x11},glyph_l[7]={0x10,0x10,0x10,0x10,0x10,0x10,0x1f},
     glyph_a[7]={0x0e,0x11,0x11,0x1f,0x11,0x11,0x11};
 /* One glyph at scale px, bottom-left at (x, y); runs of lit pixels per row. */
-static void big_glyph(void *ctx,const uint8_t rows[7],int x,int y,int px) {
+__attribute__((section(".cave"),noinline)) static void big_glyph(void *ctx,const uint8_t rows[7],int x,int y,int px) {
     for(int r=0;r<7;r++) {
         int yb=y+(6-r)*px;
         for(int c=0;c<5;) {
@@ -243,26 +280,28 @@ static void big_glyph(void *ctx,const uint8_t rows[7],int x,int y,int px) {
         }
     }
 }
-static void ctrl_all_banner(void *ctx) {
+__attribute__((section(".cave"),noinline)) static void ctrl_all_banner(void *ctx) {
     /* "CTRL" over "ALL", 3 px per dot: 15 x 21 glyphs. */
     const uint8_t *top[4]={glyph_c,glyph_t,glyph_r,glyph_l},*bottom[3]={glyph_a,glyph_l,glyph_l};
     for(int i=0;i<4;i++)big_glyph(ctx,top[i],29+i*18,36,3);
     for(int i=0;i<3;i++)big_glyph(ctx,bottom[i],38+i*18,6,3);
 }
-static void drive_render(void *self,void *ctx) {
+__attribute__((section(".cave"),noinline)) static void drive_render(void *self,void *ctx) {
     (void)self;
     rect(ctx,0,0,127,63,0);
     if(overlay_kind=='C'){ctrl_all_banner(ctx);return;}
     if(overlay_all)small_text(ctx,104,18,"ALL");
     rect(ctx,8,6,119,14,1);rect(ctx,9,7,118,13,0);          /* bar outline */
-    if(overlay_kind=='F') {
-        /* A large "F": stem and two arms. */
-        rect(ctx,8,24,11,53,1);rect(ctx,8,50,25,53,1);rect(ctx,8,37,21,40,1);
+    if(overlay_kind=='F'||overlay_kind=='P') {
+        int pan=overlay_kind=='P';
+        /* A large "F" (stem and two arms), or "P" (stem, bowl). */
+        rect(ctx,8,24,11,53,1);rect(ctx,8,50,25,53,1);rect(ctx,8,37,pan?25:21,40,1);
+        if(pan)rect(ctx,22,37,25,53,1);
         int v=overlay_value;unsigned m=(unsigned)(v<0?-v:v);
-        small_text(ctx,40,44,v<0?"LP":v>0?"HP":"OFF");
+        small_text(ctx,40,44,pan?(v<0?"LEFT":v>0?"RIGHT":"CENTRE"):v<0?"LP":v>0?"HP":"OFF");
         if(m)big_number(ctx,m,64);
         /* "ok" once the audio stage is filtering with this very setting. */
-        small_text(ctx,104,44,audio_position[overlay_track%6]==v?"ok":"..");
+        if(!pan)small_text(ctx,104,44,audio_position[overlay_track%6]==v?"ok":"..");
         /* Bipolar bar from the centre: left low-pass, right high-pass. */
         rect(ctx,63,7,64,13,1);
         if(v<0)rect(ctx,63-(int)(m*52u/63u),8,63,12,1);
@@ -314,19 +353,20 @@ static int adjust(unsigned t,unsigned at,int delta,int low,int high,int is_signe
     if(value>high)value=high;
     uint16_t sr=mc_irq_save();
     sound[at]=(uint8_t)value;
-    ui_params[t][at-DRIVE_AT]=(uint8_t)value;
+    if(at==PAN_AT)mc_pan_trim[t]=(int8_t)value;
+    else ui_params[t][at-DRIVE_AT]=(uint8_t)value;
     mc_irq_restore(sr);
     pending_tracks|=(uint8_t)(1u<<t);
     return value;
 }
 int mc_drive_encoder(const uint8_t *event,unsigned track) {
     unsigned encoder=((unsigned)event[12]<<24|(unsigned)event[13]<<16|(unsigned)event[14]<<8|event[15]);
-    if((encoder!=SWEEP_ENCODER&&encoder!=PITCH_ENCODER)||track>=6)return 0;
+    if((encoder!=SWEEP_ENCODER&&encoder!=PITCH_ENCODER&&encoder!=VOLUME_ENCODER)||track>=6)return 0;
     if(!((int (*)(int))0x4007faf4u)(1))return 0;              /* FUNC held */
     if(!((void *(*)(void))0x400cf866u)())return 1;
     int delta=((int (*)(const void *,int,int))0x4006f73au)(event,1,4);
     int sweep=encoder==SWEEP_ENCODER;
-    unsigned at=DRIVE_AT+(sweep?MC_DRIVE_AMOUNT:FILTER_BYTE);
+    unsigned at=encoder==VOLUME_ENCODER?PAN_AT:DRIVE_AT+(sweep?MC_DRIVE_AMOUNT:FILTER_BYTE);
     int low=sweep?0:-63,high=sweep?127:63,shown=-1000;
     /* Control All: every track moves by the same amount from its own value. */
     for(unsigned t=0;t<6;t++) {
@@ -337,7 +377,7 @@ int mc_drive_encoder(const uint8_t *event,unsigned track) {
     if(shown==-1000)return 1;
     pending_since=mc_now();
     overlay_track=track;overlay_all=mc_ca_on;
-    overlay_show(sweep?'S':'F',shown);
+    overlay_show(sweep?'S':encoder==VOLUME_ENCODER?'P':'F',shown);
     return 1;
 }
 /* UI clock: once turning stops, tell the sound owners so the change is stored. */

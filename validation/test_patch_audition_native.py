@@ -3,7 +3,7 @@
 import os,pathlib,json,struct,hashlib
 from unicorn import UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import m68k_const as m
-ROOTDIR=pathlib.Path(__file__).resolve().parents[1];C=ROOTDIR/'build/selected-native/ModelCycles-generative-selected'
+ROOTDIR=pathlib.Path(__file__).resolve().parents[1];C=pathlib.Path(os.environ['MC_CANDIDATE']) if os.environ.get('MC_CANDIDATE') else ROOTDIR/'build/selected-native/ModelCycles-generative-selected'
 os.environ['MC_CANDIDATE']=str(C);os.environ['MC_NATIVE_PAYLOAD']=str(C.with_suffix('.payload.bin'))
 from test_native_live import LiveRig,ROOT,SOUND,PATTERN,PLAN,REQUEST,checks as basechecks
 checks=[]

@@ -49,6 +49,17 @@ compressed container bytes differ.
   `--undefined`), LYRA's computed tables, and the 62 KB commit snapshots
   borrowed from the stock heap (`0x400802e0` / `0x400802ec`) per commit.
 
+## The cave (RC19)
+
+LYRA replaced CHORD, so the stock CHORD update (`0x400AAE88`) and render
+(`0x400AB24C`) are dead. Nothing in the image references `0x400AAE88..0x400AB3B0`
+except the unused stock dispatch tables at `0x40118610` / `0x40118628`, so the
+range is free: 1,320 bytes inside the OS image, loaded by the bootloader with
+the rest of the OS and outside the boot-copy area. Functions and data marked
+`section(".cave")` / `section(".cave.rodata")` link there. The build asserts the
+first bytes are still the CHORD prologue (`4fefffe448d71c3c`) and writes the
+section over it. It holds the UI-only overlay drawing (`firmware/drive_ui.c`).
+
 ## Memory and boot
 
 Standalone MACRO is machine 6. Its stub, at the start of the stock BSS clear

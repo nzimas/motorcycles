@@ -132,6 +132,17 @@ scale menu (PAGE + pads) are available when stopped.
   right for a resonant high-pass, centre for off.
 - **Control.** **FUNC + PITCH** sweeps it; the screen shows a large **F**.
 
+### Per-track pan
+
+- **Control.** **FUNC + VOLUME+DIST knob** pans the selected track. The screen shows
+  a large **P** with LEFT, CENTRE or RIGHT, the amount and a bar from the
+  centre.
+- **An offset for the whole track,** saved with the sound and applied at the
+  mixer, so it moves the sound at once. Pan movement from parameter locks,
+  generated patterns and live breaks keeps going, but shifted left or right
+  by your setting.
+- **In Control All,** it moves all six tracks.
+
 ### Latched Control All
 
 - **On and off.** **FUNC + TRK** turns Control All on. TRK stays lit and the

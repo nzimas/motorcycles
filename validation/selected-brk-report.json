@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "60697c4e2d6f57642c09a27cbe09e1db16cbd8a5615912fcdf1b17749a492c92",
+  "package_sha256": "9c9f0717ce1f687c0759aecc76463bfb5f268608f81aae637b94ff50e79db7ca",
   "checks": [
     "builder entry and exit patched to the break hooks",
     "stopped: PAGE keeps its ordinary path, no break",

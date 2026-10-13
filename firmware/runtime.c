@@ -222,8 +222,8 @@ int mc_encoder(void *controller,const uint8_t *event) {
     unsigned encoder=word(event+12);
     if(initialized)mc_ca_knob(mc_now());
     /* FUNC + SWEEP sets the selected track's distortion amount, in any mode. */
-    /* FUNC + SWEEP: distortion amount; FUNC + PITCH: DJ filter (any mode). */
-    if(initialized&&(encoder==6||encoder==2)&&mc_drive_encoder(event,track()))return 1;
+    /* FUNC + SWEEP: distortion amount; FUNC + PITCH: DJ filter; FUNC + VOLUME+DIST: track pan offset (any mode). */
+    if(initialized&&(encoder==6||encoder==2||encoder==11)&&mc_drive_encoder(event,track()))return 1;
     /* Generator levels are set on the step keys: knobs keep their ordinary functions. */
     return 0;
 }
