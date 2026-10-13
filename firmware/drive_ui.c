@@ -9,6 +9,7 @@
  * restore the settings; everything else (stock records, and Model-TG-era
  * records whose own data sits at +76..+87) loads with the stage off.
  */
+#include "../adapter/cave.h"
 #include <stdint.h>
 #include "drive.h"
 #include "djfilter.h"
@@ -243,7 +244,7 @@ static int drive_dtor1(void *self,int flags) {
     if(self==overlay)overlay=0;
     return ((int (*)(void *,int))0x400d8738u)(self,flags);
 }
-__attribute__((section(".cave"),noinline)) static void rect(void *ctx,int x0,int y0,int x1,int y1,int mode) {
+MC_CAVE_A static void rect(void *ctx,int x0,int y0,int x1,int y1,int mode) {
     ((void (*)(void *,int,int,int,int,int))0x40070deau)(ctx,x0,y0,x1,y1,mode);
 }
 /* Screen is 128x64 with y counted from the bottom. */
@@ -255,21 +256,19 @@ static void big_number(void *ctx,unsigned value,int x0) {
         ((void (*)(void *,void *,int,int,int,int,const char *,const char *,unsigned))0x40071c10u)
             (ctx,font,(int)x,27,0,0,(const char *)0x4012772eu,(const char *)0x4012a9eau,digits[i]);
 }
-__attribute__((section(".cave"),noinline)) static void small_text(void *ctx,int x,int y,const char *text) {
+MC_CAVE_A static void small_text(void *ctx,int x,int y,const char *text) {
     ((void (*)(void *,const void *,int,int,int,const char *,const char *))0x40071a04u)
         (ctx,(const void *)0x40ea14ccu,x,y,0x10,(const char *)0x40124b58u,text);
 }
 /* Screen is 128x64 with y counted from the bottom. */
 /* 5x7 capitals for the Control All banner, rows top to bottom. */
-/* Overlay drawing lives in the "cave": the dead stock CHORD engine code at
- * 0x400AAE88..0x400AB3B0 (LYRA replaced it), loaded with the OS image, so it
- * does not grow the payload past the proven boot-copy limit (see
- * REPRODUCE-SELECTED.md). UI context only. */
-__attribute__((section(".cave.rodata"))) static const uint8_t glyph_c[7]={0x0f,0x10,0x10,0x10,0x10,0x10,0x0f},glyph_t[7]={0x1f,4,4,4,4,4,4},
+/* Overlay drawing lives in cave A (adapter/cave.h): dead stock CHORD code
+ * loaded with the OS image, outside the payload's boot-copy limit. */
+MC_CAVE_A_DATA static const uint8_t glyph_c[7]={0x0f,0x10,0x10,0x10,0x10,0x10,0x0f},glyph_t[7]={0x1f,4,4,4,4,4,4},
     glyph_r[7]={0x1e,0x11,0x11,0x1e,0x14,0x12,0x11},glyph_l[7]={0x10,0x10,0x10,0x10,0x10,0x10,0x1f},
     glyph_a[7]={0x0e,0x11,0x11,0x1f,0x11,0x11,0x11};
 /* One glyph at scale px, bottom-left at (x, y); runs of lit pixels per row. */
-__attribute__((section(".cave"),noinline)) static void big_glyph(void *ctx,const uint8_t rows[7],int x,int y,int px) {
+MC_CAVE_A static void big_glyph(void *ctx,const uint8_t rows[7],int x,int y,int px) {
     for(int r=0;r<7;r++) {
         int yb=y+(6-r)*px;
         for(int c=0;c<5;) {
@@ -280,13 +279,13 @@ __attribute__((section(".cave"),noinline)) static void big_glyph(void *ctx,const
         }
     }
 }
-__attribute__((section(".cave"),noinline)) static void ctrl_all_banner(void *ctx) {
+MC_CAVE_A static void ctrl_all_banner(void *ctx) {
     /* "CTRL" over "ALL", 3 px per dot: 15 x 21 glyphs. */
     const uint8_t *top[4]={glyph_c,glyph_t,glyph_r,glyph_l},*bottom[3]={glyph_a,glyph_l,glyph_l};
     for(int i=0;i<4;i++)big_glyph(ctx,top[i],29+i*18,36,3);
     for(int i=0;i<3;i++)big_glyph(ctx,bottom[i],38+i*18,6,3);
 }
-__attribute__((section(".cave"),noinline)) static void drive_render(void *self,void *ctx) {
+MC_CAVE_A static void drive_render(void *self,void *ctx) {
     (void)self;
     rect(ctx,0,0,127,63,0);
     if(overlay_kind=='C'){ctrl_all_banner(ctx);return;}

@@ -1,3 +1,4 @@
+#include "../adapter/cave.h"
 #include "runtime.h"
 #include "../adapter/firmware.h"
 #include "binding.h"
@@ -217,7 +218,7 @@ int mc_pad(void *controller,const uint8_t *event) {
     if(!pad||pad>6||down>1)return 0;
     return input(MC_PAD,pad-1,(int)down);
 }
-int mc_encoder(void *controller,const uint8_t *event) {
+MC_CAVE_C int mc_encoder(void *controller,const uint8_t *event) {
     (void)controller;
     unsigned encoder=word(event+12);
     if(initialized)mc_ca_knob(mc_now());

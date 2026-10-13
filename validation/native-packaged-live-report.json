@@ -48,7 +48,7 @@
   ],
   "max_observed_stack_bytes": 2048,
   "stock_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
-  "elf_sha256": "7f2b2ae18440159f2b81010dbbdc84f0e18b27e1c0b1c6051a2b619284fe1ab0",
+  "elf_sha256": "e2fddd94c7da8a6fe51b891792f6c8a9e4bbedba6429ec42d9a2d31ebcad37ee",
   "limitations": "Exact package MAIN and linked payload; stock defaults and sound observer with synthetic owner trees, transport, heap and track/global notification spies. Not complete boot or audio ISR.",
   "max_masked_instruction_count_by_generator": {
     "Patch": 912,
@@ -57,5 +57,5 @@
     "Pattern": 30367
   },
   "instruction_timing_limit": "Instruction counts cover IRQ-save entry through restore (conservatively including the save prologue) and stock transport/binding revalidation. They are not hardware cycle measurements or an ISR deadline proof.",
-  "exact_package_sha256": "9c9f0717ce1f687c0759aecc76463bfb5f268608f81aae637b94ff50e79db7ca"
+  "exact_package_sha256": "18db9804e551f7bbf4989f536813df73260d2f58c49561b63a31e089ab05a9eb"
 }

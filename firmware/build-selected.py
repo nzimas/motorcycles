@@ -16,8 +16,16 @@ RUNTIME_LIMIT=0x4307d8e0
 # The image (packed payload + trampoline after the OS) must not end past RC17's
 # 0x401CEFCC either: RC18 and diagnostic D/E grew it and hung at boot.
 IMAGE_LIMIT=0x401cefcc
-CAVE,CAVE_SIZE=0x400aae88,0x400ab3b0-0x400aae88
-STOCK_CAVE_HEAD="4fefffe448d71c3c"   # CHORD update prologue at 0x400AAE88
+# Caves: dead stock code reused for UI-only code (adapter/cave.h). Each range is
+# referenced by nothing outside dead code (checked by code and by data words);
+# the build asserts its first bytes are still the stock ones before writing.
+#  A: CHORD helper 0x400AADA4 (called only by the CHORD update) + CHORD update
+#     0x400AAE88 + CHORD render 0x400AB24C, up to the SNARE update 0x400AB3B0
+#  B: helper 0x400A9A32..0x400A9CA8, called only by the CHORD render
+#  C: CHORD chord-interval table 0x4012142C (38 x 16 bytes), read only by the CHORD update
+CAVES=[('.cave',0x400aada4,0x400ab3b0-0x400aada4,'4fefffd448d73c04'),
+       ('.cave2',0x400a9a32,0x400a9ca8-0x400a9a32,'4fefffb448d77cfc'),
+       ('.cave3',0x4012142c,38*16,'7fea05307feb5cb3')]
 # Per-track distortion stage (firmware/drive*.c): audio hook and sound-record wrappers.
 DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c','firmware/brk.c','firmware/brk_hooks.S']
 DRIVE_ENTRIES=[(0x4005afa0,'mc_sound_save2_hook'),(0x4005b054,'mc_sound_save1_hook'),(0x4005aecc,'mc_sound_load_hook')]
@@ -79,7 +87,7 @@ def main():
  ld=(ROOT/'firmware/native.ld').read_text().replace('0x401ab750',hex(RUNTIME)).replace('0x401c3750',hex(RUNTIME_LIMIT))
  # The cave: dead stock CHORD engine code (update 0x400AAE88, render 0x400AB24C,
  # nothing else references 0x400AAE88..0x400AB3B0) reused for UI-only code.
- ld=ld.replace(' /DISCARD/',' .cave 0x%x : { *(.cave .cave.*) }\n ASSERT(SIZEOF(.cave) <= %d, "cave overflow")\n /DISCARD/'%(CAVE,CAVE_SIZE),1)
+ ld=ld.replace(' /DISCARD/',''.join(' %s 0x%x : { *(%s %s.*) }\n ASSERT(SIZEOF(%s) <= %d, "%s overflow")\n'%(n,a,n,n,n,z,n) for n,a,z,_ in CAVES)+' /DISCARD/',1)
  linker=out/'native-selected.ld';linker.write_text(ld)
  sources=list(native.SOURCES)+DRIVE_SOURCES;obj=out/'objects';obj.mkdir(exist_ok=True);objects=[]
  hashes={s:sha((ROOT/s).read_bytes()) for s in sources}
@@ -91,7 +99,8 @@ def main():
  keep=set(__import__('re').findall(r"sym\['([A-Za-z_0-9]+)'\]",(ROOT/'firmware/build-selected.py').read_text()))|{h[2] for h in hooks}|{n for _,n in DRIVE_ENTRIES}|{'lyra_name_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'lyra_short_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'mc_led_hook','mc_boot_continue','mc_startup','mc_clock'}
  # ...and the entry points the emulator tests (validation/*.py) call by name.
  keep|={'mc_generate','mc_commit_live','mc_retune_live','mc_binding_resolve','mc_fw_stage_machine','mc_fw_copy_blocks','mc_fw_equal_blocks','mc_music_read','mc_music_write','mc_read_machines','mc_native_init','mc_now','mc_led_mode','mc_ca_tick','mc_native','mc_brk','mc_ca_on','mc_music_context_stamp'}
- run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary','-R','.cave',elf,payload]);cave_bin=out/'cave.bin';run([prefix+'objcopy','-O','binary','-j','.cave',elf,cave_bin])
+ run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',*[x for n,_,_,_ in CAVES for x in ('-R',n)],elf,payload])
+ for n,_,_,_ in CAVES:run([prefix+'objcopy','-O','binary','-j',n,elf,out/(n[1:]+'.bin')])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
  sym={l.split()[2]:int(l.split()[0],16) for l in symbols.splitlines() if len(l.split())==3};blob=payload.read_bytes();assert sym['mc_payload_start']==RUNTIME and sym['mc_payload_end']<=RUNTIME_LIMIT
  # The packed copy sits after the image and is inside the BSS the boot clears,
@@ -107,12 +116,13 @@ def main():
  for addr,span,name in hooks:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71'*((span-6)//2),'entry_jump')
  for addr in native.LED_SLOTS:patch(addr,struct.pack('>I',sym['mc_led_hook']),'chained_led')
  patch(0x40000530,b'\x4e\xb9'+struct.pack('>I',trampoline),'boot_copy_trampoline')
- cave=cave_bin.read_bytes() if cave_bin.exists() else b''
- if cave:
-  assert len(cave)<=CAVE_SIZE and sym.get('drive_render',CAVE)>=CAVE
-  # The cave must still hold the stock CHORD code (update entry starts the range).
-  assert rd(CAVE,8).hex()==STOCK_CAVE_HEAD,'cave no longer holds the CHORD code'
-  patch(CAVE,cave,'cave_code')
+ for n,cave_at,z,head in CAVES:
+  f=out/(n[1:]+'.bin');cave=f.read_bytes() if f.exists() else b''
+  if not cave:continue
+  assert len(cave)<=z,(n,len(cave),z)
+  # The cave must still hold the stock bytes it replaces.
+  assert rd(cave_at,8).hex()==head,f'{n} no longer holds the dead stock code'
+  patch(cave_at,cave,'cave_code')
  patch(0x40059852,b'\x4e\xb9'+struct.pack('>I',sym['mc_drive_audio_hook']),'drive_audio_call')
  patch(0x40059872,b'\x4e\xb9'+struct.pack('>I',sym['mc_mix_hook']),'pan_offset_mix_call')
  for addr,name in DRIVE_ENTRIES:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71','sound_record_wrapper')

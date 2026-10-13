@@ -60,6 +60,22 @@ the rest of the OS and outside the boot-copy area. Functions and data marked
 first bytes are still the CHORD prologue (`4fefffe448d71c3c`) and writes the
 section over it. It holds the UI-only overlay drawing (`firmware/drive_ui.c`).
 
+## More caves (RC20)
+
+The build now writes three caves, listed in `CAVES` in `build-selected.py`,
+each guarded by its first stock bytes:
+
+| Cave | Range | Size | Was | Holds |
+|---|---|---|---|---|
+| A | `0x400AADA4..0x400AB3B0` | 1,548 B | the CHORD helper only the CHORD update called, plus the CHORD update and render | overlay drawing and `mc_leds` |
+| B | `0x400A9A32..0x400A9CA8` | 630 B | a helper only the CHORD render called | `mc_fw_publish` |
+| C | `0x4012142C..0x4012168C` | 608 B | the chord-interval table only the CHORD update read | `mc_encoder` |
+
+Each range is bounded by `rts` (or is a table), and nothing outside dead code
+references it, by code or by data word. Code opts in with `MC_CAVE_A/B/C`
+(`adapter/cave.h`). Only UI-context code goes there. Payload margin under the
+boot-copy limit: 2,136 bytes.
+
 ## Memory and boot
 
 Standalone MACRO is machine 6. Its stub, at the start of the stock BSS clear

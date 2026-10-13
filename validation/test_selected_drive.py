@@ -247,12 +247,13 @@ assert all(x==want for x in seen),(seen[0],want)
 assert bytes(r.u.mem_read(PRM,len(prm)))==bytes(prm),'smoothed parameter set restored after the output stage'
 checks.append('pan offset: the stock output stage sees every track pan shifted and clamped, the set is restored after, no accumulation over 50 blocks')
 
-# Overlay drawing runs from the cave (dead CHORD code, 0x400AAE88..0x400AB3B0).
-assert 0x400aae88<=S['drive_render']<0x400ab3b0,'drive_render linked into the cave'
+# UI code runs from the caves (dead CHORD code; firmware/build-selected.py CAVES).
+assert 0x400aada4<=S['drive_render']<0x400ab3b0,'drive_render linked into cave A'
+for name,lo,hi in (('mc_fw_publish',0x400a9a32,0x400a9ca8),('mc_encoder',0x4012142c,0x4012168c)):assert lo<=S[name]<hi,name
 IMG=pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.main.bin').read_bytes()
 manifest=json.loads(pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.manifest.json').read_text())
-cave=[x for x in manifest['patches'] if x['kind']=='cave_code'];assert len(cave)==1 and cave[0]['address']==0x400aae88
-assert IMG[0x400aae88-0x40000400:0x400aae88-0x40000400+len(cave[0]['new_hex'])//2].hex()==cave[0]['new_hex']
+cave=[x for x in manifest['patches'] if x['kind']=='cave_code'];assert sorted(x['address'] for x in cave)==[0x400a9a32,0x400aada4,0x4012142c]
+for x in cave:assert IMG[x['address']-0x40000400:x['address']-0x40000400+len(x['new_hex'])//2].hex()==x['new_hex']
 r=LiveRig();draws=[];texts=[]
 r.u.hook_add(UC_HOOK_CODE,r.stub(lambda a:draws.append(tuple(x if x<0x80000000 else x-(1<<32) for x in a[1:4]+(r.u.mem_read(r.u.reg_read(m.UC_M68K_REG_A7)+20,4) and 0,))) or 0),begin=0x40070dea,end=0x40070dea)
 def text(a):
@@ -268,7 +269,7 @@ d,t=render('P',40);assert t[0]=='RIGHT'
 d,t=render('F',-30);assert t[0]=='LP' and not any(x[0]==22 and x[1]==37 for x in d)
 d,t=render('S',90);assert len(d)>=7
 d,t=render('C',0);assert len(d)>20
-checks.append('overlay drawing executes from the cave: P (LEFT/CENTRE/RIGHT with the P bowl), F, S and the CTRL ALL banner')
+checks.append('overlay drawing executes from cave A: P (LEFT/CENTRE/RIGHT with the P bowl), F, S and the CTRL ALL banner; publish and the knob dispatcher sit in caves B and C')
 checks.append('FUNC+SWEEP sets the selected track amount, clamps 0..127, changes nothing else, notifies after 300 ms; plain SWEEP untouched')
 
 report={'result':'PASS','package_sha256':candidate_meta['syx_sha256'],'checks':checks,'emulated_instructions':cost,

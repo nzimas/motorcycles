@@ -108,13 +108,13 @@
   ],
   "hardware_writes": false,
   "candidate": {
-    "syx_sha256": "9c9f0717ce1f687c0759aecc76463bfb5f268608f81aae637b94ff50e79db7ca",
-    "syx_bytes": 1061536,
+    "syx_sha256": "18db9804e551f7bbf4989f536813df73260d2f58c49561b63a31e089ab05a9eb",
+    "syx_bytes": 1061152,
     "transport": {
       "product": 17,
       "name": "Model:Cycles",
       "start_seq": 242,
-      "count": 8293
+      "count": 8290
     },
     "vendor_version": "00381.13",
     "sections": [
@@ -142,16 +142,16 @@
         "index": 2,
         "id": 3,
         "off": 15664,
-        "size": 790045,
+        "size": 789758,
         "attr": 1073742848,
-        "stored_sha256": "3c14e25d630b3b683ceff13c369e2dbf18d75429f55c9198a9f3c6792ba7ef77",
-        "plain_sha256": "39cc6db7cc282f4dc2bbdf10ac6e08e7edc2b574dec3595e145206c83495e88e",
-        "plain_bytes": 1894584
+        "stored_sha256": "c770e0739be283e7f94cd891cab6ffd20efee784c6f2ccfb2dec89af1405863c",
+        "plain_sha256": "111761ecb98265289a97261b78cf442026181538f16489bc0023782e84d95d16",
+        "plain_bytes": 1893236
       },
       {
         "index": 3,
         "id": 4,
-        "off": 805712,
+        "off": 805424,
         "size": 31752,
         "attr": 2147484672,
         "stored_sha256": "8215fd1050970a0d7c1c792fb911832374ca0a551f3ce9e523cb8e64a8810f0e",
@@ -160,8 +160,8 @@
       }
     ]
   },
-  "append_bytes": 46840,
-  "preserved_baseline_bytes": 1846315,
-  "declared_overwrite_bytes": 1429,
+  "append_bytes": 45492,
+  "preserved_baseline_bytes": 1844945,
+  "declared_overwrite_bytes": 2799,
   "limitations": "Selected upstream configuration identity is explicit; installed binary revision is unverified. Byte preservation cannot prove ISR deadlines or peripheral boot behavior."
 }
