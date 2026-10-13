@@ -35,6 +35,20 @@ Use the Python interpreter that has Unicorn installed (locally,
 rebuilds the baseline from the official file. That gives the same MAIN; only the
 compressed container bytes differ.
 
+## Limits proven on hardware (RC18, 2026-10-13)
+
+- The raw payload and the boot trampoline sit in the image tail from
+  `0x401c35c0` and are read and executed by the copier at `0x40000530`. On the
+  unit, builds whose payload + trampoline extended past about `0x401d0000`
+  hung at the startup screen, even with no new code (diagnostic D). Image bytes
+  beyond that which nothing reads are harmless (diagnostic E booted). The
+  build therefore refuses an image ending past RC17's proven `0x401cefcc`
+  (`IMAGE_LIMIT`), and payload RAM past `0x4307d8e0` (`RUNTIME_LIMIT`).
+- Headroom comes from link-time optimisation (entry points reached through
+  patched stock bytes or by the emulator tests are kept with
+  `--undefined`), LYRA's computed tables, and the 62 KB commit snapshots
+  borrowed from the stock heap (`0x400802e0` / `0x400802ec`) per commit.
+
 ## Memory and boot
 
 Standalone MACRO is machine 6. Its stub, at the start of the stock BSS clear

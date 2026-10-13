@@ -347,46 +347,72 @@ enum APLib {
     }
 }
 
-// MARK: - Patch kit
+// MARK: - Patch kit (format 2: two stages, see tools/make_patchkit.py)
+
+struct Recipe {
+    let ops: [(copy: Bool, src: Int, n: Int, bytes: ArraySlice<UInt8>)]
+    func build(from base: [UInt8]) throws -> [UInt8] {
+        var out: [UInt8] = []
+        for op in ops {
+            if op.copy {
+                guard op.src + op.n <= base.count else { throw PatchError.badKit("copy range") }
+                out += base[op.src..<(op.src + op.n)]
+            } else { out += op.bytes }
+        }
+        return out
+    }
+}
 
 public struct PatchKit {
     let section: UInt32
-    let stockSyx: [UInt8], stockMain: [UInt8], finalMain: [UInt8], output: [UInt8]
-    let length: Int
-    let ops: [(copy: Bool, src: Int, n: Int, bytes: ArraySlice<UInt8>)]
+    let stockSyx: [UInt8], stockMain: [UInt8], baselineMain: [UInt8], baselinePacked: [UInt8], finalMain: [UInt8], output: [UInt8]
+    let baselineLength: Int, finalLength: Int
+    let stage1: Recipe, stage2: Recipe
+    let baselineDirty: [(start: Int, length: Int)]
 
-    public init(_ data: Data) throws {
-        let k = [UInt8](data)
-        guard k.count >= 144, Array(k[0..<4]) == Array("MCPK".utf8) else { throw PatchError.badKit("header") }
-        guard Container.be32(k, 4) >> 16 == 1 else { throw PatchError.badKit("version") }
-        section = UInt32(Container.be32(k, 4) & 0xffff)
-        stockSyx = Array(k[8..<40]); stockMain = Array(k[40..<72]); finalMain = Array(k[72..<104]); output = Array(k[104..<136])
-        length = Container.be32(k, 136)
-        let count = Container.be32(k, 140)
-        var p = 144
+    static func recipe(_ k: [UInt8], _ p: inout Int) throws -> Recipe {
+        guard p + 4 <= k.count else { throw PatchError.badKit("truncated") }
+        let count = Container.be32(k, p); p += 4
         var ops: [(Bool, Int, Int, ArraySlice<UInt8>)] = []
         for _ in 0..<count {
             guard p < k.count else { throw PatchError.badKit("truncated") }
             if k[p] == 0 {
                 guard p + 9 <= k.count else { throw PatchError.badKit("truncated") }
-                ops.append((true, Container.be32(k, p + 1), Container.be32(k, p + 5), []))
-                p += 9
+                ops.append((true, Container.be32(k, p + 1), Container.be32(k, p + 5), [])); p += 9
             } else {
                 guard p + 5 <= k.count else { throw PatchError.badKit("truncated") }
                 let n = Container.be32(k, p + 1)
                 guard p + 5 + n <= k.count else { throw PatchError.badKit("truncated") }
-                ops.append((false, 0, n, k[(p + 5)..<(p + 5 + n)]))
-                p += 5 + n
+                ops.append((false, 0, n, k[(p + 5)..<(p + 5 + n)])); p += 5 + n
             }
         }
-        self.ops = ops.map { (copy: $0.0, src: $0.1, n: $0.2, bytes: $0.3) }
+        return Recipe(ops: ops.map { (copy: $0.0, src: $0.1, n: $0.2, bytes: $0.3) })
+    }
+
+    public init(_ data: Data) throws {
+        let k = [UInt8](data)
+        guard k.count >= 208, Array(k[0..<4]) == Array("MCPK".utf8) else { throw PatchError.badKit("header") }
+        guard Container.be32(k, 4) >> 16 == 2 else { throw PatchError.badKit("version") }
+        section = UInt32(Container.be32(k, 4) & 0xffff)
+        let h = (0..<6).map { Array(k[(8 + 32 * $0)..<(40 + 32 * $0)]) }
+        stockSyx = h[0]; stockMain = h[1]; baselineMain = h[2]; baselinePacked = h[3]; finalMain = h[4]; output = h[5]
+        baselineLength = Container.be32(k, 200); finalLength = Container.be32(k, 204)
+        var p = 208
+        stage1 = try PatchKit.recipe(k, &p)
+        stage2 = try PatchKit.recipe(k, &p)
+        guard p + 4 <= k.count else { throw PatchError.badKit("truncated") }
+        let count = Container.be32(k, p); p += 4
+        guard p + 8 * count <= k.count else { throw PatchError.badKit("truncated") }
+        baselineDirty = (0..<count).map { (start: Container.be32(k, p + 8 * $0), length: Container.be32(k, p + 8 * $0 + 4)) }
     }
 }
 
 public enum Patcher {
     public typealias Progress = (String) -> Void
 
-    /// Stock Model:Cycles OS 1.13 .syx -> Motor:Cycles .syx, or throws.
+    /// Stock Model:Cycles OS 1.13 .syx -> Motor:Cycles .syx, byte for byte the
+    /// hardware-tested two-stage build (Modded-Cycles baseline, then our
+    /// payload), or throws. Nothing is written unless every hash matches.
     public static func convert(stock: Data, kit: PatchKit, progress: Progress = { _ in }) throws -> Data {
         let raw = [UInt8](stock)
         progress("Checking your firmware…")
@@ -395,27 +421,33 @@ public enum Patcher {
         let (blob, sections) = try Container.parse(body)
         guard let main = sections.first(where: { $0.id == kit.section }) else { throw PatchError.notStockFirmware }
         progress("Unpacking the operating system…")
-        let (stockImage, ops) = try APLib.depack(Array(blob[main.off..<(main.off + main.size)]))
+        let (stockImage, ops0) = try APLib.depack(Array(blob[main.off..<(main.off + main.size)]))
         guard sha256(stockImage) == kit.stockMain else { throw PatchError.notStockFirmware }
-        progress("Building Motor:Cycles…")
-        var image: [UInt8] = []; image.reserveCapacity(kit.length)
-        for op in kit.ops {
-            if op.copy {
-                guard op.src + op.n <= stockImage.count else { throw PatchError.badKit("copy range") }
-                image += stockImage[op.src..<(op.src + op.n)]
-            } else { image += op.bytes }
+        progress("Applying the Modded-Cycles mods…")
+        let baseline = try kit.stage1.build(from: stockImage)
+        guard baseline.count == kit.baselineLength, sha256(baseline) == kit.baselineMain else { throw PatchError.corrupt("baseline image") }
+        var dirty1 = [Bool](repeating: false, count: baseline.count)
+        for r in kit.baselineDirty {
+            guard r.start + r.length <= baseline.count else { throw PatchError.badKit("dirty range") }
+            for i in r.start..<(r.start + r.length) { dirty1[i] = true }
         }
-        guard image.count == kit.length, sha256(image) == kit.finalMain else { throw PatchError.corrupt("operating system image") }
+        let packed1 = APLib.repackGrow(baseline, ops: ops0, dirty: dirty1, originalLength: stockImage.count)
+        guard sha256(packed1) == kit.baselinePacked else { throw PatchError.corrupt("baseline packing") }
+        let (baselineAgain, ops1) = try APLib.depack(packed1)
+        guard baselineAgain == baseline else { throw PatchError.corrupt("baseline round trip") }
+        progress("Building Motor:Cycles…")
+        let image = try kit.stage2.build(from: baseline)
+        guard image.count == kit.finalLength, sha256(image) == kit.finalMain else { throw PatchError.corrupt("operating system image") }
         progress("Packing and signing…")
-        var dirty = [Bool](repeating: true, count: image.count)
-        for i in 0..<min(stockImage.count, image.count) { dirty[i] = stockImage[i] != image[i] }
-        let packed = APLib.repackGrow(image, ops: ops, dirty: dirty, originalLength: stockImage.count)
+        var dirty2 = [Bool](repeating: true, count: image.count)
+        for i in 0..<min(baseline.count, image.count) { dirty2[i] = baseline[i] != image[i] }
+        let packed2 = APLib.repackGrow(image, ops: ops1, dirty: dirty2, originalLength: baseline.count)
         var plains: [[UInt8]] = []
         for s in sections { if let d = try? APLib.depack(Array(blob[s.off..<(s.off + s.size)])) { plains.append(d.data) } }
         guard let key = Container.findKey(plains, message: Array(blob[0..<(blob.count - 32)]), expect: Array(blob[(blob.count - 32)...])) else {
             throw PatchError.corrupt("signature key")
         }
-        let rebuilt = Container.rebuild(blob: blob, sections: sections, replacing: kit.section, with: packed, key: key)
+        let rebuilt = Container.rebuild(blob: blob, sections: sections, replacing: kit.section, with: packed2, key: key)
         let out = try SysEx.wrap(Container.buildStream(rebuilt, padTo: SysEx.bytesPerMessage), product: product, startSeq: startSeq)
         guard sha256(out) == kit.output else { throw PatchError.corrupt("final package") }
         progress("Done")

@@ -2,7 +2,13 @@
 #include "binding.h"
 #include "preparation.h"
 #include "music_storage.h"
-static mc_snapshots snapshots;
+/* The staging snapshots (two pattern copies, ~62 KB) are borrowed from the
+ * stock heap (operator new / delete) for the duration of one commit. Kept as
+ * a static, they pushed the payload's RAM past 0x4307D8E0, which hangs the
+ * unit at boot (RC18, diagnostic D): the payload's RAM must stay at or below
+ * RC17's proven end. A failed allocation fails the generation cleanly. */
+static mc_snapshots *snapshots_take(void){return ((void *(*)(unsigned long))0x400802e0u)(sizeof(mc_snapshots));}
+static void snapshots_give(mc_snapshots *s){if(s)((void (*)(void *))0x400802ecu)(s);}
 typedef struct { mc_binding binding;uint8_t *root; } live_context;
 extern uint16_t mc_irq_save(void);
 extern void mc_irq_restore(uint16_t);
@@ -30,8 +36,7 @@ static int stopped(void *context) {
     }
     return 1;
 }
-int mc_commit_live(void *unused,const mc_plan *plan,const mc_request *request) {
-    (void)unused;
+static int commit_with(mc_snapshots *snapshots,const mc_plan *plan,const mc_request *request) {
     live_context context;
     struct mc_fw_transaction transaction={0};
     context.root=((void *(*)(void))0x400cf866u)();
@@ -39,14 +44,14 @@ int mc_commit_live(void *unused,const mc_plan *plan,const mc_request *request) {
        selected_pattern(context.root),mc_fw_owner_data)||!stopped(&context))return 0;
     transaction.context=&context;transaction.stopped=stopped;
     transaction.irq_save=mc_irq_save;transaction.irq_restore=mc_irq_restore;
-    if(!mc_prepare(&context.binding,request,plan,&snapshots,
+    if(!mc_prepare(&context.binding,request,plan,snapshots,
        (const uint32_t *)0x4010d814u,mc_fw_stage_machine,&transaction))return 0;
     /* A pattern whose scale was chosen (music != 0) keeps its explicit tag in
      * the same atomic publication. A pattern with no choice stays unset, so
      * the Rhythmic kick keeps defaulting to C until the user picks a root. */
     unsigned alignment=(unsigned)((uintptr_t)context.binding.pattern&3u);
-    uint8_t *before=snapshots.pattern_before+alignment;
-    uint8_t *after=snapshots.pattern_after+alignment;
+    uint8_t *before=snapshots->pattern_before+alignment;
+    uint8_t *after=snapshots->pattern_after+alignment;
     if(!request->music){}
     else if(request->generator<MC_PHRASE) {
         for(unsigned i=0;i<MC_MUSIC_BYTES;i++) {
@@ -83,8 +88,7 @@ static int retune_effective(unsigned raw,int offset,unsigned old_root,
     if(!mc_retune_note((unsigned)effective,old_root,new_root,new_scale,lower,upper,&note))return 0;
     *out=(uint8_t)((int)note-offset);return 1;
 }
-int mc_retune_live(void *unused,uint8_t old_music,uint8_t new_music) {
-    (void)unused;
+static int retune_with(mc_snapshots *snapshots,uint8_t old_music,uint8_t new_music) {
     live_context context;struct mc_fw_transaction transaction={0};
     uint8_t old_root,old_scale,new_root,new_scale;
     if(!mc_music_unpack(old_music,&old_root,&old_scale)||
@@ -95,7 +99,7 @@ int mc_retune_live(void *unused,uint8_t old_music,uint8_t new_music) {
        selected_pattern(context.root),mc_fw_owner_data)||!stopped(&context)||
        mc_music_read(context.binding.global)!=(old_music?old_music:0x99))return 0;
     unsigned alignment=(unsigned)((uintptr_t)context.binding.pattern&3u);
-    uint8_t *before=snapshots.pattern_before+alignment,*after=snapshots.pattern_after+alignment;
+    uint8_t *before=snapshots->pattern_before+alignment,*after=snapshots->pattern_after+alignment;
     memcpy(before,context.binding.pattern,MC_UI_PATTERN_BYTES);memcpy(after,before,MC_UI_PATTERN_BYTES);
     for(unsigned i=0;i<6;i++) {
         const uint8_t *sound=context.binding.sound[i];
@@ -133,4 +137,21 @@ int mc_retune_live(void *unused,uint8_t old_music,uint8_t new_music) {
     transaction.stopped=stopped;transaction.context=&context;
     transaction.irq_save=mc_irq_save;transaction.irq_restore=mc_irq_restore;
     return mc_fw_publish(&transaction);
+}
+
+int mc_commit_live(void *unused,const mc_plan *plan,const mc_request *request) {
+    (void)unused;
+    mc_snapshots *s=snapshots_take();
+    if(!s)return 0;
+    int result=commit_with(s,plan,request);
+    snapshots_give(s);
+    return result;
+}
+int mc_retune_live(void *unused,uint8_t old_music,uint8_t new_music) {
+    (void)unused;
+    mc_snapshots *s=snapshots_take();
+    if(!s)return 0;
+    int result=retune_with(s,old_music,new_music);
+    snapshots_give(s);
+    return result;
 }

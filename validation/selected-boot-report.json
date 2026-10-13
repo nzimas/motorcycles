@@ -1,13 +1,12 @@
 {
   "result": "PASS",
-  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
+  "package_sha256": "69ebef53ef80906618cf8eb1199b191bc6811d0d355b11ff9a5b69cefa8fc004",
   "checks": [
     "exact package hashes",
     "boot jsr runs native copier, stock BSS clear with MACRO copier, native startup",
     "native executable copied before its packed source is cleared",
     "all MACRO segments copied before the packed source is cleared",
     "whole stock BSS range cleared",
-    "private snapshots initialized zero",
     "callee registers and stock continuation preserved"
   ],
   "max_observed_stack_bytes": 56,

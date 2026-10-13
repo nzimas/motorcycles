@@ -14,7 +14,9 @@ class PopupRig(LiveRig):
   self.w32(0x40fe4178,1)
   for addr,fn in {0x400f980c:self.string,0x400747c0:self.construct,0x4007700e:self.present,0x400cf23c:self.release,0x400f7d5c:lambda a:0}.items():self.u.hook_add(UC_HOOK_CODE,self.stub(fn),begin=addr,end=addr)
  def alloc(self,args):
-  size=args[0];assert size in (8,16,156)
+  size=args[0]
+  if size>156:return LiveRig.alloc(self,args)   # commit snapshots (firmware/live.c), not popup memory
+  assert size in (8,16,156)
   address=0x410c0000+256*self.heap;self.heap+=1
   self.u.mem_write(address,bytes(size))
   if hasattr(self,'allocated'):self.allocated[address]=size

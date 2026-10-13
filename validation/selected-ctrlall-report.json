@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea",
+  "package_sha256": "60697c4e2d6f57642c09a27cbe09e1db16cbd8a5615912fcdf1b17749a492c92",
   "checks": [
     "patched sites: held-key register loads -> mc_held, both lock applier calls -> mc_ca_locks, knob-edit entry -> hook",
     "TRK alone goes to the stock path",

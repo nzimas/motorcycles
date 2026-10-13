@@ -38,7 +38,7 @@ void lyra_block(lyra_state *s,const lyra_params *p,int32_t out[32]) {
     /* Base increment, linear between semitones. */
     int32_t note=p->note<0?0:p->note>(127<<16)?127<<16:p->note;
     unsigned n=(unsigned)note>>16,frac=(unsigned)note&0xffff;
-    uint32_t a=lyra_note_inc[n],b=lyra_note_inc[n+1];
+    uint32_t a=lyra_note_inc_at(n),b=lyra_note_inc_at(n+1);
     uint32_t inc=a+((b-a)>>8)*(frac>>8);
     /* Spread: detune d (Q16) and the second pair's ratio (x256). */
     unsigned c=p->spread>127?127:p->spread;int32_t d;uint32_t r8;
@@ -46,7 +46,7 @@ void lyra_block(lyra_state *s,const lyra_params *p,int32_t out[32]) {
     else{static const uint16_t ratios[4]={384,512,768,1024};d=393;r8=ratios[(c-64)/16];}
     /* Hyper LFO: block-rate triangle, -32767..32767. */
     unsigned h=p->hyper>127?127:p->hyper;int32_t l=0;
-    if(h){s->lfo+=lyra_lfo_inc[h];int32_t t=(int32_t)s->lfo;l=((t^(t>>31))>>15)-32768;}
+    if(h){s->lfo+=lyra_lfo_inc_at(h);int32_t t=(int32_t)s->lfo;l=((t^(t>>31))>>15)-32768;}
     else s->lfo=0;
     uint32_t i0=inc,i1=scale(inc,d),b0=ratio(inc,r8);
     int32_t vib=h?(l*262)>>15:0;                     /* second pair: +-0.4 % */
@@ -57,7 +57,7 @@ void lyra_block(lyra_state *s,const lyra_params *p,int32_t out[32]) {
     if(h)D=(uint32_t)((int32_t)D+(int32_t)(D>>9)*(l>>7));   /* +-50 % with the LFO */
     uint32_t Dx=D>>1,Dy=D>>2;                        /* pair B -> A, pair A -> B */
     unsigned sh=p->sharp>127?127:p->sharp;
-    int32_t g=(int32_t)(lyra_sharp_gain[sh]>>4);      /* Q8, 256 = triangle */
+    int32_t g=(int32_t)(lyra_sharp_gain_at(sh)>>4);      /* Q8, 256 = triangle */
     uint32_t ph0=s->ph[0],ph1=s->ph[1],ph2=s->ph[2],ph3=s->ph[3];
     int32_t y0=s->y[0],y1=s->y[1],y2=s->y[2],y3=s->y[3],dc_x=s->dc_x,dc_y=s->dc_y;
     for(unsigned i=0;i<32;i++) {

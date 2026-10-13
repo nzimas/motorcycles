@@ -46,9 +46,9 @@
     "indexrebind refusal preserved canonicaldata/observers",
     "parentrebind refusal preserved canonicaldata/observers"
   ],
-  "max_observed_stack_bytes": 1944,
+  "max_observed_stack_bytes": 2048,
   "stock_sha256": "44fe586269631a0ca7da25a3383fc6733c314809505fc3cc52f1e0ed9800640c",
-  "elf_sha256": "4b417a19481a30749170c6c667df7cbc1fa605ffde08515f047d9acc745b6066",
+  "elf_sha256": "7e39c4c21d9bf6b74d170cb6f94d09003d9af4a9effdbd0b9a5f6b305459bae7",
   "limitations": "Exact package MAIN and linked payload; stock defaults and sound observer with synthetic owner trees, transport, heap and track/global notification spies. Not complete boot or audio ISR.",
   "max_masked_instruction_count_by_generator": {
     "Patch": 912,
@@ -57,5 +57,5 @@
     "Pattern": 30367
   },
   "instruction_timing_limit": "Instruction counts cover IRQ-save entry through restore (conservatively including the save prologue) and stock transport/binding revalidation. They are not hardware cycle measurements or an ISR deadline proof.",
-  "exact_package_sha256": "2753b2429f60d62241530097c85122fca9a8ff972f7353ba784618d346a01eea"
+  "exact_package_sha256": "60697c4e2d6f57642c09a27cbe09e1db16cbd8a5615912fcdf1b17749a492c92"
 }

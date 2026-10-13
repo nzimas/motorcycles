@@ -9,7 +9,13 @@ sys.path.insert(0,str(ROOT/'reference/Modded-Cycles/tools'))
 from mtlib import aplib,container
 from mtlib.syx import unwrap,wrap,BYTES_PER_MSG
 import aplib_grow
-BASE=0x40000400;RUNTIME=0x43060000;RUNTIME_LIMIT=0x430a0000
+BASE=0x40000400;RUNTIME=0x43060000
+# RAM above RC17's end (0x4307D8E0) hangs the unit at boot (RC18 and diagnostic D,
+# RC17 padded by 5.4 KB, both hung on hardware). Never grow past it.
+RUNTIME_LIMIT=0x4307d8e0
+# The image (packed payload + trampoline after the OS) must not end past RC17's
+# 0x401CEFCC either: RC18 and diagnostic D/E grew it and hung at boot.
+IMAGE_LIMIT=0x401cefcc
 # Per-track distortion stage (firmware/drive*.c): audio hook and sound-record wrappers.
 DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c','firmware/brk.c','firmware/brk_hooks.S']
 DRIVE_ENTRIES=[(0x4005afa0,'mc_sound_save2_hook'),(0x4005b054,'mc_sound_save1_hook'),(0x4005aecc,'mc_sound_load_hook')]
@@ -73,9 +79,13 @@ def main():
  hashes={s:sha((ROOT/s).read_bytes()) for s in sources}
  for src in sources:
   target=obj/(src.replace('/','__')+'.o');objects.append(target)
-  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c','firmware/ctrlall.c','firmware/lyra.c','firmware/brk.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage','-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
+  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage',*([] if src=='generation/runtime.c' or __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-ffunction-sections','-fdata-sections'] if __import__('os').environ.get('MC_GC') else []),'-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
  stem=out/'ModelCycles-generative-selected';elf=stem.with_suffix('.elf');payload=stem.with_suffix('.payload.bin')
- run([prefix+'gcc','-mcpu=54415','-nostdlib','-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',elf,payload])
+ # Entry points reached only through patched stock bytes must survive LTO.
+ keep=set(__import__('re').findall(r"sym\['([A-Za-z_0-9]+)'\]",(ROOT/'firmware/build-selected.py').read_text()))|{h[2] for h in hooks}|{n for _,n in DRIVE_ENTRIES}|{'lyra_name_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'lyra_short_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'mc_led_hook','mc_boot_continue','mc_startup','mc_clock'}
+ # ...and the entry points the emulator tests (validation/*.py) call by name.
+ keep|={'mc_generate','mc_commit_live','mc_retune_live','mc_binding_resolve','mc_fw_stage_machine','mc_fw_copy_blocks','mc_fw_equal_blocks','mc_music_read','mc_music_write','mc_read_machines','mc_native_init','mc_now','mc_led_mode','mc_ca_tick','mc_native','mc_brk','mc_ca_on','mc_music_context_stamp'}
+ run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',elf,payload])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
  sym={l.split()[2]:int(l.split()[0],16) for l in symbols.splitlines() if len(l.split())==3};blob=payload.read_bytes();assert sym['mc_payload_start']==RUNTIME and sym['mc_payload_end']<=RUNTIME_LIMIT
  # The packed copy sits after the image and is inside the BSS the boot clears,
@@ -84,7 +94,7 @@ def main():
  source=(BASE+len(before)+15)&~15;copy_size=(len(blob)+3)&~3;trampoline=source+copy_size
  assembly=out/'boot-copy.S';assembly.write_text(f''' .text\n .globl mc_selected_copy\nmc_selected_copy:\n lea -16(%sp),%sp\n movem.l %d0-%d1/%a0-%a1,(%sp)\n movea.l #0x{source:x},%a0\n movea.l #0x{RUNTIME:x},%a1\n move.l #{copy_size//4},%d0\n1: move.l (%a0)+,(%a1)+\n subq.l #1,%d0\n bne 1b\n movem.l (%sp),%d0-%d1/%a0-%a1\n lea 16(%sp),%sp\n jmp 0x{sym['mc_boot_continue']:x}\n''')
  run([prefix+'as','-mcpu=54415',assembly,'-o',out/'boot-copy.o']);run([prefix+'ld','-Ttext='+hex(trampoline),out/'boot-copy.o','-o',out/'boot-copy.elf']);run([prefix+'objcopy','-O','binary',out/'boot-copy.elf',out/'boot-copy.bin'])
- copy=(out/'boot-copy.bin').read_bytes();image=bytearray(before);image.extend(b'\0'*(source-BASE-len(image)));image.extend(blob+b'\0'*(copy_size-len(blob))+copy);assert BASE+len(image)<0x401eb750
+ copy=(out/'boot-copy.bin').read_bytes();image=bytearray(before);image.extend(b'\0'*(source-BASE-len(image)));image.extend(blob+b'\0'*(copy_size-len(blob))+copy);assert BASE+len(image)<=IMAGE_LIMIT,f'image ends at {BASE+len(image):#x}, past the proven {IMAGE_LIMIT:#x}'
  patches=[]
  def patch(addr,data,kind):
   old=rd(addr,len(data));assert len(old)==len(data);patches.append(dict(address=addr,old_hex=old.hex(),new_hex=data.hex(),kind=kind));image[addr-BASE:addr-BASE+len(data)]=data
@@ -105,8 +115,10 @@ def main():
  patch(0x4004fd00,bytes.fromhex('7204'),'lyra_shape_ui')
  patch(0x4004fd04,bytes.fromhex('203c4010a120'),'lyra_shape_ui')
  patch(0x4005cc46,bytes.fromhex('6010'),'lyra_no_chord_conversion')
- patch(0x400548ce,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_entry_hook']),'break_step')
- patch(0x40054c0e,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_exit_hook']),'break_message')
+ # Diagnostic switch: MC_NO_BREAK_HOOKS=1 links the live-break code but leaves the trig builder stock.
+ if not __import__('os').environ.get('MC_NO_BREAK_HOOKS'):
+  patch(0x400548ce,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_entry_hook']),'break_step')
+  patch(0x40054c0e,b'\x4e\xb9'+struct.pack('>I',sym['mc_brk_exit_hook']),'break_message')
  patch(0x4001f55c,b'\x49\xf9'+struct.pack('>I',sym['mc_held']),'control_all_held')
  patch(0x4001aaa8,b'\x45\xf9'+struct.pack('>I',sym['mc_held']),'control_all_held')
  for addr in (0x40058f36,0x40059194):patch(addr,b'\x4e\xb9'+struct.pack('>I',sym['mc_ca_locks']),'control_all_locks')

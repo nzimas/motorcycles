@@ -50,7 +50,14 @@ class LiveRig(Rig):
   return self.running
  def notified(self,args):self.notifications.append(args[0]);return 0
  def parent(self,args):self.parentcalls+=1;return 0
- def alloc(self,args):assert args[0]==8;v=0x410b0000+16*self.heap;self.heap+=1;return v
+ def alloc(self,args):
+  # 8-byte popup objects, or the ~62 KB commit snapshots (firmware/live.c).
+  if args[0]!=8:
+   assert args[0]<0x20000
+   try:self.u.mem_map(0x41a00000,0x20000)
+   except Exception:pass
+   self.big=getattr(self,'big',0)+1;return 0x41a00000
+  v=0x410b0000+16*self.heap;self.heap+=1;return v
  def capture(self):return bytes(self.u.mem_read(PATTERN,30710)),[bytes(self.u.mem_read(SOUND+100*i,100)) for i in range(6)]
  def generate(self,g,path,target=4,music=0):
   request=bytes((g,path,target,35,50,63,0,music))+(123+g*4+path).to_bytes(4,'big')+bytes((63,0,1,2,3,4,5,32))+bytes(60)+bytes((60,60,60,60,60,60,63,0));self.u.mem_write(REQUEST,request);assert self.call('mc_generate',REQUEST,PLAN)==1

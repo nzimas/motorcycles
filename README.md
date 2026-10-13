@@ -194,9 +194,11 @@ Steps:
    official update.
 
 Notes:
-- The patcher only accepts the official OS 1.13 file. It checks every stage of
-  the conversion against known checksums: the result is identical to our
-  build, or nothing is written.
+- The patcher only accepts the official OS 1.13 file. It rebuilds the firmware
+  exactly the way the released build was made (the Modded-Cycles mods first,
+  then Motor:Cycles on top) and checks every stage against known checksums.
+  The result is byte for byte the file tested on a real Model:Cycles, or
+  nothing is written.
 - Your file never leaves your Mac.
 - To go back, install the official OS 1.13 with Transfer the same way.
 
