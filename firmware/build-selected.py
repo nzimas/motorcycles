@@ -16,16 +16,27 @@ RUNTIME_LIMIT=0x4307d8e0
 # The image (packed payload + trampoline after the OS) must not end past RC17's
 # 0x401CEFCC either: RC18 and diagnostic D/E grew it and hung at boot.
 IMAGE_LIMIT=0x401cefcc
-# Caves: dead stock code reused for UI-only code (adapter/cave.h). Each range is
-# referenced by nothing outside dead code (checked by code and by data words);
-# the build asserts its first bytes are still the stock ones before writing.
-#  A: CHORD helper 0x400AADA4 (called only by the CHORD update) + CHORD update
-#     0x400AAE88 + CHORD render 0x400AB24C, up to the SNARE update 0x400AB3B0
-#  B: helper 0x400A9A32..0x400A9CA8, called only by the CHORD render
-#  C: CHORD chord-interval table 0x4012142C (38 x 16 bytes), read only by the CHORD update
-CAVES=[('.cave',0x400aada4,0x400ab3b0-0x400aada4,'4fefffd448d73c04'),
-       ('.cave2',0x400a9a32,0x400a9ca8-0x400a9a32,'4fefffb448d77cfc'),
-       ('.cave3',0x4012142c,38*16,'7fea05307feb5cb3')]
+CAVE,CAVE_SIZE=0x400aae88,0x400ab3b0-0x400aae88
+STOCK_CAVE_HEAD="4fefffe448d71c3c"   # CHORD update prologue at 0x400AAE88
+# More dead CHORD code and data for the break store (firmware/store.c,
+# adapter/cave.h). Nothing outside dead CHORD code references these ranges, by
+# instruction operand or by data word anywhere in the image (MACRO's payload
+# included); the build checks each still holds its stock bytes (SHA-256).
+#  A0: helper 0x400AADA4, called only by the CHORD update (ends where cave A starts)
+#  B:  helper 0x400A9A32..0x400A9CA8, called only by the CHORD render
+#  C:  the CHORD tables 0x40120650..0x40121A8C (wavetables and the chord-interval
+#      table), read only by the CHORD update and render; 0x40121A8C is SNARE's
+STORE_CAVES=[('.cave0',0x400aada4,CAVE-0x400aada4,'35fec89210ddaa8557a0b897c09b878796e78a1d3003f52726b2554b83588d50'),
+             ('.cave2',0x400a9a32,0x400a9ca8-0x400a9a32,'25b7b09f86a9d2aef84de064464753652071eb8117ceb17e90c2b88b7ae8d6e1'),
+             ('.cave3',0x40120650,0x40121a8c-0x40120650,'69ea8ea4f14fa1390858496beccb437bbec8ab39d66910a214418ff3a1dbbfd5')]
+# The store's state and its pattern + kit staging copy live in the RAM after
+# the payload's BSS, below RUNTIME_LIMIT (RC17's BSS reached it; since RC18 it
+# is unused). Not loaded, not cleared: the store validates its own state.
+STORE_STATE,STORE_BUFFER=0x4306f000,0x4306f100
+STORE_BYTES=30710+7094
+# Compiled without LTO and placed only in the caves above, so that the payload
+# (and every audio routine's address) is byte for byte RC19's.
+STORE_SOURCES=['firmware/store.c','firmware/store_hooks.S']
 # Per-track distortion stage (firmware/drive*.c): audio hook and sound-record wrappers.
 DRIVE_SOURCES=['firmware/drive.c','firmware/djfilter.c','firmware/drive_ui.c','firmware/drive_hooks.S','firmware/ctrlall.c','firmware/ctrlall_hooks.S','firmware/lyra.c','firmware/brk.c','firmware/brk_hooks.S']
 DRIVE_ENTRIES=[(0x4005afa0,'mc_sound_save2_hook'),(0x4005b054,'mc_sound_save1_hook'),(0x4005aecc,'mc_sound_load_hook')]
@@ -87,22 +98,26 @@ def main():
  ld=(ROOT/'firmware/native.ld').read_text().replace('0x401ab750',hex(RUNTIME)).replace('0x401c3750',hex(RUNTIME_LIMIT))
  # The cave: dead stock CHORD engine code (update 0x400AAE88, render 0x400AB24C,
  # nothing else references 0x400AAE88..0x400AB3B0) reused for UI-only code.
- ld=ld.replace(' /DISCARD/',''.join(' %s 0x%x : { *(%s %s.*) }\n ASSERT(SIZEOF(%s) <= %d, "%s overflow")\n'%(n,a,n,n,n,z,n) for n,a,z,_ in CAVES)+' /DISCARD/',1)
+ ld=ld.replace(' /DISCARD/',' .cave 0x%x : { *(.cave .cave.*) }\n ASSERT(SIZEOF(.cave) <= %d, "cave overflow")\n /DISCARD/'%(CAVE,CAVE_SIZE),1)
+ ld=ld.replace(' /DISCARD/',''.join(' %s 0x%x : { *(%s %s.*) }\n ASSERT(SIZEOF(%s) <= %d, "%s overflow")\n'%(n,at,n,n,n,z,n) for n,at,z,_ in STORE_CAVES)+' /DISCARD/',1)
  linker=out/'native-selected.ld';linker.write_text(ld)
- sources=list(native.SOURCES)+DRIVE_SOURCES;obj=out/'objects';obj.mkdir(exist_ok=True);objects=[]
+ # The store objects go first: placed last, they changed where the linker puts
+ # libgcc's helpers, which moved RC19's payload code. First, the payload is RC19's.
+ sources=STORE_SOURCES+list(native.SOURCES)+DRIVE_SOURCES;obj=out/'objects';obj.mkdir(exist_ok=True);objects=[]
  hashes={s:sha((ROOT/s).read_bytes()) for s in sources}
  for src in sources:
   target=obj/(src.replace('/','__')+'.o');objects.append(target)
-  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage',*([] if src=='generation/runtime.c' or __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-ffunction-sections','-fdata-sections'] if __import__('os').environ.get('MC_GC') else []),'-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
+  run([prefix+'gcc','-DMC_SELECTED_MODS=1','-mcpu=54415','-O2' if src in ('firmware/drive.c','firmware/djfilter.c') else '-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fstack-usage',*([] if src in ('generation/runtime.c','firmware/store.c') or __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-ffunction-sections','-fdata-sections'] if __import__('os').environ.get('MC_GC') else []),*(['-fno-jump-tables','-DMC_STORE_STATE=%#xu'%STORE_STATE,'-DMC_STORE_BUFFER=%#xu'%STORE_BUFFER] if src=='firmware/store.c' else []),'-Wall','-Wextra','-Werror','-c',ROOT/src,'-o',target])
  stem=out/'ModelCycles-generative-selected';elf=stem.with_suffix('.elf');payload=stem.with_suffix('.payload.bin')
  # Entry points reached only through patched stock bytes must survive LTO.
  keep=set(__import__('re').findall(r"sym\['([A-Za-z_0-9]+)'\]",(ROOT/'firmware/build-selected.py').read_text()))|{h[2] for h in hooks}|{n for _,n in DRIVE_ENTRIES}|{'lyra_name_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'lyra_short_'+n for _,n,_ in LYRA_DESCRIPTORS}|{'mc_led_hook','mc_boot_continue','mc_startup','mc_clock'}
  # ...and the entry points the emulator tests (validation/*.py) call by name.
  keep|={'mc_generate','mc_commit_live','mc_retune_live','mc_binding_resolve','mc_fw_stage_machine','mc_fw_copy_blocks','mc_fw_equal_blocks','mc_music_read','mc_music_write','mc_read_machines','mc_native_init','mc_now','mc_led_mode','mc_ca_tick','mc_native','mc_brk','mc_ca_on','mc_music_context_stamp'}
- run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary',*[x for n,_,_,_ in CAVES for x in ('-R',n)],elf,payload])
- for n,_,_,_ in CAVES:run([prefix+'objcopy','-O','binary','-j',n,elf,out/(n[1:]+'.bin')])
+ run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary','-R','.cave',*[x for n,_,_,_ in STORE_CAVES for x in ('-R',n)],elf,payload]);cave_bin=out/'cave.bin';run([prefix+'objcopy','-O','binary','-j','.cave',elf,cave_bin])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
  sym={l.split()[2]:int(l.split()[0],16) for l in symbols.splitlines() if len(l.split())==3};blob=payload.read_bytes();assert sym['mc_payload_start']==RUNTIME and sym['mc_payload_end']<=RUNTIME_LIMIT
+ assert sym.get('_end')<=STORE_STATE and STORE_BUFFER+STORE_BYTES<=RUNTIME_LIMIT,'store RAM overlaps the payload or passes the limit'
+ for n,_,_,_ in STORE_CAVES:run([prefix+'objcopy','-O','binary','-j',n,elf,out/(n[1:]+'.bin')])
  # The packed copy sits after the image and is inside the BSS the boot clears,
  # so copy it to RUNTIME first, then run the original BSS clear (which also
  # chains MACRO's copier), replay the overwritten lea and return past it.
@@ -113,16 +128,22 @@ def main():
  patches=[]
  def patch(addr,data,kind):
   old=rd(addr,len(data));assert len(old)==len(data);patches.append(dict(address=addr,old_hex=old.hex(),new_hex=data.hex(),kind=kind));image[addr-BASE:addr-BASE+len(data)]=data
- for addr,span,name in hooks:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71'*((span-6)//2),'entry_jump')
- for addr in native.LED_SLOTS:patch(addr,struct.pack('>I',sym['mc_led_hook']),'chained_led')
+ # The break store wraps RC19's key, light and LED hooks (firmware/store_hooks.S).
+ store_first={'mc_key_hook':sym['mc_store_key_hook'],'mc_light_hook':sym['mc_store_light_hook']}
+ for addr,span,name in hooks:patch(addr,b'\x4e\xf9'+struct.pack('>I',store_first.get(name,sym[name]))+b'\x4e\x71'*((span-6)//2),'entry_jump')
+ for addr in native.LED_SLOTS:patch(addr,struct.pack('>I',sym['mc_store_led_hook']),'chained_led')
  patch(0x40000530,b'\x4e\xb9'+struct.pack('>I',trampoline),'boot_copy_trampoline')
- for n,cave_at,z,head in CAVES:
-  f=out/(n[1:]+'.bin');cave=f.read_bytes() if f.exists() else b''
-  if not cave:continue
-  assert len(cave)<=z,(n,len(cave),z)
-  # The cave must still hold the stock bytes it replaces.
-  assert rd(cave_at,8).hex()==head,f'{n} no longer holds the dead stock code'
-  patch(cave_at,cave,'cave_code')
+ cave=cave_bin.read_bytes() if cave_bin.exists() else b''
+ if cave:
+  assert len(cave)<=CAVE_SIZE and sym.get('drive_render',CAVE)>=CAVE
+  # The cave must still hold the stock CHORD code (update entry starts the range).
+  assert rd(CAVE,8).hex()==STOCK_CAVE_HEAD,'cave no longer holds the CHORD code'
+  patch(CAVE,cave,'cave_code')
+ for n,at,z,head in STORE_CAVES:
+  code=(out/(n[1:]+'.bin')).read_bytes()
+  assert 0<len(code)<=z,(n,len(code),z)
+  assert sha(rd(at,z))==head,f'{n} no longer holds the dead stock code'
+  patch(at,code,'cave_code')
  patch(0x40059852,b'\x4e\xb9'+struct.pack('>I',sym['mc_drive_audio_hook']),'drive_audio_call')
  patch(0x40059872,b'\x4e\xb9'+struct.pack('>I',sym['mc_mix_hook']),'pan_offset_mix_call')
  for addr,name in DRIVE_ENTRIES:patch(addr,b'\x4e\xf9'+struct.pack('>I',sym[name])+b'\x4e\x71','sound_record_wrapper')

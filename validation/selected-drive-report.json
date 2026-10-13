@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "package_sha256": "18db9804e551f7bbf4989f536813df73260d2f58c49561b63a31e089ab05a9eb",
+  "package_sha256": "2476bc0240d6e4d29fb1deadb2356cc3d0348e2c181e332591395640213c3f1c",
   "checks": [
     "DJ filter applied after the gated distortion on every track, also with the distortion off",
     "audio uses the UI owner records (mirrored by the UI clock), not stale kit bytes; a sound lock uses its own sound",
@@ -14,7 +14,7 @@
     "FUNC+PITCH sets the selected track DJ filter (signed, clamped -63..63), changes nothing else",
     "FUNC+VOLUME+DIST sets the selected track pan offset (signed, clamped -63..63), mirrors it for the audio at once, shows the P overlay, changes nothing else",
     "pan offset: the stock output stage sees every track pan shifted and clamped, the set is restored after, no accumulation over 50 blocks",
-    "overlay drawing executes from cave A: P (LEFT/CENTRE/RIGHT with the P bowl), F, S and the CTRL ALL banner; publish and the knob dispatcher sit in caves B and C",
+    "overlay drawing executes from the cave: P (LEFT/CENTRE/RIGHT with the P bowl), F, S and the CTRL ALL banner",
     "FUNC+SWEEP sets the selected track amount, clamps 0..127, changes nothing else, notifies after 300 ms; plain SWEEP untouched"
   ],
   "emulated_instructions": {

@@ -1,4 +1,3 @@
-#include "../adapter/cave.h"
 #include "interface.h"
 static int before(uint32_t a, uint32_t b) { return (int32_t)(a-b)<0; }
 void mc_init(mc_interface *s) {
@@ -128,7 +127,7 @@ int mc_event_handle(mc_interface *s, unsigned ev, unsigned i, int v,
     }
     return ev!=MC_TICK;
 }
-MC_CAVE_A uint16_t mc_leds(const mc_interface *s, uint32_t now) {
+uint16_t mc_leds(const mc_interface *s, uint32_t now) {
     if (s->state==MC_INACTIVE) return 0;
     if(s->state==MC_SCALE) {
         uint16_t leds=0xffff;

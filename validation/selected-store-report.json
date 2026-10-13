@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "package_sha256": "2476bc0240d6e4d29fb1deadb2356cc3d0348e2c181e332591395640213c3f1c",
+  "checks": [
+    "package = RC19 except the wrapped key/light/LED hooks and three dead CHORD caves; payload byte for byte RC19 (every audio routine at its RC19 address)",
+    "transport stopped: PAGE and step keys keep their stock path; garbage state RAM reset to a clean state on the first key",
+    "break: step keys show bank A, lit where a pattern has trigs, the playing pattern flashing (~4 Hz); other LEDs untouched",
+    "light hook: the store mode reaches the stock LED code through mc_light_hook (outside generator mode, mc_led_mode keeps it)",
+    "LED passes repaint once per flash phase and never at interrupt level",
+    "step key in a break: stored into that slot of the bank (A10), slot index stamped as the stock paste does, owner and kit notified once, popup, press/repeat/release consumed; source and other slots untouched",
+    "rhythm: every step of every track holds the content the live break plays on it (mc_brk_step), steps past the track length untouched",
+    "movement: every stored trig carries exactly the pan/timbre/octave locks the live message hook adds for that hit (30 trigs), with lock counts and slot-used flags; ratchets as the live retrig (0), trigless and written retrigs left alone",
+    "kit: filter sweeps stored at their target (resonant if unset), distortion pushes added; all other kit bytes as the source kit",
+    "16 breaks stored and checked as above: 512 trigs, 104 ratchets, recipes [0, 1, 2, 3, 4, 5], every movement layer",
+    "storing over the playing pattern works; PAGE release ends the break, LEDs repaint once back to stock, step keys take their stock path again",
+    "banks: the survey and the store follow the playing pattern's bank (C07 stores into C01)",
+    "pair budget: a pattern already at the saver's 79 (slot, track) pairs gains no new lock slot"
+  ],
+  "limitations": "Packaged code with synthetic pattern owners, kit container, transport, popups and repaint; the stock paste path is mirrored (two copies, owner and kit notifications), not executed; the stock saver, flash writes and PATTERN loading are not executed; LED refresh rate and flash timing not measured on hardware."
+}

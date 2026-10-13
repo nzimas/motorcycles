@@ -27,7 +27,8 @@ python3 validation/test_packaged_bootstrap.py "$MC_CANDIDATE.syx" --out validati
 cd validation
 for t in test_selected_boot test_native_live test_packaged_hooks test_native_popup test_selected_machines \
          test_patch_audition_native test_selected_music_lifecycle test_selected_retune test_selected_sound_extras \
-         test_selected_lock_persistence test_selected_music_default test_selected_drive; do python3 $t.py; done
+         test_selected_lock_persistence test_selected_music_default test_selected_drive \
+         test_selected_brk test_selected_ctrlall test_selected_lyra test_selected_store; do python3 $t.py; done
 ```
 
 Use the Python interpreter that has Unicorn installed (locally,
@@ -60,21 +61,28 @@ the rest of the OS and outside the boot-copy area. Functions and data marked
 first bytes are still the CHORD prologue (`4fefffe448d71c3c`) and writes the
 section over it. It holds the UI-only overlay drawing (`firmware/drive_ui.c`).
 
-## More caves (RC20)
+## The store caves (RC21)
 
-The build now writes three caves, listed in `CAVES` in `build-selected.py`,
-each guarded by its first stock bytes:
+RC20 moved existing code out of the payload into caves. The audio code moved
+with it and the unit stuttered. RC21 is built on RC19's sources, and its new
+code lives only in dead CHORD space, so the payload stays byte for byte
+RC19's. `STORE_CAVES` in `build-selected.py`:
 
 | Cave | Range | Size | Was | Holds |
 |---|---|---|---|---|
-| A | `0x400AADA4..0x400AB3B0` | 1,548 B | the CHORD helper only the CHORD update called, plus the CHORD update and render | overlay drawing and `mc_leds` |
-| B | `0x400A9A32..0x400A9CA8` | 630 B | a helper only the CHORD render called | `mc_fw_publish` |
-| C | `0x4012142C..0x4012168C` | 608 B | the chord-interval table only the CHORD update read | `mc_encoder` |
+| A0 | `0x400AADA4..0x400AAE88` | 228 B | helper called only by the CHORD update | the three hook wrappers, `mc_store_light` |
+| B | `0x400A9A32..0x400A9CA8` | 630 B | helper called only by the CHORD render | `mc_store_key`, `mc_store_tick` |
+| C | `0x40120650..0x40121A8C` | 5,180 B | CHORD wavetables and chord table, read only by the CHORD update and render | the store and bake |
 
-Each range is bounded by `rts` (or is a table), and nothing outside dead code
-references it, by code or by data word. Code opts in with `MC_CAVE_A/B/C`
-(`adapter/cave.h`). Only UI-context code goes there. Payload margin under the
-boot-copy limit: 2,136 bytes.
+Nothing outside dead CHORD code references these ranges, either as an
+instruction operand or as a data word anywhere in the image, MACRO's payload
+included. The build checks the SHA-256 of each range against the stock bytes
+before writing it. `firmware/store.c` is compiled without LTO, and its objects
+come first in the link: placed last, they moved libgcc's helpers and with
+them RC19's payload. The store's state and staging buffer (`0x4306F000`,
+37,804 bytes) are in RAM between the payload's end and `RUNTIME_LIMIT`, which
+RC17's BSS used and nothing has used since RC18. The build asserts both
+bounds.
 
 ## Memory and boot
 

@@ -115,6 +115,23 @@ Nothing is written to the pattern, so a break can never be saved by
 accident. While a pattern plays, PAGE is the break key; generator mode and the
 scale menu (PAGE + pads) are available when stopped.
 
+**Keep a break as a pattern.** While you hold PAGE, the step keys show the
+16 patterns of the current bank. A lit key means the pattern has trigs, and
+the playing pattern's key flashes. Press a step key to store the break you're
+hearing in that slot. The screen confirms it, for example STORED AS A10. An
+empty slot takes it as a new pattern; a lit one is overwritten, and that
+includes the playing pattern. Load it later with PATTERN + step, as usual.
+
+The stored pattern holds:
+- the rhythm the break plays;
+- its panning, timbre and octave moves, as parameter locks;
+- its ratchets, as retrigs;
+- its filter sweeps (at their target) and distortion pushes, in the tracks'
+  sounds.
+
+Live, the movement draws afresh on every hit. The stored copy keeps one pass of
+it.
+
 ### Per-track distortion
 
 - **Stage.** Each track has its own distortion after the stock VOLUME+DIST

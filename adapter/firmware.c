@@ -1,4 +1,3 @@
-#include "cave.h"
 #include "firmware.h"
 #include <stddef.h>
 #ifdef __m68k__
@@ -50,7 +49,7 @@ static void copy(uint8_t*a,const uint8_t*b,uint32_t n){
  while(n--)*a++=*b++;
 }
 static int overlap(uintptr_t a,uint32_t an,uintptr_t b,uint32_t bn){return a<b+bn&&b<a+an;}
-MC_CAVE_B int mc_fw_publish(struct mc_fw_transaction*t){
+int mc_fw_publish(struct mc_fw_transaction*t){
  uint32_t i,j,total=0;uint16_t sr;
  if(!t||!t->stopped||!t->irq_save||!t->irq_restore||!t->region_count||
  t->region_count>MC_FW_MAX_REGIONS||t->owner_count>MC_FW_MAX_REGIONS)return 0;
