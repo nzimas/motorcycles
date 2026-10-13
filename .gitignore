@@ -21,8 +21,8 @@ REQUEST.md
 validation/venv/
 __pycache__/
 .DS_Store
-patcher/.build/
-patcher/dist/
+# The macOS patcher app, retired for the web patcher (docs/); kept in git history.
+patcher/
 reference/Model-TG/
 generation/test_generation
 generation/test_music

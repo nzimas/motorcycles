@@ -1,10 +1,10 @@
 <p align="center"><img src="docs/logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="760"></p>
 
 <p align="center">
-  <a href="https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip"><img src="https://img.shields.io/badge/Download-Patcher%20for%20macOS-e5281f?style=for-the-badge&logo=apple&logoColor=white" alt="Download the Motor:Cycles patcher for macOS" height="44"></a>
+  <a href="https://nzimas.github.io/motorcycles/"><img src="https://img.shields.io/badge/Open-the%20patcher%20in%20your%20browser-e5281f?style=for-the-badge" alt="Open the Motor:Cycles patcher in your browser" height="44"></a>
 </p>
 <p align="center">
-  <b><a href="https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip">Download the patcher for macOS</a></b> ·
+  <b><a href="https://nzimas.github.io/motorcycles/">Open the patcher</a></b> ·
   <a href="https://github.com/nzimas/motorcycles/releases">All releases</a> ·
   <a href="#installing">How to install</a>
 </p>
@@ -26,8 +26,9 @@ the machine becomes a collaborator that keeps producing new material in the
 style.
 
 Motor:Cycles is built on the official Model:Cycles OS 1.13. It ships as a
-**patcher for macOS** that converts *your own copy* of the official firmware
-into Motor:Cycles on your Mac. No Elektron code is distributed here.
+**web patcher** that converts *your own copy* of the official firmware into
+Motor:Cycles in your browser, on any computer, with nothing to install. No
+Elektron code is distributed here.
 
 ---
 
@@ -202,7 +203,7 @@ are part of Motor:Cycles:
 
 You need:
 
-- a Mac running macOS 13 or later (Apple silicon or Intel);
+- a computer with a current browser (Chrome, Edge, Firefox or Safari);
 - the **official Model:Cycles OS 1.13** firmware file (`.syx`), downloaded from
   [elektron.se](https://www.elektron.se/support-downloads);
 - [Elektron Transfer](https://www.elektron.se/support-downloads) to send the result to your
@@ -210,15 +211,10 @@ You need:
 
 Steps:
 
-1. **[Download the patcher](https://github.com/nzimas/motorcycles/releases/latest/download/MotorCycles-macOS.zip)**
-   (`MotorCycles-macOS.zip`, also on the [Releases](https://github.com/nzimas/motorcycles/releases)
-   page) and unzip it.
-2. The first time, right-click **MotorCycles.app** and choose **Open**. The
-   app is not notarised by Apple.
-3. Drop the official `.syx` into the window, or click **Choose File…**.
-4. Click **Convert**, then **Save…**, and choose where to save the Motor:Cycles
-   `.syx`.
-5. Send that file to your Model:Cycles with Elektron Transfer, as you would an
+1. Open the **[Motor:Cycles patcher](https://nzimas.github.io/motorcycles/)**.
+2. Drop the official `.syx` onto the page, or click to choose it.
+3. Click **Save Motor:Cycles .syx**.
+4. Send that file to your Model:Cycles with Elektron Transfer, as you would an
    official update.
 
 Notes:
@@ -226,8 +222,8 @@ Notes:
   exactly the way the released build was made (the Modded-Cycles mods first,
   then Motor:Cycles on top) and checks every stage against known checksums.
   The result is byte for byte the file tested on a real Model:Cycles, or
-  nothing is written.
-- Your file never leaves your Mac.
+  nothing is produced.
+- Everything runs in your browser: your file is never uploaded.
 - To go back, install the official OS 1.13 with Transfer the same way.
 
 Back up your projects before installing.
@@ -242,11 +238,13 @@ Back up your projects before installing.
   - It applies the pinned Modded-Cycles tweaks (git submodule
     `reference/Modded-Cycles`) and builds the payload from `firmware/` and
     `generation/`.
-- **Patch kit.** `tools/make_patchkit.py` turns a build into the patch kit
-  used by the app. `tools/apply_patchkit.py` is the reference implementation
-  of the patcher.
-- **The app.** `patcher/` is the Swift package for the app and the `mcpatch`
-  command-line tool; `patcher/scripts/build-app.sh` builds the app.
+- **Patch kit.** `tools/make_patchkit.py` turns a build into the patch kit,
+  `docs/motorcycles.mcpatch`. `tools/apply_patchkit.py` is the reference
+  implementation of the patcher.
+- **The web patcher.** `docs/` is the GitHub Pages site: `docs/patcher.js`
+  is the patcher core (a JavaScript port of the reference) and
+  `docs/index.html` the page. `node tools/check_web_patcher.mjs STOCK.syx
+  EXPECTED.syx` checks that it reproduces a release byte for byte.
 - **Tests.**
   - `make check` runs the host test suites: generators, interface, DSP and
     fuzzing.
@@ -283,8 +281,8 @@ Motor:Cycles is a fundamentally different project, though:
 Also with thanks to:
 
 - **drumkilla** ([elektron-model-tweaks](https://github.com/drumkilla/elektron-model-tweaks)):
-  the `mtlib` firmware toolkit (SysEx transport, container, aPLib). The macOS
-  patcher's core is a Swift port of it. Latching mute, trig preview and
+  the `mtlib` firmware toolkit (SysEx transport, container, aPLib). The web
+  patcher's core is a JavaScript port of it. Latching mute, trig preview and
   scrolling names also come from this project.
 - **Scott Metoyer** ([ms-multi-output](https://github.com/scottmetoyer/ms-multi-output)):
   the original multi-channel USB audio mod.
