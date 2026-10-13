@@ -28,7 +28,7 @@ cd validation
 for t in test_selected_boot test_native_live test_packaged_hooks test_native_popup test_selected_machines \
          test_patch_audition_native test_selected_music_lifecycle test_selected_retune test_selected_sound_extras \
          test_selected_lock_persistence test_selected_music_default test_selected_drive \
-         test_selected_brk test_selected_ctrlall test_selected_lyra test_selected_store test_selected_stock_sounds; do python3 $t.py; done
+         test_selected_brk test_selected_ctrlall test_selected_lyra test_selected_store; do python3 $t.py; done
 ```
 
 Use the Python interpreter that has Unicorn installed (locally,

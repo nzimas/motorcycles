@@ -116,16 +116,6 @@ def main():
  run([prefix+'gcc','-mcpu=54415',*([] if __import__('os').environ.get('MC_NO_LTO') else ['-flto']),*(['-Wl,--gc-sections'] if __import__('os').environ.get('MC_GC') else []),'-Os','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-nostdlib',*['-Wl,--undefined='+k for k in sorted(keep)],'-Wl,-T,'+str(linker),'-Wl,-Map,'+str(stem.with_suffix('.map')),*objects,'-lgcc','-o',elf]);run([prefix+'objcopy','-O','binary','-R','.cave',*[x for n,_,_,_ in STORE_CAVES for x in ('-R',n)],elf,payload]);cave_bin=out/'cave.bin';run([prefix+'objcopy','-O','binary','-j','.cave',elf,cave_bin])
  symbols=subprocess.check_output([prefix+'nm','-n',str(elf)],text=True);stem.with_suffix('.symbols.txt').write_text(symbols)
  sym={l.split()[2]:int(l.split()[0],16) for l in symbols.splitlines() if len(l.split())==3};blob=payload.read_bytes();assert sym['mc_payload_start']==RUNTIME and sym['mc_payload_end']<=RUNTIME_LIMIT
- # RC22: read each track's machine as the stock OS does, from the high byte of
- # its 8.8 word (sound+38) only. Stock-era sounds can carry a non-zero low byte
- # (sound+39), which mc_read_machines treated as an unknown machine, so every
- # generator refused the pattern. Fixed in place, size for size, so that no
- # payload code moves (RC20): 'mvzb d1,d7; tst.b d1' (d7 = low byte, branch to
- # the unknown-machine path if non-zero) becomes 'moveq #0,d7; nop' (Z set).
- stock_machine_from=bytes.fromhex('322900267f814a016600')
- at=blob.find(stock_machine_from,sym['mc_read_machines']-RUNTIME,sym.get('input')-RUNTIME)
- assert at>0 and blob.find(stock_machine_from,at+1)<0,'mc_read_machines no longer matches the RC22 fix'
- blob=blob[:at+4]+bytes.fromhex('7e004e71')+blob[at+8:];payload.write_bytes(blob)
  assert sym.get('_end')<=STORE_STATE and STORE_BUFFER+STORE_BYTES<=RUNTIME_LIMIT,'store RAM overlaps the payload or passes the limit'
  for n,_,_,_ in STORE_CAVES:run([prefix+'objcopy','-O','binary','-j',n,elf,out/(n[1:]+'.bin')])
  # The packed copy sits after the image and is inside the BSS the boot clears,

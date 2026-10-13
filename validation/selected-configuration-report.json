@@ -108,7 +108,7 @@
   ],
   "hardware_writes": false,
   "candidate": {
-    "syx_sha256": "db378a7e13f0280ebe8733308ded9773052ac601da8c785dd654b3d9158fc9f2",
+    "syx_sha256": "2476bc0240d6e4d29fb1deadb2356cc3d0348e2c181e332591395640213c3f1c",
     "syx_bytes": 1062944,
     "transport": {
       "product": 17,
@@ -142,16 +142,16 @@
         "index": 2,
         "id": 3,
         "off": 15664,
-        "size": 791218,
+        "size": 791216,
         "attr": 1073742848,
-        "stored_sha256": "412b7c32aea71d71fe8a185c39292dee0c474dd8f7229351ddd51440b02aca2f",
-        "plain_sha256": "cd6be2e5370ad0ca6173f95504e75a8899fec01d209b52e388ea2d55d1fc9822",
+        "stored_sha256": "12b5c6d9b74f559e803a6001bff9e7dc4ea51c572c8bdd072b677f00472650c8",
+        "plain_sha256": "7784d2c4cb210ce3c53ceb5079b6f585510989bc261f57272cb7ddc8a0901ae4",
         "plain_bytes": 1894584
       },
       {
         "index": 3,
         "id": 4,
-        "off": 806896,
+        "off": 806880,
         "size": 31752,
         "attr": 2147484672,
         "stored_sha256": "8215fd1050970a0d7c1c792fb911832374ca0a551f3ce9e523cb8e64a8810f0e",

@@ -24,10 +24,10 @@
     "elevatedIPL LEDclock does no publication or repaint",
     "IPL0 LEDclock onlyfeedback neverpublishes",
     "Pattern native keyrepeat publishesallsequence",
-    "stock-era machine low byte read as the stock OS does: generates"
+    "fractional canonical machine failclosed"
   ],
   "max_observed_stack_bytes": 2048,
   "elf_sha256": "725190fc2b511d1978ac5d76ff680b0fdfe40685eb2ef37e47e8d2b504cf5207",
   "limitations": "Exact packaged MAIN and payload (live-rig synthetic owner trees, transport and heap); publications observed by a spy on the real mc_commit_live entry. Not complete boot, real OS dispatch or hardware.",
-  "package_sha256": "db378a7e13f0280ebe8733308ded9773052ac601da8c785dd654b3d9158fc9f2"
+  "package_sha256": "2476bc0240d6e4d29fb1deadb2356cc3d0348e2c181e332591395640213c3f1c"
 }
