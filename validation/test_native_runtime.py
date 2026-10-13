@@ -94,7 +94,12 @@ def main():
  check(r.key(20,16)==1,'owned level keyrelease consumed after PAGE');check(r.key(20,16)==0,'duplicate level release forwarded')
  r.key(31,16)
  r.key(15,1);r.pad(4,1);r.pad(4,0);check(r.ui(2)==3 and r.ui(3)==1 and r.ui(4)==0,'Pattern entry captures selected track0');r.key(31,1);r.advance(1500);before=r.paints;r.call('mc_clock',sr=0x2600);check(p.count()==2 and r.paints==before,'elevatedIPL LEDclock does no publication or repaint');r.call('mc_clock');check(p.count()==2,'IPL0 LEDclock onlyfeedback neverpublishes');r.key(31,8);check(p.count()==3 and p.last('sequence_mask')==63,'Pattern native keyrepeat publishesallsequence')
- r.u.mem_write(SOUND+38,bytes((0,1)));r.key(31,16);r.key(31,1);r.advance(1500);r.key(31,8);check(p.count()==3 and r.ui(11)==2,'fractional canonical machine failclosed')
+ # A non-zero low byte on the machine word (stock-era sounds): the standalone
+ # runtime fails closed; the packaged firmware (RC22) reads the high byte, as
+ # the stock OS does, and generates (test_selected_stock_sounds.py).
+ r.u.mem_write(SOUND+38,bytes((0,1)));r.key(31,16);r.key(31,1);r.advance(1500);r.key(31,8)
+ if packaged:check(p.count()==4 and p.last('sequence_mask')==63,'stock-era machine low byte read as the stock OS does: generates')
+ else:check(p.count()==3 and r.ui(11)==2,'fractional canonical machine failclosed')
  elf=pathlib.Path(os.environ['MC_CANDIDATE']).with_suffix('.elf') if packaged else D/'native-runtime.elf'
  report={'result':'PASS','checks':checks,'max_observed_stack_bytes':SP-r.min_sp,'elf_sha256':hashlib.sha256(elf.read_bytes()).hexdigest(),'limitations':'Actual compiled runtime/interface/generation calls with synthetic OS accessors, encoder delta and publish callback. Not exact firmware package or real OS publication/dispatch.'}
  if packaged:report.update(package_sha256=candidate_meta['syx_sha256'],limitations='Exact packaged MAIN and payload (live-rig synthetic owner trees, transport and heap); publications observed by a spy on the real mc_commit_live entry. Not complete boot, real OS dispatch or hardware.')

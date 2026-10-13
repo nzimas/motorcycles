@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "package_sha256": "db378a7e13f0280ebe8733308ded9773052ac601da8c785dd654b3d9158fc9f2",
+  "checks": [
+    "payload = RC21 except the 4-byte in-place fix in mc_read_machines (no code moves)",
+    "Patch generates with a stock-era machine word (low byte 0x01/0x80/0xff on a track)",
+    "Kit generates with a stock-era machine word (low byte 0x01/0x80/0xff on a track)",
+    "Phrase generates with a stock-era machine word (low byte 0x01/0x80/0xff on a track)",
+    "Pattern generates with a stock-era machine word (low byte 0x01/0x80/0xff on a track)",
+    "mc_read_machines: every track valid, machine = high byte (as the stock OS reads it)"
+  ],
+  "limitations": "Synthetic sounds with clean values plus the stock-era low byte; real stock projects not loaded."
+}
