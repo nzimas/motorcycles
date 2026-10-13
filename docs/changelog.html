@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motor:Cycles Changelog</title>
+<meta name="description" content="What changed in each Motor:Cycles release.">
+<link rel="icon" href="logo/motorcycles-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo/motorcycles-mark.svg" alt="" width="34" height="34">MOTOR:CYCLES</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">Home</a>
+      <a href="install.html">Install</a>
+      <a href="manual.html">Manual</a>
+      <a href="changelog.html" aria-current="page">Changelog</a>
+      <a href="https://github.com/nzimas/motorcycles">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding:40px 16px 64px">
+  <div class="prose">
+    <p class="eyebrow">Changelog</p>
+    <h1>What changed</h1>
+    <p class="lede">Each release candidate changes one thing and is tested on a real Model:Cycles before it's published.
+      The <a href="install.html">patcher</a> always builds the current release.</p>
+  </div>
+
+  <div class="prose" style="margin-top:32px">
+    <div class="release current">
+      <h2>RC21 <span class="tag now">Current</span> <span class="date">13 October 2026</span></h2>
+      <p><strong>Keep a break as a pattern.</strong></p>
+      <ul>
+        <li>While you hold <kbd>PAGE</kbd> during playback, the step keys show the bank's 16 patterns: lit if they
+          have trigs, flashing for the one playing.</li>
+        <li>Press a step key to store the break you're hearing in that slot, as a new pattern or over an existing one.
+          It keeps the rhythm, the movement as locks, the ratchets as retrigs and the filter and distortion pushes.</li>
+        <li>Built on RC19, with its audio code untouched, so playback feels exactly like RC19.</li>
+        <li>The patcher is now a web page, so it runs on any computer. It replaces the macOS app.</li>
+      </ul>
+      <p class="note"><a href="manual.html#store">Manual: keep a break as a pattern</a></p>
+    </div>
+
+    <div class="release">
+      <h2>RC20 <span class="tag off">Withdrawn</span> <span class="date">13 October 2026</span></h2>
+      <p>Moved interface code to make room for future features. Playback could stutter and the interface felt
+        slower, so it was withdrawn; RC21 starts again from RC19.</p>
+    </div>
+
+    <div class="release">
+      <h2>RC19 <span class="date">13 October 2026</span></h2>
+      <p><strong>Per-track pan.</strong></p>
+      <ul>
+        <li><kbd>FUNC</kbd> + <kbd>VOLUME+DIST</kbd> pans the selected track, with a large P on screen.</li>
+        <li>It's an offset applied at the mixer and saved with the sound. Pan locks keep moving the sound,
+          shifted by it. In Control All it moves all six tracks.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC18 <span class="date">13 October 2026</span></h2>
+      <p><strong>Live breaks.</strong></p>
+      <ul>
+        <li>Hold <kbd>PAGE</kbd> while a pattern plays for breakcore-style variations: beat repeats, half and double
+          time, reversed bars, chops and accelerating rolls, with panning, timbre, filter, distortion, octave and
+          ratchet movement.</li>
+        <li>Release <kbd>PAGE</kbd> and the pattern plays as written.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC17 <span class="date">12 October 2026</span></h2>
+      <ul>
+        <li><strong>One rhythmic path.</strong> The generators focus on rhythmic noise, with texture tracks drawn
+          from the old Abstract path.</li>
+        <li><strong>New generator gestures.</strong> Steps 1–15 set a level, holding step 16 for 1.5 s generates,
+          and the knobs keep their normal functions.</li>
+        <li>LYRA becomes the generators' texture voice.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC16 <span class="date">12 October 2026</span></h2>
+      <p><strong>LYRA replaces CHORD.</strong> Four cross-modulating oscillators inspired by the SOMA LYRA-8, at
+        about half of CHORD's CPU cost, and almost none when silent.</p>
+    </div>
+
+    <div class="release">
+      <h2>RC15 <span class="date">12 October 2026</span></h2>
+      <ul>
+        <li><strong>Latched Control All</strong> on <kbd>FUNC</kbd> + <kbd>TRK</kbd>: every knob moves all six
+          tracks, overrides locks and reverts instantly.</li>
+        <li>The kick gets seven distinct characters.</li>
+        <li>Parameter locks stay close to each track's sound.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC14 <span class="date">12 October 2026</span></h2>
+      <ul>
+        <li>Fixed: the filter and the distortion now respond to your changes.</li>
+        <li>Generated patterns spread tracks across the stereo field.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC13 <span class="date">12 October 2026</span></h2>
+      <p><strong>DJ resonant filter</strong> on every track, on <kbd>FUNC</kbd> + <kbd>PITCH</kbd>.</p>
+    </div>
+
+    <div class="release">
+      <h2>RC12 <span class="date">12 October 2026</span></h2>
+      <p><strong>Noise gate</strong> in the distortion stage, so silence and quiet tails no longer turn into
+        static.</p>
+    </div>
+
+    <div class="release">
+      <h2>RC11 <span class="date">12 October 2026</span></h2>
+      <p>Fixed: older projects could switch the distortion on with random settings, overloading the audio and
+        dropping the USB connection.</p>
+    </div>
+
+    <div class="release">
+      <h2>RC10 <span class="date">12 October 2026</span></h2>
+      <ul>
+        <li><strong>Per-track distortion</strong>, on <kbd>FUNC</kbd> + <kbd>SWEEP</kbd>, set by the
+          generators.</li>
+        <li>Every generated track plays at full volume.</li>
+        <li>The Model-TG sample mod is removed.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC5 – RC9 <span class="date">11 October 2026</span></h2>
+      <ul>
+        <li><strong>RC9:</strong> the kick is rebuilt from measurements of the stock KICK, with a real low end.
+          No more laser or siren sounds.</li>
+        <li><strong>RC8:</strong> Pattern plays 3–6 tracks, always including the kick.</li>
+        <li><strong>RC7:</strong> a punchier kick, locked to the chosen root.</li>
+        <li><strong>RC6:</strong> Phrase and Pattern rewritten: lock lanes, lock-only steps, microtiming, rolls,
+          ratchets and trig conditions.</li>
+        <li><strong>RC5:</strong> Patch and Kit rewritten: about 30 harsher sound recipes, each with an LFO,
+          distortion, sends and pan.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>RC1 – RC4 <span class="date">10–11 October 2026</span></h2>
+      <ul>
+        <li><strong>RC4:</strong> a per-pattern scale and root menu (<kbd>PAGE</kbd> + pad 5).</li>
+        <li><strong>RC3:</strong> stronger kicks and envelopes.</li>
+        <li><strong>RC2:</strong> Patch audition and fixed Kit roles.</li>
+        <li><strong>RC1:</strong> the first generators: Patch, Kit, Phrase and Pattern.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>Motor:Cycles © Nuno Zimas · MIT licence · Built on
+      <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a>.</div>
+    <div>Not affiliated with or endorsed by Elektron. Model:Cycles is a trademark of Elektron Music Machines. Use at your own risk.</div>
+  </div>
+</footer>
+</body>
+</html>

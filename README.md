@@ -1,10 +1,12 @@
 <p align="center"><img src="docs/logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="760"></p>
 
 <p align="center">
-  <a href="https://nzimas.github.io/motorcycles/"><img src="https://img.shields.io/badge/Open-the%20patcher%20in%20your%20browser-e5281f?style=for-the-badge" alt="Open the Motor:Cycles patcher in your browser" height="44"></a>
+  <a href="https://nzimas.github.io/motorcycles/install.html"><img src="https://img.shields.io/badge/Open-the%20patcher%20in%20your%20browser-e5281f?style=for-the-badge" alt="Open the Motor:Cycles patcher in your browser" height="44"></a>
 </p>
 <p align="center">
-  <b><a href="https://nzimas.github.io/motorcycles/">Open the patcher</a></b> ·
+  <b><a href="https://nzimas.github.io/motorcycles/install.html">Open the patcher</a></b> ·
+  <a href="https://nzimas.github.io/motorcycles/manual.html">Manual</a> ·
+  <a href="https://nzimas.github.io/motorcycles/changelog.html">Changelog</a> ·
   <a href="https://github.com/nzimas/motorcycles/releases">All releases</a> ·
   <a href="#installing">How to install</a>
 </p>
@@ -211,7 +213,7 @@ You need:
 
 Steps:
 
-1. Open the **[Motor:Cycles patcher](https://nzimas.github.io/motorcycles/)**.
+1. Open the **[Motor:Cycles patcher](https://nzimas.github.io/motorcycles/install.html)**.
 2. Drop the official `.syx` onto the page, or click to choose it.
 3. Click **Save Motor:Cycles .syx**.
 4. Send that file to your Model:Cycles with Elektron Transfer, as you would an
@@ -243,7 +245,8 @@ Back up your projects before installing.
   implementation of the patcher.
 - **The web patcher.** `docs/` is the GitHub Pages site: `docs/patcher.js`
   is the patcher core (a JavaScript port of the reference) and
-  `docs/index.html` the page. `node tools/check_web_patcher.mjs STOCK.syx
+  `docs/install.html` the page that runs it. The site also has a home page,
+  `docs/manual.html` and `docs/changelog.html`. `node tools/check_web_patcher.mjs STOCK.syx
   EXPECTED.syx` checks that it reproduces a release byte for byte.
 - **Tests.**
   - `make check` runs the host test suites: generators, interface, DSP and

@@ -3,149 +3,108 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Motor:Cycles Patcher</title>
-<meta name="description" content="Turn your own official Elektron Model:Cycles OS 1.13 firmware into Motor:Cycles, in your browser.">
+<title>Motor:Cycles</title>
+<meta name="description" content="Generative rhythmic-noise and power-noise firmware for the Elektron Model:Cycles.">
 <link rel="icon" href="logo/motorcycles-mark.svg" type="image/svg+xml">
-<style>
-  :root {
-    --carbon: #0b0b0c; --panel: #151517; --line: #2a2a2e; --bone: #ece8e1; --muted: #9c978f;
-    --red: #e5281f; --red-dark: #b81e17; --ok: #5fbf6f;
-    color-scheme: dark;
-  }
-  * { box-sizing: border-box; }
-  html { background: var(--carbon); }
-  body {
-    margin: 0; background: var(--carbon); color: var(--bone);
-    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
-  .logo { display: block; width: 100%; height: auto; margin: 0 auto 8px; }
-  h1 { font-size: 1.5rem; margin: 24px 0 4px; letter-spacing: .01em; }
-  .lead { color: var(--muted); margin: 0 0 28px; }
-  a { color: var(--bone); text-decoration-color: var(--red); text-underline-offset: 3px; }
-  a:hover { color: #fff; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
-  #drop {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-    min-height: 190px; border: 2px dashed var(--line); border-radius: 10px; padding: 24px; text-align: center;
-    cursor: pointer; transition: border-color .15s, background .15s;
-  }
-  #drop:hover, #drop:focus-visible, #drop.over { border-color: var(--red); background: #1b1416; outline: none; }
-  #drop strong { font-size: 1.1rem; }
-  #drop small { color: var(--muted); }
-  .btn {
-    appearance: none; border: 0; border-radius: 8px; padding: 12px 22px; font: inherit; font-weight: 600;
-    background: var(--red); color: #fff; cursor: pointer; text-decoration: none; display: inline-block;
-  }
-  .btn:hover { background: var(--red-dark); }
-  .btn.secondary { background: transparent; border: 1px solid var(--line); color: var(--bone); }
-  .btn.secondary:hover { border-color: var(--bone); }
-  #status { margin-top: 18px; min-height: 1.5em; }
-  #status.error { color: #ff7a72; }
-  #status.done { color: var(--ok); }
-  #result { display: none; margin-top: 16px; gap: 12px; flex-wrap: wrap; align-items: center; }
-  #result.show { display: flex; }
-  .hash { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); word-break: break-all; margin-top: 12px; }
-  ol { padding-left: 1.3em; }
-  li { margin: 6px 0; }
-  h2 { font-size: 1.1rem; margin: 36px 0 8px; }
-  .notes { color: var(--muted); font-size: .95rem; }
-  footer { margin-top: 48px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); padding-top: 16px; }
-  @media (max-width: 520px) { .card { padding: 16px; } #drop { min-height: 160px; } }
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<main>
-  <img class="logo" src="logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="1280" height="300">
-  <h1>Motor:Cycles patcher</h1>
-  <p class="lead">Turns <em>your own copy</em> of the official Model:Cycles OS 1.13 firmware into
-    Motor:Cycles, right here in your browser. Nothing is uploaded and nothing is installed.</p>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo/motorcycles-mark.svg" alt="" width="34" height="34">MOTOR:CYCLES</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./" aria-current="page">Home</a>
+      <a href="install.html">Install</a>
+      <a href="manual.html">Manual</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="https://github.com/nzimas/motorcycles">GitHub</a>
+    </nav>
+  </div>
+</header>
 
-  <section class="card" aria-label="Patcher">
-    <div id="drop" tabindex="0" role="button" aria-describedby="drop-help">
-      <strong>Drop the official OS 1.13 <code>.syx</code> here</strong>
-      <small id="drop-help">or click to choose the file</small>
-      <span class="btn secondary" aria-hidden="true">Choose file…</span>
+<div class="hero">
+  <div class="wrap">
+    <img class="logo" src="logo/motorcycles-logo.svg" alt="Motor:Cycles: rhythmic noise / power noise firmware" width="1280" height="300">
+    <h1>Generative rhythmic-noise firmware for the Elektron Model:Cycles</h1>
+    <p>Pounding kicks, abrasive textures, mechanical repetition and controlled chaos. Motor:Cycles
+      turns the Model:Cycles into a collaborator that keeps generating sounds, kits and patterns in
+      the style, while everything you do by hand keeps working.</p>
+    <div class="actions">
+      <a class="btn" href="install.html">Install in your browser</a>
+      <a class="btn ghost" href="manual.html">Read the manual</a>
     </div>
-    <input id="file" type="file" accept=".syx" hidden>
-    <div id="status" role="status" aria-live="polite"></div>
-    <div id="result">
-      <a id="save" class="btn" download>Save Motor:Cycles .syx</a>
-      <span class="notes" id="saved-name"></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="block">
+    <p class="eyebrow">What it adds</p>
+    <h2>Built for one aesthetic</h2>
+    <p class="lede">It's not another general-purpose beat-making firmware. Every decision, from the sound
+      engines to the sequencing algorithms, serves rhythmic noise and power noise, the hard, distorted,
+      machine-driven end of industrial music.</p>
+    <div class="grid">
+      <a class="card feature-link" href="manual.html#generators"><h3>Generators</h3>
+        <p>Patch, Kit, Phrase and Pattern build sounds and sequences for you. One level control sets how
+          dense and brutal the result is.</p>
+        <p class="gesture"><kbd>PAGE</kbd> + pad, then hold step 16</p></a>
+      <a class="card feature-link" href="manual.html#live-breaks"><h3>Live breaks</h3>
+        <p>Throw the playing pattern into breakcore-style variations: stutters, chops, rolls and sweeps.
+          Keep the ones you like as new patterns.</p>
+        <p class="gesture">Hold <kbd>PAGE</kbd> while playing</p></a>
+      <a class="card feature-link" href="manual.html#distortion"><h3>Per-track distortion</h3>
+        <p>Overdrive, wavefolding, bias and a clean sub crossover on every track, with a noise gate. It
+          only ever adds density.</p>
+        <p class="gesture"><kbd>FUNC</kbd> + <kbd>SWEEP</kbd></p></a>
+      <a class="card feature-link" href="manual.html#filter"><h3>DJ resonant filter</h3>
+        <p>One sweepable low-pass/high-pass filter per track, after the distortion.</p>
+        <p class="gesture"><kbd>FUNC</kbd> + <kbd>PITCH</kbd></p></a>
+      <a class="card feature-link" href="manual.html#pan"><h3>Per-track pan</h3>
+        <p>Offset any track across the stereo field. Pan locks and generated movement keep moving on top.</p>
+        <p class="gesture"><kbd>FUNC</kbd> + <kbd>VOLUME+DIST</kbd></p></a>
+      <a class="card feature-link" href="manual.html#control-all"><h3>Latched Control All</h3>
+        <p>Every knob moves all six tracks, overriding locks, and reverts instantly when you turn it off.</p>
+        <p class="gesture"><kbd>FUNC</kbd> + <kbd>TRK</kbd></p></a>
+      <a class="card feature-link" href="manual.html#lyra"><h3>LYRA</h3>
+        <p>A cross-modulating texture voice inspired by the SOMA LYRA-8, in place of the CHORD machine.</p>
+        <p class="gesture">Where CHORD was</p></a>
+      <a class="card feature-link" href="manual.html#modded-cycles"><h3>Modded-Cycles inside</h3>
+        <p>6-channel USB audio, latching mutes, trig preview, the MACRO machine and more.</p>
+        <p class="gesture">Always on</p></a>
     </div>
-    <div class="hash" id="hash"></div>
   </section>
 
-  <h2>How to install</h2>
-  <ol>
-    <li>Download the <strong>official Model:Cycles OS 1.13</strong> firmware from
-      <a href="https://www.elektron.se/support-downloads" rel="noopener">elektron.se</a> and unzip it.</li>
-    <li>Drop its <code>.syx</code> file above. The patcher checks it and builds Motor:Cycles.</li>
-    <li>Save the result, then send it to your Model:Cycles with
-      <a href="https://www.elektron.se/support-downloads" rel="noopener">Elektron Transfer</a>,
-      as you would an official update.</li>
-  </ol>
-  <p class="notes">Back up your projects first. To go back, install the official OS 1.13 the same way.</p>
+  <section class="block">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Install</p>
+        <h2>Nothing to install</h2>
+        <p class="lede">The patcher runs in your browser on any computer. It converts your own copy of the
+          official OS 1.13 into Motor:Cycles, checking every stage, and never uploads your file.</p>
+        <div class="actions"><a class="btn" href="install.html">Open the patcher</a></div>
+      </div>
+      <ol class="steps">
+        <li>Download the official OS 1.13 from <a href="https://www.elektron.se/support-downloads" rel="noopener">elektron.se</a>.</li>
+        <li>Drop it on the <a href="install.html">patcher</a> and save the result.</li>
+        <li>Send it to your Model:Cycles with Elektron Transfer.</li>
+      </ol>
+    </div>
+  </section>
 
-  <h2>How it works</h2>
-  <p class="notes">The patcher only accepts the official OS 1.13 file. It rebuilds the firmware exactly the
-    way the released build was made: the Modded-Cycles mods first, then Motor:Cycles on top. It checks
-    every stage against known checksums, so the result is byte for byte the file tested on a real
-    Model:Cycles, or nothing is produced. No Elektron code is distributed: the patch kit holds only
-    Motor:Cycles and Modded-Cycles changes. Your file never leaves your computer.</p>
-  <p class="notes">What Motor:Cycles adds, and how to use it:
-    <a href="https://github.com/nzimas/motorcycles#readme">the project on GitHub</a>.</p>
-
-  <footer>
-    Motor:Cycles © Nuno Zimas, MIT licence. Built on
-    <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a> (MIT).
-    Not affiliated with or endorsed by Elektron. Model:Cycles is a trademark of Elektron Music Machines.
-    Use at your own risk.
-    <div id="version"></div>
-  </footer>
+  <section class="block">
+    <p class="eyebrow">Latest</p>
+    <h2>RC21: keep a break as a pattern</h2>
+    <p class="lede">While you hold <kbd>PAGE</kbd>, the step keys show the bank's patterns. Press one to store
+      the break you're hearing in that slot. <a href="changelog.html">See the changelog</a>.</p>
+  </section>
 </main>
-<script type="module">
-import { readKit, convert, outputHash } from './patcher.js';
 
-const drop = document.getElementById('drop'), input = document.getElementById('file');
-const status = document.getElementById('status'), result = document.getElementById('result');
-const save = document.getElementById('save'), savedName = document.getElementById('saved-name');
-const hash = document.getElementById('hash');
-const KIT_URL = 'motorcycles.mcpatch', OUT_NAME = 'Motor-Cycles.syx';
-let kitPromise = fetch(KIT_URL, { cache: 'no-cache' })
-  .then(r => { if (!r.ok) throw new Error(`could not load the patch kit (${r.status})`); return r.arrayBuffer(); })
-  .then(b => readKit(new Uint8Array(b)));
-kitPromise.then(kit => { document.getElementById('version').textContent = `Patch kit output SHA-256: ${outputHash(kit)}`; })
-  .catch(() => {});
-
-function show(text, kind = '') { status.textContent = text; status.className = kind; }
-let lastUrl = null;
-async function handle(file) {
-  if (!file) return;
-  result.classList.remove('show'); hash.textContent = '';
-  if (lastUrl) { URL.revokeObjectURL(lastUrl); lastUrl = null; }
-  try {
-    show('Loading…');
-    const [kit, data] = await Promise.all([kitPromise, file.arrayBuffer()]);
-    const out = await convert(new Uint8Array(data), kit, s => show(s));
-    lastUrl = URL.createObjectURL(new Blob([out], { type: 'application/octet-stream' }));
-    save.href = lastUrl; save.download = OUT_NAME;
-    savedName.textContent = `${OUT_NAME}, ${(out.length / 1024 / 1024).toFixed(2)} MB`;
-    result.classList.add('show');
-    hash.textContent = `SHA-256 ${outputHash(kit)}`;
-    show('Done. Save the file, then send it with Elektron Transfer.', 'done');
-  } catch (e) {
-    show(e.message || String(e), 'error');
-  }
-}
-drop.addEventListener('click', () => input.click());
-drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
-input.addEventListener('change', () => { handle(input.files[0]); input.value = ''; });
-for (const t of ['dragenter', 'dragover']) drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); });
-for (const t of ['dragleave', 'drop']) drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('over'); });
-drop.addEventListener('drop', e => handle(e.dataTransfer.files[0]));
-window.addEventListener('dragover', e => e.preventDefault());
-window.addEventListener('drop', e => e.preventDefault());
-</script>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>Motor:Cycles © Nuno Zimas · MIT licence · Built on
+      <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a>.</div>
+    <div>Not affiliated with or endorsed by Elektron. Model:Cycles is a trademark of Elektron Music Machines. Use at your own risk.</div>
+  </div>
+</footer>
 </body>
 </html>

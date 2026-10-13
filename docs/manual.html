@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motor:Cycles Manual</title>
+<meta name="description" content="How to use Motor:Cycles: generators, live breaks, distortion, filter, pan, Control All and LYRA.">
+<link rel="icon" href="logo/motorcycles-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo/motorcycles-mark.svg" alt="" width="34" height="34">MOTOR:CYCLES</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">Home</a>
+      <a href="install.html">Install</a>
+      <a href="manual.html" aria-current="page">Manual</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="https://github.com/nzimas/motorcycles">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap doc">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#quick">Quick reference</a></li>
+      <li><a href="#generators">Generators</a>
+        <ol>
+          <li><a href="#levels">Levels and generating</a></li>
+          <li><a href="#scale">Scale and root</a></li>
+          <li><a href="#algorithms">What the algorithms do</a></li>
+        </ol></li>
+      <li><a href="#live-breaks">Live breaks</a>
+        <ol><li><a href="#store">Keep a break as a pattern</a></li></ol></li>
+      <li><a href="#distortion">Per-track distortion</a></li>
+      <li><a href="#filter">DJ resonant filter</a></li>
+      <li><a href="#pan">Per-track pan</a></li>
+      <li><a href="#control-all">Latched Control All</a></li>
+      <li><a href="#lyra">LYRA</a></li>
+      <li><a href="#modded-cycles">From Modded-Cycles</a></li>
+      <li><a href="#projects">Projects and compatibility</a></li>
+    </ol>
+  </nav>
+
+  <article class="prose">
+    <p class="eyebrow">Manual · RC21</p>
+    <h1>Motor:Cycles manual</h1>
+    <p class="lede">Everything Motor:Cycles adds to the Model:Cycles. All stock functions keep working,
+      except the few gestures noted below.</p>
+
+    <h2 id="overview">Overview</h2>
+    <p>Motor:Cycles is built on the official Model:Cycles OS 1.13. It adds:</p>
+    <ul>
+      <li>four <strong>generators</strong> that build sounds, kits, phrases and patterns;</li>
+      <li><strong>live breaks</strong> that vary the playing pattern;</li>
+      <li>a <strong>distortion stage</strong>, a <strong>resonant filter</strong> and a <strong>pan offset</strong>
+        on every track;</li>
+      <li>a latched <strong>Control All</strong>;</li>
+      <li>the <strong>LYRA</strong> texture engine, in place of CHORD.</li>
+    </ul>
+    <p>The Modded-Cycles mods it includes are listed <a href="#modded-cycles">below</a>. To install, see
+      <a href="install.html">Install</a>.</p>
+
+    <h2 id="quick">Quick reference</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Gesture</th><th>Does</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>PAGE</kbd> + pad 1–4</td><td>Enter the Patch, Kit, Phrase or Pattern generator</td><td>Stopped</td></tr>
+        <tr><td>Steps 1–15</td><td>Set the generator's level</td><td>In generator mode</td></tr>
+        <tr><td>Hold step 16 (1.5 s)</td><td>Generate</td><td>In generator mode</td></tr>
+        <tr><td><kbd>PAGE</kbd> + pad 5</td><td>Scale and root menu</td><td>Stopped</td></tr>
+        <tr><td>Hold <kbd>PAGE</kbd></td><td>Live break</td><td>Playing</td></tr>
+        <tr><td>Hold <kbd>PAGE</kbd> + step key</td><td>Store the break in that pattern slot</td><td>Playing</td></tr>
+        <tr><td><kbd>FUNC</kbd> + <kbd>SWEEP</kbd></td><td>Track distortion amount</td><td>Always</td></tr>
+        <tr><td><kbd>FUNC</kbd> + <kbd>PITCH</kbd></td><td>Track DJ filter</td><td>Always</td></tr>
+        <tr><td><kbd>FUNC</kbd> + <kbd>VOLUME+DIST</kbd></td><td>Track pan offset</td><td>Always</td></tr>
+        <tr><td><kbd>FUNC</kbd> + <kbd>TRK</kbd></td><td>Latched Control All on/off</td><td>Always</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout">
+      <p><strong>Changed stock gestures.</strong> <kbd>FUNC</kbd> + <kbd>PITCH</kbd> no longer steps pitch in semitones:
+        it's the filter. During playback, <kbd>PAGE</kbd> is the break key.</p>
+    </div>
+
+    <h2 id="generators">Generators</h2>
+    <p>With the transport stopped, hold <kbd>PAGE</kbd> and press a pad to enter a generator. The generator works on
+      the selected track and the current pattern.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pad</th><th>Generator</th><th>Creates</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Patch</strong></td><td>A new sound for the selected track.</td></tr>
+        <tr><td>2</td><td><strong>Kit</strong></td><td>Six matching sounds: kick, impact, metal/hat, percussion, texture, impact.</td></tr>
+        <tr><td>3</td><td><strong>Phrase</strong></td><td>A new sequence, with parameter locks, for the selected track.</td></tr>
+        <tr><td>4</td><td><strong>Pattern</strong></td><td>Sequences for 3–6 tracks at once, plus tempo and length. Sounds are kept.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 id="levels">Levels and generating</h3>
+    <ul>
+      <li><strong>Steps 1–15 set the level.</strong> The keys up to your level stay lit, like a bar filling from the
+        left. Each generator remembers its own level.
+        <ul>
+          <li>For <strong>Phrase and Pattern</strong> the level is complexity and density: more hits, more
+            parameter-lock lanes, ratchets, trig conditions and timing play.</li>
+          <li>For <strong>Patch and Kit</strong> it's tonal complexity and harshness: more drive, feedback, pitch
+            sweep and modulation. On the kick it also means more punch, crunch and decay.</li>
+        </ul></li>
+      <li><strong>Hold step 16 for 1.5 seconds to generate.</strong> The steps sweep from left to right and flash, and
+        the screen shows PATCH, KIT, PHRASE or PATTERN CREATED. If the generator can't run, the steps show an
+        alternating pattern instead and nothing changes.</li>
+      <li><strong>Audition.</strong> After a Patch, a short tap on step 16 plays the new sound.</li>
+      <li><strong>Leave</strong> with a tap on <kbd>PAGE</kbd>. The knobs always keep their normal functions.</li>
+    </ul>
+
+    <h3 id="scale">Scale and root</h3>
+    <ol>
+      <li>Stop playback. Hold <kbd>PAGE</kbd>, press pad 5, then release <kbd>PAGE</kbd>. The menu stays open.</li>
+      <li>Steps 1–4 choose the scale: Major, Natural Minor, Whole Tone, Hirajoshi.
+        Steps 5–16 choose the root, C to B. The current choices blink.</li>
+      <li>Each choice retunes the pattern at once. Every note moves to the nearest note of the scale, and
+        velocity, length, timing and locks are kept.</li>
+      <li>Tap <kbd>PAGE</kbd> to leave.</li>
+    </ol>
+    <p>The setting is saved with the pattern. Patterns with no setting use A Natural Minor for notes, and their kick
+      sounds C. Once you choose, Patch and Kit tune sounds towards the root, Phrase and Pattern write notes in the
+      scale, and the kick always sounds the root.</p>
+
+    <h3 id="algorithms">What the algorithms do</h3>
+    <ul>
+      <li><strong>Sounds.</strong> About thirty sound recipes, built from measurements of the Model:Cycles' own
+        engines: noise bursts, metallic clangs, feedback screams, inharmonic toms, crushed hats, drones and more.
+        The level pushes them towards harshness.</li>
+      <li><strong>Kicks.</strong> Track 1 is always the kick. Each seed picks one of seven characters: punch, knock,
+        deep boom, rumble, feedback noise, tonal thud or gabber.</li>
+      <li><strong>Rhythm.</strong> Hits are placed by ranked rhythmic motifs, so density grows musically. Pattern
+        brings in 3–6 tracks, always including the kick.</li>
+      <li><strong>Parameter locks.</strong> Lock "lanes" animate a parameter across the phrase: random per hit,
+        ramps, accent-following, sparse spikes, or short cycles that drift against the bar. Lock-only steps
+        animate between hits. Locks stay close to each track's sound, so it stays recognisable.</li>
+      <li><strong>Stereo.</strong> Patterns spread the tracks across the stereo field with moving pan locks. The kick
+        stays centred, and every downbeat is centred.</li>
+      <li><strong>Textures.</strong> Track 5 of a Kit or Pattern, or any LYRA track, gets sparse long events, drifting
+        timing, granular retrig smears and deep reverb and delay sends.</li>
+      <li><strong>Every generation is new.</strong> Each hold draws a fresh seed, mixed with the timing of your
+        playing.</li>
+    </ul>
+
+    <h2 id="live-breaks">Live breaks</h2>
+    <p>While a pattern plays, <strong>hold <kbd>PAGE</kbd></strong> to throw it into a breakcore-style variation on
+      every track that has content. Release <kbd>PAGE</kbd> and the pattern carries on as written. Each press
+      draws a new variation.</p>
+    <p><strong>Rhythm</strong>, one per press:</p>
+    <ul>
+      <li>beat-repeat stutters of 1, 2, 4 or 8 steps;</li>
+      <li>half-time drag or double-time rush;</li>
+      <li>reversed bars;</li>
+      <li>amen-style chops: the bar is cut into slices and reshuffled;</li>
+      <li>snare and hat rolls that accelerate the longer you hold.</li>
+    </ul>
+    <p><strong>Movement</strong>, one or more per press:</p>
+    <ul>
+      <li>ping-pong or scattered panning, with the kick centred on every beat;</li>
+      <li>timbre drift around each sound;</li>
+      <li>resonant filter sweeps on everything but the kick;</li>
+      <li>distortion pushed harder;</li>
+      <li>octave jumps that stay in key (the kick never moves);</li>
+      <li>extra ratchets.</li>
+    </ul>
+    <p>No track is ever silenced, and the kick keeps driving. A break starts within one step. Nothing is written to
+      the pattern unless you store it.</p>
+
+    <h3 id="store">Keep a break as a pattern</h3>
+    <p>While you hold <kbd>PAGE</kbd> during playback, the step keys show the 16 patterns of the current bank:</p>
+    <ul>
+      <li><strong>lit:</strong> the pattern has trigs;</li>
+      <li><strong>flashing:</strong> the pattern playing now;</li>
+      <li><strong>unlit:</strong> an empty slot.</li>
+    </ul>
+    <p>Press a step key, still holding <kbd>PAGE</kbd>, to store the break you're hearing in that slot. The screen
+      confirms it, for example STORED AS A10. An empty slot becomes a new pattern. A lit slot is overwritten, and
+      that includes the playing pattern. You can store several slots in one hold. Load a stored pattern later with
+      PATTERN + step, as usual.</p>
+    <p>The stored pattern keeps:</p>
+    <ul>
+      <li>the break's rhythm;</li>
+      <li>its panning, timbre and octave moves, as parameter locks;</li>
+      <li>its ratchets, as retrigs;</li>
+      <li>its filter sweeps (at their target) and distortion pushes, in that pattern's sounds.</li>
+    </ul>
+    <p class="note">Live, the movement changes on every hit; the stored pattern keeps one pass of it.</p>
+
+    <h2 id="distortion">Per-track distortion</h2>
+    <ul>
+      <li><strong>The stage.</strong> Each track has its own distortion after the stock VOLUME+DIST: overdrive, a
+        wavefolder, asymmetric bias, a tone control and a clean sub crossover that keeps the low end solid.</li>
+      <li><strong>Never quieter.</strong> It only ever adds density and loudness.</li>
+      <li><strong>Noise gate.</strong> The stage runs only while sound passes through it, so silence never turns into
+        hiss.</li>
+      <li><strong>Control.</strong> <kbd>FUNC</kbd> + <kbd>SWEEP</kbd> sets the amount on the selected track. The screen
+        shows a large <strong>S</strong> with the value. It's saved with the sound.</li>
+      <li><strong>Generators</strong> set the distortion character of every sound they make.</li>
+    </ul>
+
+    <h2 id="filter">DJ resonant filter</h2>
+    <ul>
+      <li><strong>One per track,</strong> after the distortion. Centre is off. Turn left for a resonant low-pass
+        sweeping from 7 kHz down to 50 Hz; turn right for a resonant high-pass from 20 Hz up to 7 kHz.</li>
+      <li><strong>Control.</strong> <kbd>FUNC</kbd> + <kbd>PITCH</kbd>. The screen shows a large <strong>F</strong>, LP,
+        HP or OFF, the value (1–63) and a bar from the centre. It's saved with the sound.</li>
+      <li><strong>Generators</strong> give each sound a resonance and leave the filter off for you to play.</li>
+      <li><strong>CPU.</strong> Distortion and filters share one budget. With many filters open on a heavily
+        distorted kit, the distortion's costliest features step aside while needed, so the audio never overloads.
+        Your filter settings are never cut.</li>
+    </ul>
+
+    <h2 id="pan">Per-track pan</h2>
+    <ul>
+      <li><strong>Control.</strong> <kbd>FUNC</kbd> + <kbd>VOLUME+DIST</kbd> pans the selected track. The screen shows a
+        large <strong>P</strong> with LEFT, CENTRE or RIGHT, the amount (1–63) and a bar from the centre.</li>
+      <li><strong>An offset for the whole track,</strong> saved with the sound and applied at the mixer, so it moves
+        the sound at once. Pan movement from locks, generated patterns and live breaks keeps going, shifted by your
+        offset.</li>
+      <li><strong>Stock gestures are unchanged:</strong> VOLUME+DIST alone sets the volume, and <kbd>FUNC</kbd> +
+        LEVEL sets the sound's own pan.</li>
+    </ul>
+
+    <h2 id="control-all">Latched Control All</h2>
+    <ul>
+      <li><strong>On and off.</strong> <kbd>FUNC</kbd> + <kbd>TRK</kbd> turns it on. TRK stays lit and the screen
+        blinks a large CTRL ALL. When you turn a knob, the banner steps aside for about 1.5 s to show the value.
+        <kbd>FUNC</kbd> + <kbd>TRK</kbd> again turns it off.</li>
+      <li><strong>Every knob changes all six tracks,</strong> including the filter, the distortion and the pan
+        offset.</li>
+      <li><strong>Overrides parameter locks.</strong> Unlike the stock Control All, a parameter you turn plays your
+        value on every step, even locked ones.</li>
+      <li><strong>Instant revert.</strong> Turning it off brings every sound back to how it was, without reloading the
+        pattern.</li>
+    </ul>
+
+    <h2 id="lyra">LYRA</h2>
+    <p>A texture engine inspired by the SOMA LYRA-8 replaces the CHORD machine, which was costly on the CPU. Four
+      oscillators in two pairs cross-modulate each other, from clean to chaotic. The machine list shows it as
+      "Lyra", with CHORD's icon.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Knob</th><th>On screen</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td>COLOR</td><td>Spread</td><td>Up to 63, detune between the oscillators, from slow beating to a wide
+          chorus. From 64, the second pair jumps to a fifth, an octave, an octave and a fifth, then two octaves.</td></tr>
+        <tr><td>SHAPE</td><td>Sharpness</td><td>From a soft triangle to a buzzing square.</td></tr>
+        <tr><td>SWEEP</td><td>Cross Mod</td><td>How hard the oscillators modulate each other: clean up to about 30,
+          gritty around 60, chaotic from about 90.</td></tr>
+        <tr><td>CONTOUR</td><td>Hyper LFO</td><td>Off at 0. From a 20-second drift up to a 40 Hz growl that moves the
+          modulation and the second pair's pitch.</td></tr>
+        <tr><td>DECAY, GATE, PUNCH</td><td>(same)</td><td>As on the other machines. GATE on gives endless
+          drones.</td></tr>
+      </tbody>
+    </table></div>
+    <p>The generators use LYRA for textures: drone swarm, growl, interval haze and noise cloud. A silent LYRA voice
+      costs almost no CPU.</p>
+
+    <h2 id="modded-cycles">From Modded-Cycles</h2>
+    <p>These mods from <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a> are
+      part of Motor:Cycles:</p>
+    <ul>
+      <li>6-channel USB audio;</li>
+      <li>latching mutes;</li>
+      <li>trig preview;</li>
+      <li>scrolling long names;</li>
+      <li>easier trig removal;</li>
+      <li>the startup animation;</li>
+      <li>the <strong>MACRO</strong> machine (Émilie Gillet's Braids models).</li>
+    </ul>
+
+    <h2 id="projects">Projects and compatibility</h2>
+    <ul>
+      <li><strong>Back up your projects</strong> with Transfer before installing.</li>
+      <li><strong>CHORD tracks</strong> in existing projects load as LYRA with CHORD's stored knob values. Expect a
+        different sound.</li>
+      <li><strong>Distortion, filter and pan</strong> settings are saved with each sound. Sounds from the stock
+        firmware load with all three off.</li>
+      <li><strong>Known issue:</strong> on some patterns made with the stock firmware, the generators refuse to run
+        (the steps show the alternating "refused" pattern). Patterns made with Motor:Cycles, and new patterns, work.</li>
+      <li><strong>Going back:</strong> install the official OS 1.13 with Transfer, as you would an update.</li>
+    </ul>
+  </article>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>Motor:Cycles © Nuno Zimas · MIT licence · Built on
+      <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a>.</div>
+    <div>Not affiliated with or endorsed by Elektron. Model:Cycles is a trademark of Elektron Music Machines. Use at your own risk.</div>
+  </div>
+</footer>
+</body>
+</html>
