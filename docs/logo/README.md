@@ -1,7 +1,8 @@
 # Motor:Cycles logo
 
-- **Mark.** A twelve-tooth cog (the motor, rotation, cycles) holds a
-  hard-clipped kick waveform on a signal-red disc (overdrive, power).
+- **Mark.** A twelve-tooth cog (the motor, rotation, cycles) around a
+  motorcycle wheel without its tyre: the rim, five cast twin spokes, a drilled
+  signal-red brake disc and the hub.
 - **Wordmark.** A stencil pixel face on the Model:Cycles screen grid, slanted
   forward and cut by two machined slats.
 - **Palette.** Carbon `#0b0b0c`, bone `#ece8e1`, signal red `#e5281f`.

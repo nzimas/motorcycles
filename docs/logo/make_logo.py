@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Generates the Motor:Cycles logo set (SVG, no fonts: every letter is drawn).
 
-Mark: a twelve-tooth cog (the motor, rotation, cycles) holding a hard-clipped
-kick waveform on a signal-red disc (distortion, power). Wordmark: a stencil
+Mark: a twelve-tooth cog (the motor, rotation, cycles) around a motorcycle
+wheel without its tyre: rim, five cast twin spokes, a drilled signal-red brake
+disc and the hub. Wordmark: a stencil
 pixel face on the Model:Cycles screen grid, slanted forward, cut by two
 machined slats. Palette: carbon black, bone, one signal red.
 """
@@ -58,23 +59,50 @@ def cog(cx,cy,r_out,r_in,teeth=12):
         a=a0+0.5*2*math.pi/teeth
         pts.append(f'{cx+r_in*math.sin(a):.2f},{cy-r_in*math.cos(a):.2f}')
     return ' '.join(pts)
+def spoke(cx,cy,a,r0,r1,w0,w1,twist):
+    """One cast spoke from the hub (r0) to the rim (r1): tapering, swept by twist."""
+    left,right=[],[]
+    for i in range(13):
+        t=i/12;r=r0+(r1-r0)*t;ang=a+twist*t**1.6;w=w0+(w1-w0)*t
+        # perpendicular offset in the wheel plane
+        px,py=math.cos(ang),math.sin(ang)
+        x,y=cx+r*math.sin(ang),cy-r*math.cos(ang)
+        left.append(f'{x-px*w:.2f},{y-py*w:.2f}');right.append(f'{x+px*w:.2f},{y+py*w:.2f}')
+    return ' '.join(left+right[::-1])
 def mark(cx,cy,s,uid):
-    """Cog of outer radius s with the clipped kick inside."""
-    ro,ri,ring,disc=s,s*0.80,s*0.62,s*0.53
-    w=[]
-    for i in range(241):
-        t=i/240;x=cx-disc*0.86+2*disc*0.86*t
-        ph=2*math.pi*(0.9*t+2.6*t*t)          # pitch rising across the disc: the kick's cycles tighten
-        v=math.sin(ph)*3.0*math.exp(-2.6*t)     # driven far past full scale, decaying
-        v=max(-1,min(1,v))                      # then hard-clipped: flat-topped first cycles
-        w.append(f'{x:.2f},{cy-v*disc*0.50:.2f}')
-    return f'''<g>
-<polygon points="{cog(cx,cy,ro,ri)}" fill="{BONE}"/>
-<circle cx="{cx}" cy="{cy}" r="{ring:.2f}" fill="{BLACK}"/>
-<circle cx="{cx}" cy="{cy}" r="{disc:.2f}" fill="{RED}"/>
-<clipPath id="disc{uid}"><circle cx="{cx}" cy="{cy}" r="{disc:.2f}"/></clipPath>
-<polyline points="{' '.join(w)}" fill="none" stroke="{BLACK}" stroke-width="{s*0.068:.2f}" stroke-linejoin="miter" stroke-linecap="square" clip-path="url(#disc{uid})"/>
-</g>'''
+    """Cog of outer radius s around a motorcycle wheel without its tyre: rim,
+    five cast twin spokes, a drilled brake disc and the hub."""
+    ro,ri,ring=s,s*0.80,s*0.62
+    rim_o,rim_i,lip=s*0.54,s*0.465,s*0.49
+    parts=[f'<polygon points="{cog(cx,cy,ro,ri)}" fill="{BONE}"/>',
+           f'<circle cx="{cx}" cy="{cy}" r="{ring:.2f}" fill="{BLACK}"/>',
+           f'<circle cx="{cx}" cy="{cy}" r="{rim_o:.2f}" fill="{BONE}"/>',
+           f'<circle cx="{cx}" cy="{cy}" r="{lip:.2f}" fill="none" stroke="{BLACK}" stroke-width="{s*0.012:.2f}"/>',
+           f'<circle cx="{cx}" cy="{cy}" r="{rim_i:.2f}" fill="{BLACK}"/>']
+    # Five twin spokes, swept like a cast wheel.
+    for k in range(5):
+        a0=2*math.pi*k/5
+        for d in (-0.15,0.15):
+            parts.append(f'<polygon points="{spoke(cx,cy,a0+d,s*0.13,s*0.475,s*0.044,s*0.028,0.13)}" fill="{BONE}"/>')
+    # Brake disc in signal red, drilled, on top of the spokes.
+    disc_o,disc_i=s*0.30,s*0.185
+    parts.append(f'<circle cx="{cx}" cy="{cy}" r="{(disc_o+disc_i)/2:.2f}" fill="none" stroke="{RED}" stroke-width="{disc_o-disc_i:.2f}"/>')
+    for k in range(10):
+        a=2*math.pi*k/10
+        for rr,sz in ((0.243,0.024),):
+            aa=a
+            parts.append(f'<circle cx="{cx+s*rr*math.sin(aa):.2f}" cy="{cy-s*rr*math.cos(aa):.2f}" r="{s*sz:.2f}" fill="{BLACK}"/>')
+    # Disc carrier and hub.
+    parts.append(f'<circle cx="{cx}" cy="{cy}" r="{disc_i:.2f}" fill="{BLACK}"/>')
+    for k in range(5):
+        a=2*math.pi*k/5+math.pi/5
+        parts.append(f'<polygon points="{spoke(cx,cy,a,s*0.08,s*0.20,s*0.030,s*0.024,0)}" fill="{BONE}"/>')
+    parts.append(f'<circle cx="{cx}" cy="{cy}" r="{s*0.12:.2f}" fill="{BONE}"/>')
+    for k in range(5):
+        a=2*math.pi*k/5
+        parts.append(f'<circle cx="{cx+s*0.085*math.sin(a):.2f}" cy="{cy-s*0.085*math.cos(a):.2f}" r="{s*0.014:.2f}" fill="{BLACK}"/>')
+    parts.append(f'<circle cx="{cx}" cy="{cy}" r="{s*0.045:.2f}" fill="{BLACK}"/>')
+    return '<g>\n'+'\n'.join(parts)+'\n</g>'
 def slats(x,y,w,c,color=BLACK):
     """Two machined cuts through the wordmark."""
     h=c*0.22
