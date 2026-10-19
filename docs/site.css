@@ -149,11 +149,3 @@ td:first-child { white-space: nowrap; }
 .site-footer .donate { display: flex; justify-content: center; margin: 16px 0 0; }
 .site-footer .donate input[type="image"] { display: block; }
 @media (max-width: 640px) { td:first-child { white-space: normal; } th, td { padding: 8px; } }
-
-.contact { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 24px; margin: 20px 0 10px; max-width: 720px; }
-.contact label { display: block; font-size: 1.15rem; }
-.contact-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
-.contact input { font: inherit; font-size: 1.3rem; width: 7em; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bone); background: var(--carbon); color: var(--bone); }
-.contact p { margin: 12px 0 0; }
-.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-[hidden] { display: none !important; }
