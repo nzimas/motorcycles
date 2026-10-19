@@ -146,4 +146,7 @@ td:first-child { white-space: nowrap; }
 .site-footer { border-top: 1px solid var(--line); color: var(--dim); font-size: .88rem; padding: 32px 0 48px; }
 .site-footer .wrap { display: grid; gap: 8px; }
 .site-footer a { color: var(--muted); }
+.site-footer .donate { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; text-align: center; }
+.site-footer .donate .btn { color: var(--bone); }
+.site-footer .donate p { margin: 0; font-size: 1rem; color: var(--bone); }
 @media (max-width: 640px) { td:first-child { white-space: normal; } th, td { padding: 8px; } }
