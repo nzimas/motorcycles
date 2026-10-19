@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Motor:Cycles</title>
+<meta name="description" content="Write to Nuno Zimas about Motor:Cycles.">
+<link rel="icon" href="logo/motorcycles-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+<script src="contact.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo/motorcycles-mark.svg" alt="" width="34" height="34">MOTOR:CYCLES</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">Home</a>
+      <a href="install.html">Install</a>
+      <a href="manual.html">Manual</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+      <a href="https://github.com/nzimas/motorcycles">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="block">
+    <p class="eyebrow">Contact</p>
+    <h2>Write to me</h2>
+    <p class="lede">Questions, bug reports and ideas are welcome by email. To keep the address away from spam
+      robots, it is shown only after you answer the question below.</p>
+    <form class="contact" id="contact-check" data-subject="Motor:Cycles">
+      <label for="contact-answer">What is <b id="contact-q">…</b>? Type the answer as a number.</label>
+      <div class="contact-row">
+        <input id="contact-answer" type="text" inputmode="numeric" autocomplete="off" required>
+        <button class="btn" type="submit">Show the address</button>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="contact-website">Leave this empty</label>
+        <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <p id="contact-msg" aria-live="polite"></p>
+    </form>
+    <div class="contact" id="contact-out" hidden>
+      <p><button class="btn" id="contact-mail" type="button">Write an email</button></p>
+      <p>This opens your email program with the subject filled in. The address is <b id="contact-addr"></b>.</p>
+    </div>
+    <noscript><p>This page needs JavaScript to show the address.</p></noscript>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>Motor:Cycles © Nuno Zimas · MIT licence · Built on
+      <a href="https://github.com/18nelli18/Modded-Cycles" rel="noopener">Modded-Cycles</a>.</div>
+    <div>Not affiliated with or endorsed by Elektron. Model:Cycles is a trademark of Elektron Music Machines. Use at your own risk.</div>
+    <div class="hash" id="version"></div>
+    <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="nzimas.lv@gmail.com">
+    <input type="hidden" name="item_name" value="Support Motor:Cycles">
+    <input type="hidden" name="currency_code" value="EUR">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit"
+           title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button">
+    </form>
+  </div>
+</footer>
+</body>
+</html>
